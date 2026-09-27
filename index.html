@@ -133,56 +133,58 @@
       <div class="glass-card">
         <div class="section-header">
           <div>
-            <h2 class="section-title"><span class="icon">🌳</span> Takeshima Family Tree (FamilyEcho Sync)</h2>
-            <p style="color: var(--text-muted); margin-top:4px;">Live tree presentation synchronized directly with Family Echo</p>
+            <h2 class="section-title"><span class="icon">🌳</span> Takeshima Family Interactive Tree</h2>
+            <p style="color: var(--text-muted); margin-top:4px;">Custom visual family hierarchy & lineage presented natively for Karakura Highschool RP</p>
           </div>
-          <div style="display:flex; gap:10px;">
-            <button id="view-toggle-embed" class="btn-primary active-view-btn">
-              🌐 Live FamilyEcho View
-            </button>
-            <button id="view-toggle-cards" class="btn-primary" style="background: rgba(160, 68, 255, 0.25); border: 1px solid var(--accent-purple);">
-              🎴 Visual Card View
-            </button>
-          </div>
-        </div>
-
-        <!-- Live FamilyEcho URL Control Bar -->
-        <div class="family-echo-banner" style="margin-bottom: 24px; display:flex; flex-direction:column; align-items:stretch; gap:14px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-            <div>
-              <h3 style="color:#fff; font-family: var(--font-header); font-size: 1.3rem;">🔗 Live FamilyEcho Integration</h3>
-              <p style="color: var(--text-muted); font-size: 0.9rem;">
-                Whenever you edit your tree on Family Echo, this viewer updates automatically. Linked to your active FamilyEcho tree!
-              </p>
-            </div>
-            <a id="open-familyecho-external-btn" href="https://www.familyecho.com/?c=c6focs8gu9oagzga&f=391716927242587150" target="_blank" class="btn-primary" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
-              <span>🚀 Open on FamilyEcho.com</span>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="https://www.familyecho.com/?c=c6focs8gu9oagzga&f=391716927242587150" target="_blank" class="btn-primary" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
+              <span>✏️ Edit on FamilyEcho.com</span>
             </a>
           </div>
-
-          <!-- Quick URL Update Bar -->
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <input type="text" id="quick-echo-url-input" class="post-input" style="flex:1; min-width:280px;" placeholder="Paste your Family Echo tree URL..." value="https://www.familyecho.com/?c=c6focs8gu9oagzga&f=391716927242587150">
-            <button id="update-echo-url-btn" class="btn-primary" style="padding:12px 24px;">Sync Tree Live 🌸</button>
-          </div>
         </div>
 
-        <!-- View 1: Live FamilyEcho Embedded Iframe -->
-        <div id="tree-view-embed-container" style="width: 100%; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--accent-pink); box-shadow: var(--glass-glow);">
-          <div style="background: rgba(18, 9, 31, 0.9); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border);">
-            <span style="font-size: 0.88rem; color: var(--accent-sakura); font-weight: 600;">📡 Live Presentation Stream: <span id="current-echo-domain">FamilyEcho Live Stream</span></span>
-            <button id="refresh-iframe-btn" class="reaction-btn" style="padding:4px 12px; font-size:0.8rem;">🔄 Reload Stream</button>
+        <!-- Filter & Control Bar -->
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom: 24px; background: rgba(12, 6, 24, 0.7); padding: 14px 20px; border-radius: 18px; border: 1px solid var(--glass-border);">
+          <div style="display:flex; gap:8px; flex-wrap:wrap;" id="tree-filter-btns">
+            <button class="reaction-btn active-filter" data-filter="all">All Members</button>
+            <button class="reaction-btn" data-filter="teacher">📚 Teacher Faction</button>
+            <button class="reaction-btn" data-filter="kagami">⚔️ Kagami Ties</button>
+            <button class="reaction-btn" data-filter="kids">👶 Kids & Twins</button>
           </div>
-          <iframe id="familyecho-live-iframe" src="https://www.familyecho.com/?c=c6focs8gu9oagzga&f=391716927242587150" width="100%" height="780px" style="border:none; background:#ffffff;"></iframe>
+          <span style="font-size:0.85rem; color: var(--text-subtle);">Click any character node to inspect bio & FearRP rules</span>
         </div>
 
-        <!-- View 2: Visual Card View (Hidden by default) -->
-        <div id="tree-view-cards-container" style="display: none;">
-          <div class="tree-container">
-            <div class="tree-canvas-wrapper" id="interactive-tree-canvas">
-              <!-- Node tree renders via app.js -->
+        <!-- Custom Interactive Canvas Layout -->
+        <div class="custom-tree-layout">
+          <!-- Tree SVG & Node Canvas -->
+          <div class="tree-canvas-wrapper" id="interactive-tree-canvas" style="min-height: 520px; border: 1.5px solid var(--glass-border-hover); box-shadow: var(--glass-glow);">
+            <!-- Custom Node Grid Renders via app.js -->
+          </div>
+
+          <!-- Character Detail Inspector Panel -->
+          <div id="tree-inspector-panel" class="tree-inspector-panel">
+            <div class="inspector-header">
+              <div class="inspector-avatar" id="inspect-avatar">🌸</div>
+              <div>
+                <h3 id="inspect-name" style="color:#fff; font-family:var(--font-header); font-size:1.3rem;">Hoshina Takeshima</h3>
+                <span id="inspect-role" style="color:var(--accent-pink); font-size:0.88rem; font-weight:600;">Family Head • HD of Mathematics</span>
+              </div>
             </div>
-            <p style="font-size:0.85rem; color: var(--text-subtle);">Click any node card to view character background and status.</p>
+            <div class="inspector-body">
+              <div class="inspector-tag" id="inspect-faction">Karakura High Faculty</div>
+              <div class="inspector-field">
+                <span class="field-label">Status & Lineage:</span>
+                <p id="inspect-status" class="field-value">Active • Head of Takeshima Family</p>
+              </div>
+              <div class="inspector-field">
+                <span class="field-label">Biography & Lore:</span>
+                <p id="inspect-details" class="field-value">Head of Mathematics at Karakura Highschool. Mother of children & twins. Devoted to her family and students.</p>
+              </div>
+              <div class="inspector-field" style="border-top: 1px solid rgba(255,255,255,0.08); padding-top:12px;">
+                <span class="field-label" style="color:var(--accent-gold);">⚡ FearRP Requirement:</span>
+                <p id="inspect-fear" class="field-value" style="color:#fff;">Adult Status. All younger members (13-15 and older teens) MUST FearRP Hoshina when in trouble.</p>
+              </div>
+            </div>
           </div>
         </div>
 

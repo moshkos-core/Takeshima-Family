@@ -372,98 +372,68 @@ function initFeed() {
 }
 
 /* ==========================================
-   6. INTERACTIVE FAMILY TREE & LIVE FAMILY ECHO SYNC
+   6. NATIVE CUSTOM INTERACTIVE FAMILY TREE
    ========================================== */
 function initFamilyTree() {
   const treeWrapper = document.getElementById('interactive-tree-canvas');
-  const liveIframe = document.getElementById('familyecho-live-iframe');
-  const quickInput = document.getElementById('quick-echo-url-input');
-  const updateBtn = document.getElementById('update-echo-url-btn');
-  const externalBtn = document.getElementById('open-familyecho-external-btn');
-  const refreshBtn = document.getElementById('refresh-iframe-btn');
-  const currentDomainEl = document.getElementById('current-echo-domain');
+  const inspectAvatar = document.getElementById('inspect-avatar');
+  const inspectName = document.getElementById('inspect-name');
+  const inspectRole = document.getElementById('inspect-role');
+  const inspectFaction = document.getElementById('inspect-faction');
+  const inspectStatus = document.getElementById('inspect-status');
+  const inspectDetails = document.getElementById('inspect-details');
+  const inspectFear = document.getElementById('inspect-fear');
+  const filterBtns = document.querySelectorAll('#tree-filter-btns .reaction-btn');
 
-  const embedToggleBtn = document.getElementById('view-toggle-embed');
-  const cardsToggleBtn = document.getElementById('view-toggle-cards');
-  const embedContainer = document.getElementById('tree-view-embed-container');
-  const cardsContainer = document.getElementById('tree-view-cards-container');
+  const nodes = TAKESHIMA_DATA.familyNodes;
 
-  // Retrieve saved FamilyEcho link or exact provided tree URL
-  const defaultUrl = "https://www.familyecho.com/?c=c6focs8gu9oagzga&f=391716927242587150";
-  let currentEchoUrl = localStorage.getItem('takeshima_familyecho_url') || defaultUrl;
+  function selectNode(id) {
+    const node = nodes.find(n => n.id === id);
+    if (!node) return;
 
-  // Ensure iframe, external button & inputs reflect exact tree URL
-  if (liveIframe) liveIframe.src = currentEchoUrl;
-  if (quickInput) quickInput.value = currentEchoUrl;
-  if (externalBtn) externalBtn.href = currentEchoUrl;
-  if (currentDomainEl) currentDomainEl.textContent = "FamilyEcho Live Stream (" + currentEchoUrl.substring(0, 45) + "...)";
+    if (inspectAvatar) inspectAvatar.textContent = node.avatar || '🌸';
+    if (inspectName) inspectName.textContent = node.name;
+    if (inspectRole) inspectRole.textContent = node.role;
+    if (inspectFaction) inspectFaction.textContent = node.faction;
+    if (inspectStatus) inspectStatus.textContent = node.status;
+    if (inspectDetails) inspectDetails.textContent = node.details;
 
-  // Sync Button Click
-  if (updateBtn && quickInput) {
-    updateBtn.addEventListener('click', () => {
-      let val = quickInput.value.trim();
-      if (!val) val = TAKESHIMA_DATA.familyInfo.familyEchoUrl;
-      if (!val.startsWith('http://') && !val.startsWith('https://')) {
-        val = 'https://' + val;
+    if (inspectFear) {
+      if (node.age === 'Adult') {
+        inspectFear.textContent = 'Adult Status. All younger members (13-15 and older teens) MUST FearRP this member when getting in trouble.';
+      } else if (node.age === 'Teens (15)') {
+        inspectFear.textContent = 'Teen (Age 15). MUST FearRP older members (16+) and ALL Adults. ItemRP phone confiscation / grounding applies.';
+      } else {
+        inspectFear.textContent = 'Faculty Member. Faculty status protected under Family CrimeRP & FearRP guidelines.';
       }
+    }
 
-      localStorage.setItem('takeshima_familyecho_url', val);
-      currentEchoUrl = val;
-
-      if (liveIframe) liveIframe.src = val;
-      if (externalBtn) externalBtn.href = val;
-      if (currentDomainEl) currentDomainEl.textContent = val;
-
-      alert('🌸 Takeshima Family Tree updated live! Your FamilyEcho stream is now synchronized.');
-    });
+    // Highlight selected node card
+    document.querySelectorAll('.node-card').forEach(c => c.style.borderColor = '');
+    const activeCard = document.querySelector(`.node-card[data-id="${id}"]`);
+    if (activeCard) activeCard.style.borderColor = 'var(--accent-pink)';
   }
 
-  // Refresh Stream Button
-  if (refreshBtn && liveIframe) {
-    refreshBtn.addEventListener('click', () => {
-      liveIframe.src = currentEchoUrl;
-    });
-  }
+  function renderTree(filter = 'all') {
+    if (!treeWrapper) return;
 
-  // View Switcher: Live Embed vs Cards
-  if (embedToggleBtn && cardsToggleBtn && embedContainer && cardsContainer) {
-    embedToggleBtn.addEventListener('click', () => {
-      embedContainer.style.display = 'block';
-      cardsContainer.style.display = 'none';
-      embedToggleBtn.classList.add('active-view-btn');
-      cardsToggleBtn.classList.remove('active-view-btn');
-      cardsToggleBtn.style.background = 'rgba(160, 68, 255, 0.25)';
-    });
-
-    cardsToggleBtn.addEventListener('click', () => {
-      embedContainer.style.display = 'none';
-      cardsContainer.style.display = 'block';
-      cardsToggleBtn.classList.add('active-view-btn');
-      embedToggleBtn.classList.remove('active-view-btn');
-      embedToggleBtn.style.background = 'rgba(160, 68, 255, 0.25)';
-    });
-  }
-
-  // Render Visual Tree Cards (Backup View)
-  if (treeWrapper) {
-    const nodes = TAKESHIMA_DATA.familyNodes;
     treeWrapper.innerHTML = `
       <div class="tree-grid">
         <!-- Level 1: Hoshina & Past Partners -->
         <div class="tree-level">
-          <div class="node-card head-node" data-id="hoshina">
+          <div class="node-card head-node" data-id="hoshina" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
             <div class="node-avatar">🌸</div>
             <div class="node-name">Hoshina Takeshima</div>
-            <div class="node-role">Family Head • HD of Mathematics</div>
+            <div class="node-role">Family Head • HD of Math</div>
             <div class="node-status">Karakura High Faculty</div>
           </div>
-          <div class="node-card" data-id="aiko" style="border-color: var(--accent-pink);">
+          <div class="node-card" data-id="aiko" style="border-color: var(--accent-pink); ${filter === 'kagami' || filter === 'all' ? '' : 'opacity:0.3;'}">
             <div class="node-avatar">🕊️</div>
             <div class="node-name">Aiko Kagami</div>
             <div class="node-role">First Husband (Deceased)</div>
             <div class="node-status">Car Accident Tragedy</div>
           </div>
-          <div class="node-card" data-id="hiroto">
+          <div class="node-card" data-id="hiroto" style="${filter === 'all' ? '' : 'opacity:0.3;'}">
             <div class="node-avatar">⚡</div>
             <div class="node-name">Hiroto</div>
             <div class="node-role">Ex-Husband (Divorced)</div>
@@ -471,35 +441,37 @@ function initFamilyTree() {
           </div>
         </div>
 
-        <div style="height:3px; width:85%; background: linear-gradient(90deg, transparent, var(--accent-pink), var(--accent-purple), transparent); border-radius:3px;"></div>
+        <!-- Connection Vector Ribbon -->
+        <div style="height:3px; width:88%; background: linear-gradient(90deg, transparent, var(--accent-pink), var(--accent-purple), transparent); border-radius:3px; box-shadow:0 0 10px var(--accent-pink);"></div>
 
         <!-- Level 2: Sister & Allied Kagami Head -->
         <div class="tree-level">
-          <div class="node-card" data-id="sister">
+          <div class="node-card" data-id="sister" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
             <div class="node-avatar">📚</div>
             <div class="node-name">Takeshima Sister</div>
             <div class="node-role">Sister & Faculty Colleague</div>
             <div class="node-status">Teacher Faction</div>
           </div>
-          <div class="node-card" data-id="kagami_head">
+          <div class="node-card" data-id="kagami_head" style="${filter === 'kagami' || filter === 'all' ? '' : 'opacity:0.3;'}">
             <div class="node-avatar">⚔️</div>
-            <div class="node-name">Kagami Family Head</div>
+            <div class="node-name">Head of Kagami Family</div>
             <div class="node-role">Kagami Branch Leader</div>
-            <div class="node-status">Close Friend / Teacher Faction</div>
+            <div class="node-status">Close Friend / Allied Head</div>
           </div>
         </div>
 
-        <div style="height:3px; width:75%; background: linear-gradient(90deg, transparent, var(--accent-purple), var(--accent-sakura), transparent); border-radius:3px;"></div>
+        <!-- Connection Vector Ribbon -->
+        <div style="height:3px; width:78%; background: linear-gradient(90deg, transparent, var(--accent-purple), var(--accent-sakura), transparent); border-radius:3px; box-shadow:0 0 10px var(--accent-purple);"></div>
 
         <!-- Level 3: Children & Twins -->
         <div class="tree-level">
-          <div class="node-card" data-id="faculty_kids">
+          <div class="node-card" data-id="faculty_kids" style="${filter === 'teacher' || filter === 'kids' || filter === 'all' ? '' : 'opacity:0.3;'}">
             <div class="node-avatar">🎓</div>
             <div class="node-name">Faculty Children</div>
             <div class="node-role">Karakura High Teachers</div>
             <div class="node-status">Teacher Faction</div>
           </div>
-          <div class="node-card" data-id="twins">
+          <div class="node-card" data-id="twins" style="${filter === 'kids' || filter === 'all' ? '' : 'opacity:0.3;'}">
             <div class="node-avatar">♊</div>
             <div class="node-name">The Twins</div>
             <div class="node-role">Children of Hoshina & Hiroto</div>
@@ -509,16 +481,27 @@ function initFamilyTree() {
       </div>
     `;
 
+    // Add Node Card Click Listeners
     document.querySelectorAll('.node-card').forEach(card => {
       card.addEventListener('click', () => {
         const id = card.getAttribute('data-id');
-        const nodeData = nodes.find(n => n.id === id);
-        if (nodeData) {
-          alert(`📌 ${nodeData.name}\nRole: ${nodeData.role}\nStatus: ${nodeData.status}\n\nDetails: ${nodeData.details}`);
-        }
+        selectNode(id);
       });
     });
   }
+
+  // Filter Buttons
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active-filter'));
+      btn.classList.add('active-filter');
+      const filter = btn.getAttribute('data-filter');
+      renderTree(filter);
+    });
+  });
+
+  renderTree('all');
+  selectNode('hoshina');
 }
 
 /* ==========================================
