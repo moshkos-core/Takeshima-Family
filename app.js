@@ -372,7 +372,7 @@ function initFeed() {
 }
 
 /* ==========================================
-   6. REAL INTERACTIVE FAMILY TREE & GENERATIONAL CANVAS
+   6. REAL GENEALOGY FAMILY TREE ENGINE
    ========================================== */
 function initFamilyTree() {
   const treeWrapper = document.getElementById('interactive-tree-canvas');
@@ -399,120 +399,145 @@ function initFamilyTree() {
     if (inspectDetails) inspectDetails.textContent = node.details;
     if (inspectFear) inspectFear.textContent = node.fearRP || 'Follows Takeshima Family FearRP Guidelines.';
 
-    // Highlight selected node card
-    document.querySelectorAll('.node-card').forEach(c => c.style.borderColor = '');
-    const activeCard = document.querySelector(`.node-card[data-id="${id}"]`);
+    // Highlight selected card
+    document.querySelectorAll('.genealogy-card').forEach(c => c.style.borderColor = '');
+    const activeCard = document.querySelector(`.genealogy-card[data-id="${id}"]`);
     if (activeCard) activeCard.style.borderColor = 'var(--accent-pink)';
   }
 
-  function renderTree(filter = 'all') {
+  function renderGenealogyTree(filter = 'all') {
     if (!treeWrapper) return;
 
     treeWrapper.innerHTML = `
-      <div class="tree-grid" style="min-width: 900px; width: 100%;">
-        
-        <!-- GENERATION 1: HEADS & SPOUSES -->
-        <div style="width: 100%; text-align: center;">
-          <div style="font-family: var(--font-header); font-size: 0.85rem; color: var(--accent-pink); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;">
-            ── Generation I: Family Heads & Spouses ──
+      <div class="genealogy-tree-container">
+        <div class="genealogy-nodes-layer">
+          
+          <!-- GENERATION I: SPOUSES & PARENTS -->
+          <div style="text-align: center; width: 100%;">
+            <div style="font-family: var(--font-header); font-size: 0.82rem; color: var(--accent-pink); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px;">
+              ── Generation I: Spouses & Family Heads ──
+            </div>
+
+            <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+              
+              <!-- Family Pair 1: Hoshina & Aiko (1st Marriage) -->
+              <div class="marriage-group">
+                <div class="genealogy-card female" data-id="hoshina" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
+                  <div class="g-photo">🌸</div>
+                  <div class="g-name">Hoshina Takeshima</div>
+                  <div class="g-relation">Matriarch • HD of Math</div>
+                  <div class="g-age-badge">Age 38 • Female</div>
+                </div>
+
+                <div class="marriage-link-line" title="Married at 18 • Widowed">
+                  <span>❤️</span>
+                  <span style="font-size:0.65rem;">Marriage</span>
+                </div>
+
+                <div class="genealogy-card male deceased" data-id="aiko" style="${filter === 'kagami' || filter === 'all' ? '' : 'opacity:0.3;'}">
+                  <div class="g-photo">🕊️</div>
+                  <div class="g-name">Aiko Kagami</div>
+                  <div class="g-relation">1st Husband (Deceased)</div>
+                  <div class="g-age-badge" style="color:var(--accent-sakura);">Passed at Age 28</div>
+                </div>
+              </div>
+
+              <!-- Family Pair 2: Hoshina & Hiroto (Ex-Husband) -->
+              <div class="marriage-group">
+                <div class="marriage-link-line divorced" title="Divorced / Separated">
+                  <span>💔</span>
+                  <span style="font-size:0.65rem;">Divorced</span>
+                </div>
+
+                <div class="genealogy-card male" data-id="hiroto" style="${filter === 'all' ? '' : 'opacity:0.3;'}">
+                  <div class="g-photo">⚡</div>
+                  <div class="g-name">Hiroto</div>
+                  <div class="g-relation">Ex-Husband (Divorced)</div>
+                  <div class="g-age-badge">Age 40 • Male</div>
+                </div>
+              </div>
+
+              <!-- Collateral Kin & Allied Head -->
+              <div style="display: flex; gap: 16px;">
+                <div class="genealogy-card female" data-id="sister" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
+                  <div class="g-photo">📚</div>
+                  <div class="g-name">Takeshima Sister</div>
+                  <div class="g-relation">Sister & Educator</div>
+                  <div class="g-age-badge">Age 36 • Female</div>
+                </div>
+
+                <div class="genealogy-card male" data-id="kagami_head" style="${filter === 'kagami' || filter === 'all' ? '' : 'opacity:0.3;'}">
+                  <div class="g-photo">⚔️</div>
+                  <div class="g-name">Kagami Family Head</div>
+                  <div class="g-relation">Allied Branch Leader</div>
+                  <div class="g-age-badge">Age 42 • Male</div>
+                </div>
+              </div>
+
+            </div>
           </div>
-          <div class="tree-level" style="gap: 20px; flex-wrap: wrap;">
-            
-            <div class="node-card head-node" data-id="hoshina" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
-              <div class="node-avatar">🌸</div>
-              <div class="node-name">Hoshina Takeshima</div>
-              <div class="node-role">Family Head • HD of Math</div>
-              <div class="node-age-tag">Age 38 • Adult</div>
-              <div class="node-status">Karakura High Faculty</div>
-            </div>
 
-            <div class="node-card" data-id="aiko" style="border-color: var(--accent-pink); ${filter === 'kagami' || filter === 'all' ? '' : 'opacity:0.3;'}">
-              <div class="node-avatar">🕊️</div>
-              <div class="node-name">Aiko Kagami</div>
-              <div class="node-role">1st Husband (Deceased)</div>
-              <div class="node-age-tag" style="background: rgba(255, 71, 87, 0.2); color: var(--accent-sakura);">Passed at Age 28</div>
-              <div class="node-status">Car Accident Tragedy</div>
-            </div>
-
-            <div class="node-card" data-id="hiroto" style="${filter === 'all' ? '' : 'opacity:0.3;'}">
-              <div class="node-avatar">⚡</div>
-              <div class="node-name">Hiroto</div>
-              <div class="node-role">Ex-Husband (Divorced)</div>
-              <div class="node-age-tag">Age 40 • Adult</div>
-              <div class="node-status">Father of Twins</div>
-            </div>
-
-            <div class="node-card" data-id="sister" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
-              <div class="node-avatar">📚</div>
-              <div class="node-name">Takeshima Sister</div>
-              <div class="node-role">Math Faculty Teacher</div>
-              <div class="node-age-tag">Age 36 • Adult</div>
-              <div class="node-status">Teacher Faction</div>
-            </div>
-
-            <div class="node-card" data-id="kagami_head" style="${filter === 'kagami' || filter === 'all' ? '' : 'opacity:0.3;'}">
-              <div class="node-avatar">⚔️</div>
-              <div class="node-name">Head of Kagami Family</div>
-              <div class="node-role">Kagami Branch Leader</div>
-              <div class="node-age-tag">Age 42 • Adult</div>
-              <div class="node-status">Close Friend / Faculty</div>
-            </div>
-
+          <!-- DESCENT STEM LINE -->
+          <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <div style="width: 2px; height: 30px; background: var(--accent-pink); box-shadow: 0 0 10px var(--accent-pink);"></div>
+            <div style="width: 80%; height: 2px; background: linear-gradient(90deg, transparent, var(--accent-pink), var(--accent-purple), transparent);"></div>
+            <div style="width: 2px; height: 30px; background: var(--accent-purple); box-shadow: 0 0 10px var(--accent-purple);"></div>
           </div>
+
+          <!-- GENERATION II: CHILDREN BRANCHES -->
+          <div style="text-align: center; width: 100%;">
+            <div style="font-family: var(--font-header); font-size: 0.82rem; color: var(--accent-purple); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">
+              ── Generation II: Offspring & Lineage Descent ──
+            </div>
+
+            <div class="children-row" style="flex-wrap: wrap;">
+              
+              <!-- Children of Hoshina & Aiko -->
+              <div class="children-group-box">
+                <div class="children-group-title">Children of Hoshina & Aiko</div>
+                
+                <div class="genealogy-card male" data-id="ren_takeshima" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
+                  <div class="g-photo">🎓</div>
+                  <div class="g-name">Ren Takeshima</div>
+                  <div class="g-relation">Son • Math Teacher</div>
+                  <div class="g-age-badge">Age 21 • Male</div>
+                </div>
+
+                <div class="genealogy-card female" data-id="yumi_takeshima" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
+                  <div class="g-photo">📖</div>
+                  <div class="g-name">Yumi Takeshima</div>
+                  <div class="g-relation">Daughter • Educator</div>
+                  <div class="g-age-badge">Age 20 • Female</div>
+                </div>
+              </div>
+
+              <!-- Children of Hoshina & Hiroto (The Twins) -->
+              <div class="children-group-box">
+                <div class="children-group-title">Twins of Hoshina & Hiroto</div>
+                
+                <div class="genealogy-card male" data-id="kenji_takeshima" style="${filter === 'kids' || filter === 'all' ? '' : 'opacity:0.3;'}">
+                  <div class="g-photo">♊</div>
+                  <div class="g-name">Kenji Takeshima</div>
+                  <div class="g-relation">Twin Son • Student</div>
+                  <div class="g-age-badge" style="color:var(--accent-gold);">Age 15 • Male</div>
+                </div>
+
+                <div class="genealogy-card female" data-id="maya_takeshima" style="${filter === 'kids' || filter === 'all' ? '' : 'opacity:0.3;'}">
+                  <div class="g-photo">♊</div>
+                  <div class="g-name">Maya Takeshima</div>
+                  <div class="g-relation">Twin Daughter • Student</div>
+                  <div class="g-age-badge" style="color:var(--accent-gold);">Age 15 • Female</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
-
-        <!-- GENERATIONAL CONNECTOR RIBBON -->
-        <div style="display:flex; flex-direction:column; align-items:center; width: 100%; margin: 10px 0;">
-          <div style="height:3px; width:92%; background: linear-gradient(90deg, transparent, var(--accent-pink), var(--accent-purple), var(--accent-sakura), transparent); border-radius:3px; box-shadow:0 0 12px var(--accent-pink);"></div>
-          <span style="font-size:0.75rem; color: var(--accent-sakura); margin-top:4px;">│ LINEAGE & CHILDREN DESCENT │</span>
-        </div>
-
-        <!-- GENERATION 2: CHILDREN & TWINS -->
-        <div style="width: 100%; text-align: center;">
-          <div style="font-family: var(--font-header); font-size: 0.85rem; color: var(--accent-purple); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;">
-            ── Generation II: Children & Faculty Successors ──
-          </div>
-          <div class="tree-level" style="gap: 20px; flex-wrap: wrap;">
-            
-            <div class="node-card" data-id="ren_takeshima" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
-              <div class="node-avatar">🎓</div>
-              <div class="node-name">Ren Takeshima</div>
-              <div class="node-role">Mathematics Teacher</div>
-              <div class="node-age-tag">Age 21 • Young Adult</div>
-              <div class="node-status">Son of Hoshina & Aiko</div>
-            </div>
-
-            <div class="node-card" data-id="yumi_takeshima" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
-              <div class="node-avatar">📖</div>
-              <div class="node-name">Yumi Takeshima</div>
-              <div class="node-role">Science Educator</div>
-              <div class="node-age-tag">Age 20 • Young Adult</div>
-              <div class="node-status">Daughter of Hoshina & Aiko</div>
-            </div>
-
-            <div class="node-card" data-id="kenji_takeshima" style="${filter === 'kids' || filter === 'all' ? '' : 'opacity:0.3;'}">
-              <div class="node-avatar">♊</div>
-              <div class="node-name">Kenji Takeshima (Twin A)</div>
-              <div class="node-role">Highschool Student</div>
-              <div class="node-age-tag" style="background: rgba(255, 215, 0, 0.2); color: var(--accent-gold);">Age 15 • FearRP 16+</div>
-              <div class="node-status">Son of Hoshina & Hiroto</div>
-            </div>
-
-            <div class="node-card" data-id="maya_takeshima" style="${filter === 'kids' || filter === 'all' ? '' : 'opacity:0.3;'}">
-              <div class="node-avatar">♊</div>
-              <div class="node-name">Maya Takeshima (Twin B)</div>
-              <div class="node-role">Highschool Student</div>
-              <div class="node-age-tag" style="background: rgba(255, 215, 0, 0.2); color: var(--accent-gold);">Age 15 • FearRP 16+</div>
-              <div class="node-status">Daughter of Hoshina & Hiroto</div>
-            </div>
-
-          </div>
-        </div>
-
       </div>
     `;
 
-    document.querySelectorAll('.node-card').forEach(card => {
+    document.querySelectorAll('.genealogy-card').forEach(card => {
       card.addEventListener('click', () => {
         const id = card.getAttribute('data-id');
         selectNode(id);
@@ -525,11 +550,11 @@ function initFamilyTree() {
       filterBtns.forEach(b => b.classList.remove('active-filter'));
       btn.classList.add('active-filter');
       const filter = btn.getAttribute('data-filter');
-      renderTree(filter);
+      renderGenealogyTree(filter);
     });
   });
 
-  renderTree('all');
+  renderGenealogyTree('all');
   selectNode('hoshina');
 }
 
