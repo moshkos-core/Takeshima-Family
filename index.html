@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Takeshima Family Hub | Karakura Highschool Teacher Faction</title>
+  <meta name="description" content="Official Takeshima Family Portal - Karakura Highschool Teacher Faction, Family Feed, Lore Chronicles of Hoshina, Family Tree & Rules Codex.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Floating Pink Sakura Petals Canvas -->
+  <canvas id="particles-canvas"></canvas>
+
+  <div class="app-container">
+    
+    <!-- Site Header Banner -->
+    <header class="site-header">
+      <div class="header-glow-bg"></div>
+      
+      <div class="header-top">
+        <div class="faction-badge">
+          🌸 Karakura Highschool • Teacher Faction
+        </div>
+        <div class="karakura-status">
+          <span class="status-pill" id="karakura-time">7:45 PM • Karakura District</span>
+          <span class="status-pill" style="color: var(--accent-pink);">Department of Mathematics</span>
+        </div>
+      </div>
+
+      <div class="header-main">
+        <div class="family-crest">🌸</div>
+        <div class="header-titles">
+          <h1>TAKESHIMA FAMILY</h1>
+          <p>Resilience through sorrow • Unity in passion • Karakura Highschool Faculty</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+      <button class="nav-btn active" data-tab="feed">📰 Family Feed</button>
+      <button class="nav-btn" data-tab="tree">🌳 Family Tree</button>
+      <button class="nav-btn" data-tab="lore">📜 Chronicles of Hoshina</button>
+      <button class="nav-btn" data-tab="rules">⚖️ Family Rules</button>
+      <button class="nav-btn" data-tab="roster">👥 Member Roster</button>
+    </nav>
+
+    <!-- ================= TAB 1: FAMILY FEED ================= -->
+    <section id="tab-feed" class="tab-content active">
+      <div class="feed-layout">
+        <!-- Main Feed Column -->
+        <div class="feed-main-col">
+          
+          <!-- Create Post Card -->
+          <div class="create-post-card">
+            <h3 style="color: #fff; font-family: var(--font-header); font-size: 1.2rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+              <span>✏️</span> Share an ICLY Update
+            </h3>
+            <form id="create-post-form">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                <input type="text" id="post-author-name" class="post-input" placeholder="Your Character Name..." required>
+                <input type="text" id="post-author-role" class="post-input" placeholder="Role (e.g. Teacher, Student)...">
+              </div>
+              <div style="margin-bottom: 10px;">
+                <select id="post-category" class="post-select">
+                  <option value="Announcements">📌 Announcement</option>
+                  <option value="Teacher Faction">📚 Teacher Faction</option>
+                  <option value="Rules & Policy">⚖️ Rules & Policy</option>
+                  <option value="Memories">🌸 Family Memories</option>
+                  <option value="ICLY Chat">💬 ICLY Family Chat</option>
+                </select>
+              </div>
+              <textarea id="post-content" class="post-textarea" placeholder="Write your post or family update here..." required></textarea>
+              <div class="post-actions">
+                <span style="font-size: 0.8rem; color: var(--text-subtle);">Posts are saved to your local family feed.</span>
+                <button type="submit" class="btn-primary">Post Update 🌸</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Feed Posts List -->
+          <div id="feed-posts-list">
+            <!-- Dynamic Posts Render Here -->
+          </div>
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="feed-sidebar-col">
+          
+          <!-- Filter Card -->
+          <div class="glass-card" style="padding: 20px;">
+            <h4 style="color:#fff; font-family:var(--font-header); margin-bottom:12px;">🔍 Filter Category</h4>
+            <select id="feed-category-filter" class="post-select">
+              <option value="All">All Categories</option>
+              <option value="Announcements">Announcements</option>
+              <option value="Teacher Faction">Teacher Faction</option>
+              <option value="Rules & Policy">Rules & Policy</option>
+              <option value="Memories">Memories</option>
+              <option value="ICLY Chat">ICLY Chat</option>
+            </select>
+          </div>
+
+          <!-- Quick Head Notice -->
+          <div class="glass-card" style="border-color: rgba(255, 105, 180, 0.3);">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+              <span style="font-size:1.8rem;">🌸</span>
+              <div>
+                <h4 style="color:#fff; font-size:1rem;">Hoshina Takeshima</h4>
+                <span style="font-size:0.75rem; color: var(--accent-pink);">HD of Mathematics</span>
+              </div>
+            </div>
+            <p style="font-size:0.85rem; color: var(--text-muted); font-style:italic;">
+              "I am overjoyed seeing my children follow their passion in Karakura High. Protect each other, honor our rules, and let our family continue to bloom."
+            </p>
+          </div>
+
+          <!-- Quick Rules Summary Card -->
+          <div class="glass-card" style="border-color: rgba(255, 71, 87, 0.3);">
+            <h4 style="color: var(--accent-blossom); font-family: var(--font-header); margin-bottom: 8px;">🚨 Zero Crime RP Notice</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+              Takeshima is NOT a crime family. Zero gang affiliation for faculty members. Getting discovered results in immediate IC branch removal.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 2: FAMILY TREE ================= -->
+    <section id="tab-tree" class="tab-content">
+      <div class="glass-card">
+        <div class="section-header">
+          <h2 class="section-title"><span class="icon">🌳</span> Interactive Takeshima Family Tree</h2>
+          <button id="config-echo-btn" class="btn-primary" style="background: rgba(155, 89, 182, 0.3); border: 1px solid var(--accent-purple);">
+            ⚙️ Configure FamilyEcho Link
+          </button>
+        </div>
+
+        <!-- Family Echo Banner -->
+        <div class="family-echo-banner" style="margin-bottom: 24px;">
+          <div>
+            <h3 style="color:#fff; font-family: var(--font-header); font-size: 1.3rem;">FamilyEcho Live Sync</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">View or update the live Takeshima Family Tree constantly on Family Echo.</p>
+          </div>
+          <button id="open-familyecho-btn" class="btn-primary" style="display:flex; align-items:center; gap:8px;">
+            <span>🔗 Open FamilyEcho Tree</span>
+          </button>
+        </div>
+
+        <!-- Visual Interactive Tree -->
+        <div class="tree-container">
+          <div class="tree-canvas-wrapper" id="interactive-tree-canvas">
+            <!-- Node tree renders via app.js -->
+          </div>
+          <p style="font-size:0.85rem; color: var(--text-subtle);">Click any node to view character background, status, and family ties.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= TAB 3: CHRONICLES OF HOSHINA (LORE) ================= -->
+    <section id="tab-lore" class="tab-content">
+      <div class="glass-card">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title"><span class="icon">📜</span> The Chronicles of Hoshina Takeshima</h2>
+            <p style="color: var(--text-muted); margin-top: 4px;">A history steeped in sorrow, enduring devotion, and the legacy of Karakura Highschool</p>
+          </div>
+        </div>
+
+        <!-- Lore Chapter Timeline -->
+        <div class="lore-timeline" id="lore-chapters-container">
+          <!-- Chapters render dynamically via app.js -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= TAB 4: FAMILY RULES CODEX ================= -->
+    <section id="tab-rules" class="tab-content">
+      <div class="glass-card">
+        <div class="section-header">
+          <h2 class="section-title"><span class="icon">⚖️</span> Takeshima Family Codex & Rules</h2>
+        </div>
+
+        <div class="rules-grid">
+          
+          <!-- FearRP Rules Box -->
+          <div class="rule-box">
+            <div class="rule-header">
+              <span class="rule-badge badge-fear">FearRP Policy</span>
+              <h3 style="color:#fff; font-size: 1.3rem; font-family: var(--font-header);">FearRP & Discipline Rules</h3>
+            </div>
+            <div id="fear-rules-list">
+              <!-- FearRP rules list renders via app.js -->
+            </div>
+          </div>
+
+          <!-- CrimeRP Zero Tolerance Box -->
+          <div class="rule-box severe">
+            <div class="rule-header">
+              <span class="rule-badge badge-crime">Strict Zero Tolerance</span>
+              <h3 style="color: var(--accent-blossom); font-size: 1.3rem; font-family: var(--font-header);">GangRP & Crime Policies</h3>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px; background: rgba(255, 71, 87, 0.1); padding: 10px; border-radius: 10px;">
+              🚫 <strong>No Crime RP!</strong> Do not involve the family with crime or GangRP ICLY. This is NOT a crime family! Zero gang affiliation permitted for faculty.
+            </p>
+            <div id="crime-rules-list">
+              <!-- Crime rules list renders via app.js -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Interactive FearRP Age Calculator Tool -->
+        <div class="fear-calculator">
+          <h3 style="color: #fff; font-family: var(--font-header); font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
+            <span>🧮</span> FearRP Hierarchy Calculator Tool
+          </h3>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
+            Input your character's age to instantly check your FearRP obligations under Takeshima Family rules.
+          </p>
+          <div class="calc-controls">
+            <input type="number" id="calc-age-input" class="post-input" style="max-width: 200px;" placeholder="Character Age (e.g. 14)" min="1" max="100">
+            <button id="calc-fear-btn" class="btn-primary">Calculate FearRP Level</button>
+          </div>
+          <div id="calc-fear-result" class="calc-result">
+            Enter an age above to check FearRP rules.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= TAB 5: MEMBER ROSTER ================= -->
+    <section id="tab-roster" class="tab-content">
+      <div class="glass-card">
+        <div class="section-header">
+          <h2 class="section-title"><span class="icon">👥</span> Takeshima Family Roster</h2>
+          <span style="color: var(--text-muted); font-size: 0.9rem;">Karakura High Faculty & Family Branches</span>
+        </div>
+
+        <div class="roster-grid" id="roster-grid-list">
+          <!-- Roster renders via app.js -->
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <!-- FamilyEcho Config Modal -->
+  <div class="modal-overlay" id="echo-modal">
+    <div class="modal-box">
+      <button class="modal-close" id="close-echo-modal">&times;</button>
+      <h3 style="color: #fff; font-family: var(--font-header); font-size: 1.4rem; margin-bottom: 10px;">⚙️ Configure FamilyEcho Tree URL</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;">
+        Set your family's custom FamilyEcho tree URL so all family members can view and update it directly.
+      </p>
+      <input type="text" id="echo-url-input" class="post-input" style="margin-bottom: 16px;" placeholder="https://www.familyecho.com/#edit:..." value="https://www.familyecho.com">
+      <button id="save-echo-url" class="btn-primary" style="width: 100%;">Save FamilyEcho URL</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
