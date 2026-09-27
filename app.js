@@ -372,7 +372,7 @@ function initFeed() {
 }
 
 /* ==========================================
-   6. NATIVE CUSTOM INTERACTIVE FAMILY TREE
+   6. REAL INTERACTIVE FAMILY TREE & GENERATIONAL CANVAS
    ========================================== */
 function initFamilyTree() {
   const treeWrapper = document.getElementById('interactive-tree-canvas');
@@ -391,22 +391,13 @@ function initFamilyTree() {
     const node = nodes.find(n => n.id === id);
     if (!node) return;
 
-    if (inspectAvatar) inspectAvatar.textContent = node.avatar || '🌸';
+    if (inspectAvatar) inspectAvatar.textContent = node.photo || '🌸';
     if (inspectName) inspectName.textContent = node.name;
-    if (inspectRole) inspectRole.textContent = node.role;
+    if (inspectRole) inspectRole.textContent = `${node.role} (${node.ageLabel || 'Age ' + node.age})`;
     if (inspectFaction) inspectFaction.textContent = node.faction;
     if (inspectStatus) inspectStatus.textContent = node.status;
     if (inspectDetails) inspectDetails.textContent = node.details;
-
-    if (inspectFear) {
-      if (node.age === 'Adult') {
-        inspectFear.textContent = 'Adult Status. All younger members (13-15 and older teens) MUST FearRP this member when getting in trouble.';
-      } else if (node.age === 'Teens (15)') {
-        inspectFear.textContent = 'Teen (Age 15). MUST FearRP older members (16+) and ALL Adults. ItemRP phone confiscation / grounding applies.';
-      } else {
-        inspectFear.textContent = 'Faculty Member. Faculty status protected under Family CrimeRP & FearRP guidelines.';
-      }
-    }
+    if (inspectFear) inspectFear.textContent = node.fearRP || 'Follows Takeshima Family FearRP Guidelines.';
 
     // Highlight selected node card
     document.querySelectorAll('.node-card').forEach(c => c.style.borderColor = '');
@@ -418,70 +409,109 @@ function initFamilyTree() {
     if (!treeWrapper) return;
 
     treeWrapper.innerHTML = `
-      <div class="tree-grid">
-        <!-- Level 1: Hoshina & Past Partners -->
-        <div class="tree-level">
-          <div class="node-card head-node" data-id="hoshina" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
-            <div class="node-avatar">🌸</div>
-            <div class="node-name">Hoshina Takeshima</div>
-            <div class="node-role">Family Head • HD of Math</div>
-            <div class="node-status">Karakura High Faculty</div>
+      <div class="tree-grid" style="min-width: 900px; width: 100%;">
+        
+        <!-- GENERATION 1: HEADS & SPOUSES -->
+        <div style="width: 100%; text-align: center;">
+          <div style="font-family: var(--font-header); font-size: 0.85rem; color: var(--accent-pink); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;">
+            ── Generation I: Family Heads & Spouses ──
           </div>
-          <div class="node-card" data-id="aiko" style="border-color: var(--accent-pink); ${filter === 'kagami' || filter === 'all' ? '' : 'opacity:0.3;'}">
-            <div class="node-avatar">🕊️</div>
-            <div class="node-name">Aiko Kagami</div>
-            <div class="node-role">First Husband (Deceased)</div>
-            <div class="node-status">Car Accident Tragedy</div>
-          </div>
-          <div class="node-card" data-id="hiroto" style="${filter === 'all' ? '' : 'opacity:0.3;'}">
-            <div class="node-avatar">⚡</div>
-            <div class="node-name">Hiroto</div>
-            <div class="node-role">Ex-Husband (Divorced)</div>
-            <div class="node-status">Father of Twins</div>
+          <div class="tree-level" style="gap: 20px; flex-wrap: wrap;">
+            
+            <div class="node-card head-node" data-id="hoshina" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
+              <div class="node-avatar">🌸</div>
+              <div class="node-name">Hoshina Takeshima</div>
+              <div class="node-role">Family Head • HD of Math</div>
+              <div class="node-age-tag">Age 38 • Adult</div>
+              <div class="node-status">Karakura High Faculty</div>
+            </div>
+
+            <div class="node-card" data-id="aiko" style="border-color: var(--accent-pink); ${filter === 'kagami' || filter === 'all' ? '' : 'opacity:0.3;'}">
+              <div class="node-avatar">🕊️</div>
+              <div class="node-name">Aiko Kagami</div>
+              <div class="node-role">1st Husband (Deceased)</div>
+              <div class="node-age-tag" style="background: rgba(255, 71, 87, 0.2); color: var(--accent-sakura);">Passed at Age 28</div>
+              <div class="node-status">Car Accident Tragedy</div>
+            </div>
+
+            <div class="node-card" data-id="hiroto" style="${filter === 'all' ? '' : 'opacity:0.3;'}">
+              <div class="node-avatar">⚡</div>
+              <div class="node-name">Hiroto</div>
+              <div class="node-role">Ex-Husband (Divorced)</div>
+              <div class="node-age-tag">Age 40 • Adult</div>
+              <div class="node-status">Father of Twins</div>
+            </div>
+
+            <div class="node-card" data-id="sister" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
+              <div class="node-avatar">📚</div>
+              <div class="node-name">Takeshima Sister</div>
+              <div class="node-role">Math Faculty Teacher</div>
+              <div class="node-age-tag">Age 36 • Adult</div>
+              <div class="node-status">Teacher Faction</div>
+            </div>
+
+            <div class="node-card" data-id="kagami_head" style="${filter === 'kagami' || filter === 'all' ? '' : 'opacity:0.3;'}">
+              <div class="node-avatar">⚔️</div>
+              <div class="node-name">Head of Kagami Family</div>
+              <div class="node-role">Kagami Branch Leader</div>
+              <div class="node-age-tag">Age 42 • Adult</div>
+              <div class="node-status">Close Friend / Faculty</div>
+            </div>
+
           </div>
         </div>
 
-        <!-- Connection Vector Ribbon -->
-        <div style="height:3px; width:88%; background: linear-gradient(90deg, transparent, var(--accent-pink), var(--accent-purple), transparent); border-radius:3px; box-shadow:0 0 10px var(--accent-pink);"></div>
+        <!-- GENERATIONAL CONNECTOR RIBBON -->
+        <div style="display:flex; flex-direction:column; align-items:center; width: 100%; margin: 10px 0;">
+          <div style="height:3px; width:92%; background: linear-gradient(90deg, transparent, var(--accent-pink), var(--accent-purple), var(--accent-sakura), transparent); border-radius:3px; box-shadow:0 0 12px var(--accent-pink);"></div>
+          <span style="font-size:0.75rem; color: var(--accent-sakura); margin-top:4px;">│ LINEAGE & CHILDREN DESCENT │</span>
+        </div>
 
-        <!-- Level 2: Sister & Allied Kagami Head -->
-        <div class="tree-level">
-          <div class="node-card" data-id="sister" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
-            <div class="node-avatar">📚</div>
-            <div class="node-name">Takeshima Sister</div>
-            <div class="node-role">Sister & Faculty Colleague</div>
-            <div class="node-status">Teacher Faction</div>
+        <!-- GENERATION 2: CHILDREN & TWINS -->
+        <div style="width: 100%; text-align: center;">
+          <div style="font-family: var(--font-header); font-size: 0.85rem; color: var(--accent-purple); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;">
+            ── Generation II: Children & Faculty Successors ──
           </div>
-          <div class="node-card" data-id="kagami_head" style="${filter === 'kagami' || filter === 'all' ? '' : 'opacity:0.3;'}">
-            <div class="node-avatar">⚔️</div>
-            <div class="node-name">Head of Kagami Family</div>
-            <div class="node-role">Kagami Branch Leader</div>
-            <div class="node-status">Close Friend / Allied Head</div>
+          <div class="tree-level" style="gap: 20px; flex-wrap: wrap;">
+            
+            <div class="node-card" data-id="ren_takeshima" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
+              <div class="node-avatar">🎓</div>
+              <div class="node-name">Ren Takeshima</div>
+              <div class="node-role">Mathematics Teacher</div>
+              <div class="node-age-tag">Age 21 • Young Adult</div>
+              <div class="node-status">Son of Hoshina & Aiko</div>
+            </div>
+
+            <div class="node-card" data-id="yumi_takeshima" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
+              <div class="node-avatar">📖</div>
+              <div class="node-name">Yumi Takeshima</div>
+              <div class="node-role">Science Educator</div>
+              <div class="node-age-tag">Age 20 • Young Adult</div>
+              <div class="node-status">Daughter of Hoshina & Aiko</div>
+            </div>
+
+            <div class="node-card" data-id="kenji_takeshima" style="${filter === 'kids' || filter === 'all' ? '' : 'opacity:0.3;'}">
+              <div class="node-avatar">♊</div>
+              <div class="node-name">Kenji Takeshima (Twin A)</div>
+              <div class="node-role">Highschool Student</div>
+              <div class="node-age-tag" style="background: rgba(255, 215, 0, 0.2); color: var(--accent-gold);">Age 15 • FearRP 16+</div>
+              <div class="node-status">Son of Hoshina & Hiroto</div>
+            </div>
+
+            <div class="node-card" data-id="maya_takeshima" style="${filter === 'kids' || filter === 'all' ? '' : 'opacity:0.3;'}">
+              <div class="node-avatar">♊</div>
+              <div class="node-name">Maya Takeshima (Twin B)</div>
+              <div class="node-role">Highschool Student</div>
+              <div class="node-age-tag" style="background: rgba(255, 215, 0, 0.2); color: var(--accent-gold);">Age 15 • FearRP 16+</div>
+              <div class="node-status">Daughter of Hoshina & Hiroto</div>
+            </div>
+
           </div>
         </div>
 
-        <!-- Connection Vector Ribbon -->
-        <div style="height:3px; width:78%; background: linear-gradient(90deg, transparent, var(--accent-purple), var(--accent-sakura), transparent); border-radius:3px; box-shadow:0 0 10px var(--accent-purple);"></div>
-
-        <!-- Level 3: Children & Twins -->
-        <div class="tree-level">
-          <div class="node-card" data-id="faculty_kids" style="${filter === 'teacher' || filter === 'kids' || filter === 'all' ? '' : 'opacity:0.3;'}">
-            <div class="node-avatar">🎓</div>
-            <div class="node-name">Faculty Children</div>
-            <div class="node-role">Karakura High Teachers</div>
-            <div class="node-status">Teacher Faction</div>
-          </div>
-          <div class="node-card" data-id="twins" style="${filter === 'kids' || filter === 'all' ? '' : 'opacity:0.3;'}">
-            <div class="node-avatar">♊</div>
-            <div class="node-name">The Twins</div>
-            <div class="node-role">Children of Hoshina & Hiroto</div>
-            <div class="node-status">Age 15 (FearRP Required)</div>
-          </div>
-        </div>
       </div>
     `;
 
-    // Add Node Card Click Listeners
     document.querySelectorAll('.node-card').forEach(card => {
       card.addEventListener('click', () => {
         const id = card.getAttribute('data-id');
@@ -490,7 +520,6 @@ function initFamilyTree() {
     });
   }
 
-  // Filter Buttons
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active-filter'));
