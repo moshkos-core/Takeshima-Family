@@ -152,17 +152,17 @@
             <div>
               <h3 style="color:#fff; font-family: var(--font-header); font-size: 1.3rem;">🔗 Live FamilyEcho Integration</h3>
               <p style="color: var(--text-muted); font-size: 0.9rem;">
-                Whenever you edit your tree on Family Echo, this viewer updates automatically. Paste your FamilyEcho link below to pair your tree!
+                Whenever you edit your tree on Family Echo, this viewer updates automatically. Linked to your active FamilyEcho tree!
               </p>
             </div>
-            <a id="open-familyecho-external-btn" href="https://www.familyecho.com" target="_blank" class="btn-primary" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
+            <a id="open-familyecho-external-btn" href="https://www.familyecho.com/?c=c6focs8gu9oagzga&f=391716927242587150" target="_blank" class="btn-primary" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
               <span>🚀 Open on FamilyEcho.com</span>
             </a>
           </div>
 
           <!-- Quick URL Update Bar -->
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <input type="text" id="quick-echo-url-input" class="post-input" style="flex:1; min-width:280px;" placeholder="Paste your Family Echo tree URL (e.g. https://www.familyecho.com/#edit:...)" value="https://www.familyecho.com">
+            <input type="text" id="quick-echo-url-input" class="post-input" style="flex:1; min-width:280px;" placeholder="Paste your Family Echo tree URL..." value="https://www.familyecho.com/?c=c6focs8gu9oagzga&f=391716927242587150">
             <button id="update-echo-url-btn" class="btn-primary" style="padding:12px 24px;">Sync Tree Live 🌸</button>
           </div>
         </div>
@@ -170,10 +170,10 @@
         <!-- View 1: Live FamilyEcho Embedded Iframe -->
         <div id="tree-view-embed-container" style="width: 100%; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--accent-pink); box-shadow: var(--glass-glow);">
           <div style="background: rgba(18, 9, 31, 0.9); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border);">
-            <span style="font-size: 0.88rem; color: var(--accent-sakura); font-weight: 600;">📡 Live Presentation Stream: <span id="current-echo-domain">FamilyEcho.com</span></span>
+            <span style="font-size: 0.88rem; color: var(--accent-sakura); font-weight: 600;">📡 Live Presentation Stream: <span id="current-echo-domain">FamilyEcho Live Stream</span></span>
             <button id="refresh-iframe-btn" class="reaction-btn" style="padding:4px 12px; font-size:0.8rem;">🔄 Reload Stream</button>
           </div>
-          <iframe id="familyecho-live-iframe" src="https://www.familyecho.com" width="100%" height="750px" style="border:none; background:#ffffff;"></iframe>
+          <iframe id="familyecho-live-iframe" src="https://www.familyecho.com/?c=c6focs8gu9oagzga&f=391716927242587150" width="100%" height="780px" style="border:none; background:#ffffff;"></iframe>
         </div>
 
         <!-- View 2: Visual Card View (Hidden by default) -->

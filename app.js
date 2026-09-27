@@ -388,14 +388,15 @@ function initFamilyTree() {
   const embedContainer = document.getElementById('tree-view-embed-container');
   const cardsContainer = document.getElementById('tree-view-cards-container');
 
-  // Retrieve saved FamilyEcho link or default
-  let currentEchoUrl = localStorage.getItem('takeshima_familyecho_url') || TAKESHIMA_DATA.familyInfo.familyEchoUrl;
+  // Retrieve saved FamilyEcho link or exact provided tree URL
+  const defaultUrl = "https://www.familyecho.com/?c=c6focs8gu9oagzga&f=391716927242587150";
+  let currentEchoUrl = localStorage.getItem('takeshima_familyecho_url') || defaultUrl;
 
-  // Initialize iframe & inputs
+  // Ensure iframe, external button & inputs reflect exact tree URL
   if (liveIframe) liveIframe.src = currentEchoUrl;
   if (quickInput) quickInput.value = currentEchoUrl;
   if (externalBtn) externalBtn.href = currentEchoUrl;
-  if (currentDomainEl) currentDomainEl.textContent = currentEchoUrl;
+  if (currentDomainEl) currentDomainEl.textContent = "FamilyEcho Live Stream (" + currentEchoUrl.substring(0, 45) + "...)";
 
   // Sync Button Click
   if (updateBtn && quickInput) {
