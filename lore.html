@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Family Lore Of Takeshima | Karakura Highschool</title>
+  <meta name="description" content="Read the lore chronicles of Hoshina Takeshima and the legacy of the Takeshima Family.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- Ambient Glowing Background Orbs -->
+  <div class="bg-glow-orb orb-1"></div>
+  <div class="bg-glow-orb orb-2"></div>
+  <div class="bg-glow-orb orb-3"></div>
+
+  <!-- Floating Pink Sakura Petals Canvas -->
+  <canvas id="particles-canvas"></canvas>
+
+  <div class="app-container">
+
+    <!-- Site Header Banner -->
+    <header class="site-header">
+      <div class="header-glow-bg"></div>
+      <div class="top-corner-credits">
+        Made with 🌸 by <strong>Moshko | Issy</strong>
+      </div>
+
+      <div class="header-main">
+        <div class="family-crest">🌸</div>
+        <div class="header-titles">
+          <h1>TAKESHIMA FAMILY</h1>
+          <p>Resilience through sorrow • Unity in passion • Fun</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+      <a href="index.html" class="nav-btn">🌸 Home</a>
+      <a href="tree.html" class="nav-btn">🌳 Family Tree</a>
+      <a href="lore.html" class="nav-btn active">📜 Family Lore</a>
+      <a href="attire.html" class="nav-btn">👘 Family Attire</a>
+      <a href="rules.html" class="nav-btn">⚖️ Family Rules</a>
+      <a href="roster.html" class="nav-btn">👑 Family Leaders</a>
+    </nav>
+
+    <!-- MAIN PAGE CONTENT: FAMILY LORE -->
+    <main class="page-content">
+      <div class="glass-card">
+        <div class="section-header" style="margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <h2 class="section-title"><span class="icon">📜</span> The Family Lore Of Takeshima</h2>
+            <p style="color: var(--text-muted); margin-top: 4px;">A history steeped in sorrow, enduring devotion, and
+              the legacy of Karakura Highschool</p>
+          </div>
+          <div class="lore-view-toggle" style="display: flex; gap: 10px;">
+            <button id="lore-btn-timeline" class="btn-primary" style="font-size: 0.88rem; padding: 8px 16px;">📜
+              Timeline View</button>
+            <button id="lore-btn-paragraphs" class="btn-primary"
+              style="font-size: 0.88rem; padding: 8px 16px; background: rgba(255, 105, 180, 0.15); border: 1px solid var(--accent-pink); color: var(--accent-pink);">📖
+              Full Story View</button>
+          </div>
+        </div>
+
+        <!-- Lore Chapter Timeline -->
+        <div class="lore-timeline" id="lore-chapters-container">
+          <!-- Chapters render dynamically via app.js -->
+        </div>
+
+        <!-- Lore Continuous Paragraph View -->
+        <div class="lore-paragraphs-view" id="lore-paragraphs-container"
+          style="display: none; background: rgba(15, 8, 25, 0.85); border: 1.5px solid var(--glass-border); border-radius: 24px; padding: 32px;">
+          <!-- Paragraphs render dynamically via app.js -->
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-crest">🌸</div>
+        <div>
+          <h3>TAKESHIMA FAMILY</h3>
+          <p>Karakura Highschool Teacher Faction • Founded by Hoshina C. Takeshima</p>
+        </div>
+      </div>
+      <div class="footer-motto-tag">
+        "Resilience through sorrow • Unity in passion • Excellence in Education"
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>

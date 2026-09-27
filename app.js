@@ -6,14 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize Core Features
   initSakuraParticles();
   initClickSakuraBurst();
+  initFlowerTrail();
   initTimeAndWeather();
   initNavigation();
-  initFeed();
   initFamilyTree();
   initLore();
   initRules();
   initRoster();
-  initFearRPCalculator();
 });
 
 /* ==========================================
@@ -109,9 +108,6 @@ function initSakuraParticles() {
    ========================================== */
 function initClickSakuraBurst() {
   window.addEventListener('click', (e) => {
-    // Play subtle soft chime sound via Web Audio API
-    playSoftChimeSound();
-
     const burstContainer = document.createElement('div');
     burstContainer.style.position = 'fixed';
     burstContainer.style.left = e.clientX + 'px';
@@ -150,30 +146,48 @@ function initClickSakuraBurst() {
   });
 }
 
-// Gentle Web Audio API Sound Chime
-function playSoftChimeSound() {
-  try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (!AudioCtx) return;
-    const ctx = new AudioCtx();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+/* ==========================================
+   INTERACTIVE FLOWER MOUSE TRAIL
+   ========================================== */
+function initFlowerTrail() {
+  let lastX = 0;
+  let lastY = 0;
+  let throttleTimer = false;
 
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(880, ctx.currentTime); // High soft note A5
-    osc.frequency.exponentialRampToValueAtTime(1320, ctx.currentTime + 0.15); // E6
+  window.addEventListener('mousemove', (e) => {
+    const dist = Math.hypot(e.clientX - lastX, e.clientY - lastY);
+    if (dist < 22 || throttleTimer) return;
+    
+    throttleTimer = true;
+    setTimeout(() => { throttleTimer = false; }, 35);
 
-    gain.gain.setValueAtTime(0.04, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+    lastX = e.clientX;
+    lastY = e.clientY;
 
-    osc.connect(gain);
-    gain.connect(ctx.destination);
+    const trail = document.createElement('div');
+    trail.textContent = '🌸';
+    trail.style.position = 'fixed';
+    trail.style.left = e.clientX + 'px';
+    trail.style.top = e.clientY + 'px';
+    trail.style.pointerEvents = 'none';
+    trail.style.fontSize = (Math.random() * 6 + 10) + 'px';
+    trail.style.zIndex = '9998';
+    trail.style.opacity = '0.75';
+    trail.style.transform = 'translate(-50%, -50%) scale(1) rotate(' + (Math.random() * 360) + 'deg)';
+    trail.style.transition = 'all 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+    document.body.appendChild(trail);
 
-    osc.start();
-    osc.stop(ctx.currentTime + 0.2);
-  } catch (err) {
-    // Ignore audio restrictions if blocked by browser policy
-  }
+    requestAnimationFrame(() => {
+      trail.style.transform = `translate(-50%, ${e.clientY + 18}px) scale(0.2) rotate(${Math.random() * 360}deg)`;
+      trail.style.opacity = '0';
+    });
+
+    setTimeout(() => {
+      if (document.body.contains(trail)) {
+        document.body.removeChild(trail);
+      }
+    }, 750);
+  });
 }
 
 /* ==========================================
@@ -205,19 +219,40 @@ function initNavigation() {
   const navBtns = document.querySelectorAll('.nav-btn');
   const tabContents = document.querySelectorAll('.tab-content');
 
+  function switchTab(targetTab) {
+    navBtns.forEach(b => {
+      if (b.getAttribute('data-tab') === targetTab) {
+        b.classList.add('active');
+      } else {
+        b.classList.remove('active');
+      }
+    });
+
+    tabContents.forEach(c => {
+      if (c.id === `tab-${targetTab}`) {
+        c.classList.add('active');
+      } else {
+        c.classList.remove('active');
+      }
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   navBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const targetTab = btn.getAttribute('data-tab');
-
-      navBtns.forEach(b => b.classList.remove('active'));
-      tabContents.forEach(c => c.classList.remove('active'));
-
-      btn.classList.add('active');
-      const activeContent = document.getElementById(`tab-${targetTab}`);
-      if (activeContent) {
-        activeContent.classList.add('active');
-      }
+      switchTab(targetTab);
     });
+  });
+
+  // Support quick switch cards
+  document.body.addEventListener('click', (e) => {
+    const card = e.target.closest('[data-tab-switch]');
+    if (card) {
+      const target = card.getAttribute('data-tab-switch');
+      if (target) switchTab(target);
+    }
   });
 }
 
@@ -561,12 +596,17 @@ function initFamilyTree() {
    7. LORE CHRONICLES RENDERER
    ========================================== */
 function initLore() {
-  const loreContainer = document.getElementById('lore-chapters-container');
-  if (!loreContainer) return;
+  const loreTimeline = document.getElementById('lore-chapters-container');
+  const loreParagraphs = document.getElementById('lore-paragraphs-container');
+  const btnTimeline = document.getElementById('lore-btn-timeline');
+  const btnParagraphs = document.getElementById('lore-btn-paragraphs');
+
+  if (!loreTimeline || !TAKESHIMA_DATA.lore) return;
 
   const chapters = TAKESHIMA_DATA.lore.chapters;
-  loreContainer.innerHTML = '';
 
+  // Render Chapter / Timeline View
+  loreTimeline.innerHTML = '';
   chapters.forEach(ch => {
     const loreCard = document.createElement('div');
     loreCard.className = 'lore-card';
@@ -579,8 +619,59 @@ function initLore() {
         ${escapeHtml(ch.content)}
       </p>
     `;
-    loreContainer.appendChild(loreCard);
+    loreTimeline.appendChild(loreCard);
   });
+
+  // Render Continuous Single-Page Full Story View (No Chapters)
+  if (loreParagraphs) {
+    let storyHtml = `
+      <div class="single-page-story-manuscript">
+        <div class="story-manuscript-header">
+          <span class="story-header-badge">🌸 TAKESHIMA FAMILY LORE</span>
+          <h2 class="story-main-title">The Story of Hoshina Takeshima</h2>
+          <p class="story-tagline">"Resilience through sorrow • Unity in passion • Karakura Highschool Legacy"</p>
+        </div>
+
+        <div class="story-manuscript-body-text">
+    `;
+
+    chapters.forEach((ch) => {
+      storyHtml += `
+        <p class="continuous-story-paragraph">${escapeHtml(ch.content)}</p>
+      `;
+    });
+
+    storyHtml += `
+        </div>
+      </div>
+    `;
+    loreParagraphs.innerHTML = storyHtml;
+  }
+
+  // Toggle View Modes
+  if (btnTimeline && btnParagraphs && loreParagraphs) {
+    btnTimeline.addEventListener('click', () => {
+      loreTimeline.style.display = 'block';
+      loreParagraphs.style.display = 'none';
+      btnTimeline.style.background = 'var(--accent-pink)';
+      btnTimeline.style.color = '#fff';
+      btnTimeline.style.border = 'none';
+      btnParagraphs.style.background = 'rgba(255,105,180,0.15)';
+      btnParagraphs.style.color = 'var(--accent-pink)';
+      btnParagraphs.style.border = '1px solid var(--accent-pink)';
+    });
+
+    btnParagraphs.addEventListener('click', () => {
+      loreTimeline.style.display = 'none';
+      loreParagraphs.style.display = 'block';
+      btnParagraphs.style.background = 'var(--accent-pink)';
+      btnParagraphs.style.color = '#fff';
+      btnParagraphs.style.border = 'none';
+      btnTimeline.style.background = 'rgba(255,105,180,0.15)';
+      btnTimeline.style.color = 'var(--accent-pink)';
+      btnTimeline.style.border = '1px solid var(--accent-pink)';
+    });
+  }
 }
 
 /* ==========================================
@@ -614,68 +705,56 @@ function initRules() {
    ========================================== */
 function initRoster() {
   const rosterGrid = document.getElementById('roster-grid-list');
-  if (!rosterGrid) return;
+  if (!rosterGrid || !TAKESHIMA_DATA.roster) return;
 
-  const members = [
-    { name: "Hoshina Takeshima", role: "Family Head & HD of Mathematics", status: "Adult • Teacher Faction", avatar: "🌸" },
-    { name: "Takeshima Sister", role: "Karakura High Faculty", status: "Adult • Teacher Faction", avatar: "📚" },
-    { name: "Faculty Child 1", role: "Teacher Faction Member", status: "Young Adult • Karakura High", avatar: "🎓" },
-    { name: "Faculty Child 2", role: "Teacher Faction Member", status: "Young Adult • Karakura High", avatar: "📖" },
-    { name: "The Twins (Twin A)", role: "Family Branch Child", status: "Age 15 • FearRP 16+ & Adults", avatar: "♊" },
-    { name: "The Twins (Twin B)", role: "Family Branch Child", status: "Age 15 • FearRP 16+ & Adults", avatar: "♊" },
-    { name: "Head of Kagami Family", role: "Allied Branch Head", status: "Adult • Close Friend", avatar: "⚔️" }
-  ];
+  const rosterData = TAKESHIMA_DATA.roster;
 
-  rosterGrid.innerHTML = members.map(m => `
-    <div class="roster-card">
-      <div class="roster-avatar">${m.avatar}</div>
-      <div class="roster-info">
-        <h4 style="color:#fff; font-size:1.1rem;">${escapeHtml(m.name)}</h4>
-        <p style="color: var(--accent-pink); font-weight:600; font-size:0.9rem;">${escapeHtml(m.role)}</p>
-        <p style="color: var(--text-subtle); font-size:0.85rem;">${escapeHtml(m.status)}</p>
+  let html = '';
+  rosterData.categories.forEach(cat => {
+    html += `
+      <div class="roster-category-block">
+        <div class="roster-category-title-bar">
+          <div class="cat-title-left">
+            <span class="cat-icon-lg">${cat.icon || '🌸'}</span>
+            <div>
+              <h3 class="cat-main-title">${escapeHtml(cat.title)}</h3>
+              <p class="cat-sub-title">${escapeHtml(cat.subtitle || 'Leadership & Lineage')}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="roster-members-stack">
+          ${cat.members.map(m => `
+            <div class="roster-member-card ${m.isFounder ? 'glow-gold' : (m.isHead ? 'glow-pink' : 'glow-purple')}">
+              <div class="roster-avatar-frame">${m.avatar || '🌸'}</div>
+
+              <div class="roster-member-details">
+                <div class="roster-top-row">
+                  <div class="name-handle-group">
+                    <h4 class="member-char-name">${escapeHtml(m.name)}</h4>
+                    <span class="member-discord-pill">
+                      <span class="discord-logo-icon">💬</span> @${escapeHtml(m.handle)}
+                    </span>
+                  </div>
+                  <span class="role-badge-tag ${cat.badgeClass}">${escapeHtml(m.roleTag)}</span>
+                </div>
+
+                <div class="roster-mid-row">
+                  <span class="member-title-tag">💼 ${escapeHtml(m.title)}</span>
+                  <span class="member-faction-tag">🏫 ${escapeHtml(m.faction)}</span>
+                  <span class="member-status-tag">✨ ${escapeHtml(m.status)}</span>
+                </div>
+
+                <p class="member-bio-text">"${escapeHtml(m.bio)}"</p>
+              </div>
+            </div>
+          `).join('')}
+        </div>
       </div>
-    </div>
-  `).join('');
-}
+    `;
+  });
 
-/* ==========================================
-   10. FEAR RP AGE CALCULATOR TOOL
-   ========================================== */
-function initFearRPCalculator() {
-  const btn = document.getElementById('calc-fear-btn');
-  const ageInput = document.getElementById('calc-age-input');
-  const resultDiv = document.getElementById('calc-fear-result');
-
-  if (btn && ageInput && resultDiv) {
-    btn.addEventListener('click', () => {
-      const age = parseInt(ageInput.value);
-      if (isNaN(age) || age < 1) {
-        resultDiv.textContent = "Please enter a valid character age.";
-        return;
-      }
-
-      if (age >= 13 && age <= 15) {
-        resultDiv.innerHTML = `
-          <strong>Result for Age ${age}:</strong> You are in the 13-15 age bracket.<br>
-          ⚡ <span style="color: var(--accent-pink);">MUST FearRP anyone aged 16+ and ALL Adults</span> when getting in trouble.<br>
-          📱 Must comply immediately with ItemRP phone confiscation / grounding punishments.<br>
-          🚨 FearRP mandatory upon receiving school detentions or during ICLY chat interventions.
-        `;
-      } else if (age >= 16 && age <= 17) {
-        resultDiv.innerHTML = `
-          <strong>Result for Age ${age}:</strong> You are an older teen.<br>
-          ⚡ <span style="color: var(--accent-pink);">MUST FearRP ALL Adults & Branch Heads</span>.<br>
-          📱 Must respect adult ItemRP disciplinary measures. Younger members (13-15) must FearRP you when in trouble.
-        `;
-      } else {
-        resultDiv.innerHTML = `
-          <strong>Result for Age ${age} (Adult/Faculty):</strong> You hold Adult status in the Takeshima Family.<br>
-          👑 All younger members (children/teens) MUST FearRP you when getting in trouble.<br>
-          📜 You have authority to execute ItemRP punishments (grounding, taking phone) and handle detention discipline.
-        `;
-      }
-    });
-  }
+  rosterGrid.innerHTML = html;
 }
 
 // Helper
@@ -687,4 +766,30 @@ function escapeHtml(str) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
+}
+
+/* ==========================================
+   10. ATTIRE SKIN FILE DOWNLOAD HELPER
+   ========================================== */
+function downloadAttireSkin(e) {
+  if (e) e.preventDefault();
+  fetch('assets/takeshima_attire_skin.png')
+    .then(res => res.blob())
+    .then(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Takeshima_Family_Attire_Skin.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    })
+    .catch(err => {
+      console.error('Download error', err);
+      const a = document.createElement('a');
+      a.href = 'assets/takeshima_attire_skin.png';
+      a.download = 'Takeshima_Family_Attire_Skin.png';
+      a.click();
+    });
 }

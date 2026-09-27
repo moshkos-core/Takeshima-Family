@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Takeshima Family Rules Codex | Karakura Highschool</title>
+  <meta name="description" content="Official FearRP policies, zero tolerance crime RP rules, and family discipline codex.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- Ambient Glowing Background Orbs -->
+  <div class="bg-glow-orb orb-1"></div>
+  <div class="bg-glow-orb orb-2"></div>
+  <div class="bg-glow-orb orb-3"></div>
+
+  <!-- Floating Pink Sakura Petals Canvas -->
+  <canvas id="particles-canvas"></canvas>
+
+  <div class="app-container">
+
+    <!-- Site Header Banner -->
+    <header class="site-header">
+      <div class="header-glow-bg"></div>
+      <div class="top-corner-credits">
+        Made with 🌸 by <strong>Moshko | Issy</strong>
+      </div>
+
+      <div class="header-main">
+        <div class="family-crest">🌸</div>
+        <div class="header-titles">
+          <h1>TAKESHIMA FAMILY</h1>
+          <p>Resilience through sorrow • Unity in passion • Fun</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+      <a href="index.html" class="nav-btn">🌸 Home</a>
+      <a href="tree.html" class="nav-btn">🌳 Family Tree</a>
+      <a href="lore.html" class="nav-btn">📜 Family Lore</a>
+      <a href="attire.html" class="nav-btn">👘 Family Attire</a>
+      <a href="rules.html" class="nav-btn active">⚖️ Family Rules</a>
+      <a href="roster.html" class="nav-btn">👑 Family Leaders</a>
+    </nav>
+
+    <!-- MAIN PAGE CONTENT: FAMILY RULES -->
+    <main class="page-content">
+      <div class="glass-card">
+        <div class="section-header">
+          <h2 class="section-title"><span class="icon">⚖️</span> Takeshima Family Rules</h2>
+        </div>
+
+        <div class="rules-grid">
+
+          <!-- FearRP Rules Box -->
+          <div class="rule-box">
+            <div class="rule-header">
+              <span class="rule-badge badge-fear">FearRP Policy</span>
+              <h3 style="color:#fff; font-size: 1.3rem; font-family: var(--font-header);">FearRP & Discipline Rules</h3>
+            </div>
+            <div id="fear-rules-list">
+              <!-- FearRP rules list renders via app.js -->
+            </div>
+          </div>
+
+          <!-- CrimeRP Zero Tolerance Box -->
+          <div class="rule-box severe">
+            <div class="rule-header">
+              <span class="rule-badge badge-crime">Strict Zero Tolerance</span>
+              <h3 style="color: var(--accent-blossom); font-size: 1.3rem; font-family: var(--font-header);">GangRP &
+                Crime Policies</h3>
+            </div>
+            <p
+              style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px; background: rgba(255, 71, 87, 0.1); padding: 10px; border-radius: 10px;">
+              🚫 <strong>No Crime RP!</strong> Do not involve the family with crime or GangRP ICLY. This is NOT a crime
+              family! Zero gang affiliation permitted for faculty.
+            </p>
+            <div id="crime-rules-list">
+              <!-- Crime rules list renders via app.js -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-crest">🌸</div>
+        <div>
+          <h3>TAKESHIMA FAMILY</h3>
+          <p>Karakura Highschool Teacher Faction • Founded by Hoshina C. Takeshima</p>
+        </div>
+      </div>
+      <div class="footer-motto-tag">
+        "Resilience through sorrow • Unity in passion • Excellence in Education"
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>

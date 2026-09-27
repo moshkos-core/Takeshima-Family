@@ -1,207 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Takeshima Family Hub | Karakura Highschool Teacher Faction</title>
-  <meta name="description" content="Official Takeshima Family Portal - Karakura Highschool Teacher Faction, Family Feed, Lore Chronicles of Hoshina, Family Tree & Rules Codex.">
+  <meta name="description"
+    content="Official Takeshima Family Portal - Karakura Highschool Teacher Faction, Lore Chronicles of Hoshina, Family Tree & Rules Codex.">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+
+  <!-- Ambient Glowing Background Orbs -->
+  <div class="bg-glow-orb orb-1"></div>
+  <div class="bg-glow-orb orb-2"></div>
+  <div class="bg-glow-orb orb-3"></div>
 
   <!-- Floating Pink Sakura Petals Canvas -->
   <canvas id="particles-canvas"></canvas>
 
   <div class="app-container">
-    
+
     <!-- Site Header Banner -->
     <header class="site-header">
       <div class="header-glow-bg"></div>
-      
-      <div class="header-top">
-        <div class="faction-badge">
-          🌸 Karakura Highschool • Teacher Faction
-        </div>
-        <div class="karakura-status">
-          <span class="status-pill" id="karakura-time">7:45 PM • Karakura District</span>
-          <span class="status-pill" style="color: var(--accent-pink);">Department of Mathematics</span>
-        </div>
+      <div class="top-corner-credits">
+        Made with 🌸 by <strong>Moshko | Issy</strong>
       </div>
 
       <div class="header-main">
         <div class="family-crest">🌸</div>
         <div class="header-titles">
           <h1>TAKESHIMA FAMILY</h1>
-          <p>Resilience through sorrow • Unity in passion • Karakura Highschool Faculty</p>
+          <p>Resilience through sorrow • Unity in passion • Fun</p>
         </div>
       </div>
     </header>
 
-    <!-- Navigation Bar -->
+    <!-- Navigation Bar (Instant Smooth Single-Page Navigation) -->
     <nav class="main-nav">
-      <button class="nav-btn active" data-tab="feed">📰 Family Feed</button>
+      <button class="nav-btn active" data-tab="welcome">🌸 Home</button>
       <button class="nav-btn" data-tab="tree">🌳 Family Tree</button>
-      <button class="nav-btn" data-tab="lore">📜 Chronicles of Hoshina</button>
+      <button class="nav-btn" data-tab="lore">📜 Family Lore</button>
+      <button class="nav-btn" data-tab="attire">👘 Family Attire</button>
       <button class="nav-btn" data-tab="rules">⚖️ Family Rules</button>
-      <button class="nav-btn" data-tab="roster">👥 Member Roster</button>
+      <button class="nav-btn" data-tab="roster">👑 Family Leaders</button>
     </nav>
 
-    <!-- ================= TAB 1: FAMILY FEED ================= -->
-    <section id="tab-feed" class="tab-content active">
-      <div class="feed-layout">
-        <!-- Main Feed Column -->
-        <div class="feed-main-col">
-          
-          <!-- Create Post Card -->
-          <div class="create-post-card">
-            <h3 style="color: #fff; font-family: var(--font-header); font-size: 1.2rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-              <span>✏️</span> Share an ICLY Update
-            </h3>
-            <form id="create-post-form">
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
-                <input type="text" id="post-author-name" class="post-input" placeholder="Your Character Name..." required>
-                <input type="text" id="post-author-role" class="post-input" placeholder="Role (e.g. Teacher, Student)...">
-              </div>
-              <div style="margin-bottom: 10px;">
-                <select id="post-category" class="post-select">
-                  <option value="Announcements">📌 Announcement</option>
-                  <option value="Teacher Faction">📚 Teacher Faction</option>
-                  <option value="Rules & Policy">⚖️ Rules & Policy</option>
-                  <option value="Memories">🌸 Family Memories</option>
-                  <option value="ICLY Chat">💬 ICLY Family Chat</option>
-                </select>
-              </div>
-              <textarea id="post-content" class="post-textarea" placeholder="Write your post or family update here..." required></textarea>
-              <div class="post-actions">
-                <span style="font-size: 0.8rem; color: var(--text-subtle);">Posts are saved to your local family feed.</span>
-                <button type="submit" class="btn-primary">Post Update 🌸</button>
-              </div>
-            </form>
-          </div>
+    <!-- ================= TAB 1: HOME / WELCOME ================= -->
+    <section id="tab-welcome" class="tab-content active">
+      <div class="welcome-container">
 
-          <!-- Feed Posts List -->
-          <div id="feed-posts-list">
-            <!-- Dynamic Posts Render Here -->
-          </div>
+        <!-- Welcome Hero Banner -->
+        <div class="welcome-hero-card">
+          <h1 class="welcome-title">Welcome to the Takeshima Family</h1>
+          <p class="welcome-motto">"Resilience through sorrow • Unity in passion • Excellence in Education"</p>
 
-        </div>
+          <p class="welcome-description">
+            Step into the official portal of the <strong>Takeshima Family</strong>. Founded by Hoshina C. Takeshima
+            within the Karakura city.<br>
+            our family stands as a pillar of academic dedication, mutual protection, and deep lineage strength. Explore
+            our family tree, family lore, family rules, and family leaders below.
+          </p>
 
-        <!-- Sidebar Column -->
-        <div class="feed-sidebar-col">
-          
-          <!-- Filter Card -->
-          <div class="glass-card" style="padding: 20px;">
-            <h4 style="color:#fff; font-family:var(--font-header); margin-bottom:12px;">🔍 Filter Category</h4>
-            <select id="feed-category-filter" class="post-select">
-              <option value="All">All Categories</option>
-              <option value="Announcements">Announcements</option>
-              <option value="Teacher Faction">Teacher Faction</option>
-              <option value="Rules & Policy">Rules & Policy</option>
-              <option value="Memories">Memories</option>
-              <option value="ICLY Chat">ICLY Chat</option>
-            </select>
-          </div>
-
-          <!-- Quick Head Notice -->
-          <div class="glass-card" style="border-color: rgba(255, 105, 180, 0.3);">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-              <span style="font-size:1.8rem;">🌸</span>
-              <div>
-                <h4 style="color:#fff; font-size:1rem;">Hoshina Takeshima</h4>
-                <span style="font-size:0.75rem; color: var(--accent-pink);">HD of Mathematics</span>
-              </div>
+          <!-- Quick Navigation Feature Cards (3 Top / 2 Bottom Centered Layout) -->
+          <div class="welcome-quick-grid">
+            <div class="welcome-quick-card" data-tab-switch="tree">
+              <div class="quick-icon">🌳</div>
+              <h3>Family Tree</h3>
+              <p>Explore member nodes, marriages, and generations.</p>
+              <span class="quick-link">View Tree &rarr;</span>
             </div>
-            <p style="font-size:0.85rem; color: var(--text-muted); font-style:italic;">
-              "I am overjoyed seeing my children follow their passion in Karakura High. Protect each other, honor our rules, and let our family continue to bloom."
-            </p>
-          </div>
 
-          <!-- Quick Rules Summary Card -->
-          <div class="glass-card" style="border-color: rgba(255, 71, 87, 0.3);">
-            <h4 style="color: var(--accent-blossom); font-family: var(--font-header); margin-bottom: 8px;">🚨 Zero Crime RP Notice</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">
-              Takeshima is NOT a crime family. Zero gang affiliation for faculty members. Getting discovered results in immediate IC branch removal.
-            </p>
-          </div>
+            <div class="welcome-quick-card" data-tab-switch="lore">
+              <div class="quick-icon">📜</div>
+              <h3>Family Lore</h3>
+              <p>Read the history of Hoshina Takeshima and our lineage.</p>
+              <span class="quick-link">Read Lore &rarr;</span>
+            </div>
 
+            <div class="welcome-quick-card" data-tab-switch="attire">
+              <div class="quick-icon">👘</div>
+              <h3>Family Attire</h3>
+              <p>View official hoodie design, patterns, and dress code.</p>
+              <span class="quick-link">View Attire &rarr;</span>
+            </div>
+
+            <div class="welcome-quick-card" data-tab-switch="rules">
+              <div class="quick-icon">⚖️</div>
+              <h3>Family Rules</h3>
+              <p>Review FearRP obligations and strict zero-crime policy.</p>
+              <span class="quick-link">Check Rules &rarr;</span>
+            </div>
+
+            <div class="welcome-quick-card" data-tab-switch="roster">
+              <div class="quick-icon">👑</div>
+              <h3>Family Leaders</h3>
+              <p>Meet our Founder, Family Head, and Co-Head.</p>
+              <span class="quick-link">View Leaders &rarr;</span>
+            </div>
+          </div>
         </div>
+
+        <!-- Takeshima Pillars Grid -->
+        <div class="welcome-pillars-grid">
+          <div class="pillar-card">
+            <div class="pillar-icon">🏫</div>
+            <h4>Mathematics & Faculty</h4>
+            <p>Led by Head of Mathematics Hoshina C. Takeshima, shaping minds at Karakura Highschool with passion and
+              integrity.</p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">🌸</div>
+            <h4>Enduring Resilience</h4>
+            <p>Overcoming past heartaches, loss, and hardship together to forge an unbreakable family bond.</p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">🛡️</div>
+            <h4>Honorable Conduct</h4>
+            <p>Zero tolerance for CrimeRP or gang affiliation. Respecting age-based FearRP and faculty protocol.</p>
+          </div>
+        </div>
+
+        <!-- Founder's Leadership Message Card -->
+        <div class="glass-card welcome-leadership-card" style="padding: 36px; border-color: rgba(255, 105, 180, 0.4);">
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 20px;">
+            <div
+              style="font-size: 4rem; background: rgba(255, 105, 180, 0.15); width: 90px; height: 90px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid var(--accent-pink); margin: 0 auto;">
+              🌸
+            </div>
+            <div style="width: 100%; max-width: 850px; text-align: center;">
+              <span
+                style="color: var(--accent-pink); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; display: block; text-align: center;">Message
+                from the Founder</span>
+              <h2 style="color: #fff; font-family: var(--font-header); font-size: 1.8rem; margin: 4px 0 12px 0; text-align: center;">Hoshina
+                C. Takeshima</h2>
+              <p style="color: var(--text-muted); font-size: 1.02rem; line-height: 1.8; font-style: italic; text-align: center;">
+                "Welcome to our home. Our journey has been built on perseverance, sorrow turned into strength, and an
+                unwavering devotion to our children and education. Respect our rules, cherish our family ties, and keep
+                our teaching legacy proud."
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
     <!-- ================= TAB 2: FAMILY TREE ================= -->
     <section id="tab-tree" class="tab-content">
-      <div class="glass-card">
-        <div class="section-header">
+      <div class="glass-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+        <div class="section-header" style="padding: 20px; border-bottom: 1px solid var(--glass-border);">
           <div>
-            <h2 class="section-title"><span class="icon">🌳</span> Takeshima Family Interactive Tree</h2>
-            <p style="color: var(--text-muted); margin-top:4px;">Custom visual family hierarchy & lineage presented natively for Karakura Highschool RP</p>
+            <h2 class="section-title"><span class="icon">🌳</span> Takeshima Family Tree</h2>
+            <p style="color: var(--text-muted); margin-top:4px;">Live embedded family tree directly from Family Echo</p>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <a href="https://www.familyecho.com/?c=c6focs8gu9oagzga&f=391716927242587150" target="_blank" class="btn-primary" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
-              <span>✏️ Edit on FamilyEcho.com</span>
+            <a href="https://www.familyecho.com/?c=v2cyv5q4revh8cya&f=391716927242587150" target="_blank"
+              class="btn-primary" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
+              <span>🪾 View on FamilyEcho.com</span>
             </a>
           </div>
         </div>
 
-        <!-- Filter & Control Bar -->
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom: 24px; background: rgba(12, 6, 24, 0.7); padding: 14px 20px; border-radius: 18px; border: 1px solid var(--glass-border);">
-          <div style="display:flex; gap:8px; flex-wrap:wrap;" id="tree-filter-btns">
-            <button class="reaction-btn active-filter" data-filter="all">All Members</button>
-            <button class="reaction-btn" data-filter="teacher">📚 Teacher Faction</button>
-            <button class="reaction-btn" data-filter="kagami">⚔️ Kagami Ties</button>
-            <button class="reaction-btn" data-filter="kids">👶 Kids & Twins</button>
-          </div>
-          <div style="display:flex; gap:10px;">
-            <button id="add-tree-member-btn" class="btn-primary" style="padding: 8px 18px; font-size: 0.88rem;">
-              ➕ Add Member to Tree
-            </button>
-          </div>
+        <!-- Direct Embed of FamilyEcho -->
+        <div style="width: 100%; height: 650px; position: relative;">
+          <iframe src="https://www.familyecho.com/?c=v2cyv5q4revh8cya&f=391716927242587150"
+            style="width: 100%; height: 100%; border: none;" title="Takeshima Family Tree" allowfullscreen>
+          </iframe>
         </div>
-
-        <!-- Custom Interactive Canvas Layout -->
-        <div class="custom-tree-layout">
-          <!-- Tree SVG & Node Canvas -->
-          <div class="tree-canvas-wrapper" id="interactive-tree-canvas" style="min-height: 520px; border: 1.5px solid var(--glass-border-hover); box-shadow: var(--glass-glow);">
-            <!-- Custom Node Grid Renders via app.js -->
-          </div>
-
-          <!-- Character Detail Inspector Panel -->
-          <div id="tree-inspector-panel" class="tree-inspector-panel">
-            <div class="inspector-header">
-              <div class="inspector-avatar" id="inspect-avatar">🌸</div>
-              <div>
-                <h3 id="inspect-name" style="color:#fff; font-family:var(--font-header); font-size:1.3rem;">Hoshina Takeshima</h3>
-                <span id="inspect-role" style="color:var(--accent-pink); font-size:0.88rem; font-weight:600;">Family Head • HD of Mathematics</span>
-              </div>
-            </div>
-            <div class="inspector-body">
-              <div class="inspector-tag" id="inspect-faction">Karakura High Faculty</div>
-              <div class="inspector-field">
-                <span class="field-label">Status & Lineage:</span>
-                <p id="inspect-status" class="field-value">Active • Head of Takeshima Family</p>
-              </div>
-              <div class="inspector-field">
-                <span class="field-label">Biography & Lore:</span>
-                <p id="inspect-details" class="field-value">Head of Mathematics at Karakura Highschool. Mother of children & twins. Devoted to her family and students.</p>
-              </div>
-              <div class="inspector-field" style="border-top: 1px solid rgba(255,255,255,0.08); padding-top:12px;">
-                <span class="field-label" style="color:var(--accent-gold);">⚡ FearRP Requirement:</span>
-                <p id="inspect-fear" class="field-value" style="color:#fff;">Adult Status. All younger members (13-15 and older teens) MUST FearRP Hoshina when in trouble.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
 
     <!-- ================= TAB 3: CHRONICLES OF HOSHINA (LORE) ================= -->
     <section id="tab-lore" class="tab-content">
       <div class="glass-card">
-        <div class="section-header">
+        <div class="section-header" style="margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
           <div>
-            <h2 class="section-title"><span class="icon">📜</span> The Chronicles of Hoshina Takeshima</h2>
-            <p style="color: var(--text-muted); margin-top: 4px;">A history steeped in sorrow, enduring devotion, and the legacy of Karakura Highschool</p>
+            <h2 class="section-title"><span class="icon">📜</span> The Family Lore Of Takeshima</h2>
+            <p style="color: var(--text-muted); margin-top: 4px;">A history steeped in sorrow, enduring devotion, and
+              the legacy of Karakura Highschool</p>
+          </div>
+          <div class="lore-view-toggle" style="display: flex; gap: 10px;">
+            <button id="lore-btn-timeline" class="btn-primary" style="font-size: 0.88rem; padding: 8px 16px;">📜
+              Timeline View</button>
+            <button id="lore-btn-paragraphs" class="btn-primary"
+              style="font-size: 0.88rem; padding: 8px 16px; background: rgba(255, 105, 180, 0.15); border: 1px solid var(--accent-pink); color: var(--accent-pink);">📖
+              Full Story View</button>
           </div>
         </div>
 
@@ -210,18 +196,106 @@
           <!-- Chapters render dynamically via app.js -->
         </div>
 
+        <!-- Lore Continuous Paragraph View -->
+        <div class="lore-paragraphs-view" id="lore-paragraphs-container"
+          style="display: none; background: rgba(15, 8, 25, 0.85); border: 1.5px solid var(--glass-border); border-radius: 24px; padding: 32px;">
+          <!-- Paragraphs render dynamically via app.js -->
+        </div>
+
       </div>
     </section>
 
-    <!-- ================= TAB 4: FAMILY RULES CODEX ================= -->
+    <!-- ================= TAB 4: FAMILY ATTIRE ================= -->
+    <section id="tab-attire" class="tab-content">
+      <div class="glass-card">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title"><span class="icon">👘</span> Takeshima Family Attire</h2>
+            <p style="color: var(--text-muted); margin-top: 4px;">Official uniform, hoodie insignia, and apparel codex for Karakura Highschool Faculty & Family members.</p>
+          </div>
+          <span class="attire-official-badge">✨ Official Apparel</span>
+        </div>
+
+        <!-- Download Banner Card -->
+        <div class="attire-download-banner">
+          <div class="download-banner-left">
+            <div class="download-icon-box">📥</div>
+            <div>
+              <h3 class="download-banner-title">Download Official Attire Texture</h3>
+              <p class="download-banner-desc">Click below to open/download the skin texture PNG file in a new tab.</p>
+            </div>
+          </div>
+          <a href="assets/takeshima_attire_skin.png" target="_blank" rel="noopener noreferrer" download="Takeshima_Family_Attire_Skin.png" class="btn-primary" style="text-decoration: none; font-size: 0.95rem; padding: 12px 24px; white-space: nowrap;">
+            <span>📥 Download Attire File</span>
+          </a>
+        </div>
+
+        <!-- Attire Showcase Grid -->
+        <div class="attire-showcase-grid">
+          <!-- Back View (Left Angle) Card -->
+          <div class="attire-card">
+            <div class="attire-image-frame">
+              <img src="assets/attire_front.png" alt="Takeshima Family Hoodie - Back View (Left Angle)" class="attire-img">
+              <div class="attire-overlay-badge">Back View • Left Angle</div>
+            </div>
+            <div class="attire-card-body">
+              <h3 class="attire-card-title">Back View (Left Angle)</h3>
+              <p class="attire-card-desc">Showcasing the gold initial <strong>'T'</strong> crest on the back hood, midnight purple tone, and charcoal base.</p>
+            </div>
+          </div>
+
+          <!-- Back View (Right Angle) Card -->
+          <div class="attire-card">
+            <div class="attire-image-frame">
+              <img src="assets/attire_back.png" alt="Takeshima Family Hoodie - Back View (Right Angle)" class="attire-img">
+              <div class="attire-overlay-badge">Back View • Right Angle</div>
+            </div>
+            <div class="attire-card-body">
+              <h3 class="attire-card-title">Back View (Right Angle)</h3>
+              <p class="attire-card-desc">Highlighting the back <strong>'T'</strong> crest and the intricate gold woven diamond pattern along the right sleeve.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attire Details & Guidelines Grid -->
+        <div class="attire-info-grid" style="margin-top: 36px;">
+          <div class="attire-spec-box">
+            <div class="spec-header">
+              <span class="spec-icon">🎨</span>
+              <h4>Color Palette & Materials</h4>
+            </div>
+            <ul class="attire-spec-list">
+              <li><strong>Midnight Purple:</strong> Symbolic of nobility, resilience, and wisdom.</li>
+              <li><strong>Charcoal Obsidian:</strong> Represents strength and unity across generations.</li>
+              <li><strong>Imperial Ochre Gold:</strong> Highlights the crest 'T' and sleeve lattice pattern.</li>
+            </ul>
+          </div>
+
+          <div class="attire-spec-box">
+            <div class="spec-header">
+              <span class="spec-icon">📜</span>
+              <h4>Dress Code Rules</h4>
+            </div>
+            <ul class="attire-spec-list">
+              <li><strong>Official Events:</strong> Required attire during family meetings and Karakura events.</li>
+              <li><strong>Lineage Honor:</strong> Must be worn with respect and pride by official family members.</li>
+              <li><strong>Zero Misrepresentation:</strong> Non-family members are forbidden from wearing official attire.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= TAB 5: FAMILY RULES CODEX ================= -->
     <section id="tab-rules" class="tab-content">
       <div class="glass-card">
         <div class="section-header">
-          <h2 class="section-title"><span class="icon">⚖️</span> Takeshima Family Codex & Rules</h2>
+          <h2 class="section-title"><span class="icon">⚖️</span> Takeshima Family Rules</h2>
         </div>
 
         <div class="rules-grid">
-          
+
           <!-- FearRP Rules Box -->
           <div class="rule-box">
             <div class="rule-header">
@@ -237,10 +311,13 @@
           <div class="rule-box severe">
             <div class="rule-header">
               <span class="rule-badge badge-crime">Strict Zero Tolerance</span>
-              <h3 style="color: var(--accent-blossom); font-size: 1.3rem; font-family: var(--font-header);">GangRP & Crime Policies</h3>
+              <h3 style="color: var(--accent-blossom); font-size: 1.3rem; font-family: var(--font-header);">GangRP &
+                Crime Policies</h3>
             </div>
-            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px; background: rgba(255, 71, 87, 0.1); padding: 10px; border-radius: 10px;">
-              🚫 <strong>No Crime RP!</strong> Do not involve the family with crime or GangRP ICLY. This is NOT a crime family! Zero gang affiliation permitted for faculty.
+            <p
+              style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px; background: rgba(255, 71, 87, 0.1); padding: 10px; border-radius: 10px;">
+              🚫 <strong>No Crime RP!</strong> Do not involve the family with crime or GangRP ICLY. This is NOT a crime
+              family! Zero gang affiliation permitted for faculty.
             </p>
             <div id="crime-rules-list">
               <!-- Crime rules list renders via app.js -->
@@ -249,35 +326,23 @@
 
         </div>
 
-        <!-- Interactive FearRP Age Calculator Tool -->
-        <div class="fear-calculator">
-          <h3 style="color: #fff; font-family: var(--font-header); font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
-            <span>🧮</span> FearRP Hierarchy Calculator Tool
-          </h3>
-          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
-            Input your character's age to instantly check your FearRP obligations under Takeshima Family rules.
-          </p>
-          <div class="calc-controls">
-            <input type="number" id="calc-age-input" class="post-input" style="max-width: 200px;" placeholder="Character Age (e.g. 14)" min="1" max="100">
-            <button id="calc-fear-btn" class="btn-primary">Calculate FearRP Level</button>
-          </div>
-          <div id="calc-fear-result" class="calc-result">
-            Enter an age above to check FearRP rules.
-          </div>
-        </div>
-
       </div>
     </section>
 
-    <!-- ================= TAB 5: MEMBER ROSTER ================= -->
+    <!-- ================= TAB 6: THE FAMILY LEADERS ================= -->
     <section id="tab-roster" class="tab-content">
       <div class="glass-card">
-        <div class="section-header">
-          <h2 class="section-title"><span class="icon">👥</span> Takeshima Family Roster</h2>
-          <span style="color: var(--text-muted); font-size: 0.9rem;">Karakura High Faculty & Family Branches</span>
+        <div class="section-header" style="margin-bottom: 24px; text-align: center; justify-content: center;">
+          <div style="text-align: center; width: 100%;">
+            <h2 class="section-title"><span class="icon">👑</span> The Family Leaders</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; text-align: center;">
+              Official Family Founder, Family Head & Co-Head leadership.
+            </p>
+          </div>
         </div>
 
-        <div class="roster-grid" id="roster-grid-list">
+        <!-- Dynamic Categorized Roster Container -->
+        <div id="roster-grid-list">
           <!-- Roster renders via app.js -->
         </div>
 
@@ -286,71 +351,25 @@
 
   </div>
 
-  <!-- Add / Edit Tree Member Modal -->
-  <div class="modal-overlay" id="add-member-modal">
-    <div class="modal-box" style="max-width: 540px;">
-      <button class="modal-close" id="close-member-modal">&times;</button>
-      <h3 style="color: #fff; font-family: var(--font-header); font-size: 1.4rem; margin-bottom: 6px;">➕ Add / Edit Family Member</h3>
-      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px;">
-        Add a new member or update character details on your Takeshima Family Tree.
-      </p>
-      <form id="add-member-form">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
-          <div>
-            <label class="field-label">Character Name:</label>
-            <input type="text" id="member-name-input" class="post-input" placeholder="e.g. Satoshi Takeshima" required>
-          </div>
-          <div>
-            <label class="field-label">Age:</label>
-            <input type="number" id="member-age-input" class="post-input" placeholder="e.g. 16" min="1" max="100" required>
-          </div>
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-crest">🌸</div>
+        <div>
+          <h3>TAKESHIMA FAMILY</h3>
+          <p>Karakura Highschool Teacher Faction • Founded by Hoshina C. Takeshima</p>
         </div>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
-          <div>
-            <label class="field-label">Gender:</label>
-            <select id="member-gender-select" class="post-select">
-              <option value="male">Male ♂</option>
-              <option value="female">Female ♀</option>
-              <option value="deceased">Deceased 🕊️</option>
-            </select>
-          </div>
-          <div>
-            <label class="field-label">Generation:</label>
-            <select id="member-gen-select" class="post-select">
-              <option value="1">Generation I (Founders/Adults)</option>
-              <option value="2" selected>Generation II (Children/Teens)</option>
-            </select>
-          </div>
-        </div>
-
-        <div style="margin-bottom:12px;">
-          <label class="field-label">Role & Title:</label>
-          <input type="text" id="member-role-input" class="post-input" placeholder="e.g. Student / Teacher / Branch Member" required>
-        </div>
-
-        <div style="margin-bottom:12px;">
-          <label class="field-label">Faction / Branch:</label>
-          <select id="member-faction-select" class="post-select">
-            <option value="Teacher Faction">📚 Teacher Faction</option>
-            <option value="Takeshima Younger Branch">🌸 Takeshima Younger Branch</option>
-            <option value="Kagami Lineage">⚔️ Kagami Lineage</option>
-            <option value="Independent">⚡ Independent</option>
-          </select>
-        </div>
-
-        <div style="margin-bottom:16px;">
-          <label class="field-label">Biography & Lore Notes:</label>
-          <textarea id="member-details-input" class="post-textarea" style="min-height:70px;" placeholder="Character backstory or role in the family..."></textarea>
-        </div>
-
-        <button type="submit" class="btn-primary" style="width: 100%;">Save to Family Tree 🌸</button>
-      </form>
+      </div>
+      <div class="footer-motto-tag">
+        "Resilience through sorrow • Unity in passion • Excellence in Education"
+      </div>
     </div>
-  </div>
+  </footer>
 
   <!-- Scripts -->
   <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
+
 </html>

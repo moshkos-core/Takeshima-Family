@@ -9,7 +9,7 @@ const TAKESHIMA_DATA = {
     head: "Hoshina Takeshima",
     headTitle: "Head of Department (HD) of Mathematics",
     faction: "Karakura Highschool Teacher Faction",
-    familyEchoUrl: "https://www.familyecho.com/?c=c6focs8gu9oagzga&f=391716927242587150",
+    familyEchoUrl: "https://www.familyecho.com/?c=v2cyv5q4revh8cya&f=391716927242587150",
   },
 
   lore: {
@@ -280,61 +280,70 @@ Now she's trying to move on. Doing her best to be strong for her children and fo
     }
   ],
 
-  initialFeed: [
-    {
-      id: 1,
-      author: "Hoshina Takeshima",
-      title: "HD of Mathematics",
-      avatar: "🌸",
-      category: "Announcements",
-      time: "2 hours ago",
-      content: "Welcome to the official Takeshima Family Feed! As Head of Mathematics, I am thrilled to see our family members excelling at Karakura Highschool. Remember our values: strength, respect, and zero involvement in crime.",
-      likes: 12,
-      reactions: { "❤️": 8, "🌸": 4 },
-      comments: [
-        { author: "Takeshima Sister", text: "Proud of you, sister! Math department is looking stronger than ever.", time: "1 hour ago" },
-        { author: "Faculty Child", text: "Glad to be teaching alongside you, Mom! 📚", time: "45 mins ago" }
-      ]
-    },
-    {
-      id: 2,
-      author: "Branch Head Takeshima",
-      title: "Branch Leader",
-      avatar: "🏛️",
-      category: "Rules & Policy",
-      time: "5 hours ago",
-      content: "IMPORTANT REMINDER regarding CrimeRP and FearRP:\n1. We are NOT a crime family. Zero gang affiliation permitted.\n2. If you are aged 13-15, remember to FearRP older members when called out.\n3. ItemRP phone confiscations/grounding must be obeyed immediately.",
-      likes: 18,
-      reactions: { "📌": 10, "⚡": 8 },
-      comments: [
-        { author: "The Twins", text: "Understood! We will follow all FearRP rules strictly.", time: "4 hours ago" }
-      ]
-    },
-    {
-      id: 3,
-      author: "Takeshima Sister",
-      title: "Karakura High Faculty",
-      avatar: "📚",
-      category: "Teacher Faction",
-      time: "Yesterday",
-      content: "Staff meeting in the Karakura High teachers' lounge after third period! All family faculty members please bring your lesson plans. Let's make Hoshina proud!",
-      likes: 15,
-      reactions: { "👏": 9, "🎓": 6 },
-      comments: []
-    },
-    {
-      id: 4,
-      author: "Faculty Child",
-      title: "Karakura High Teacher",
-      avatar: "🎓",
-      category: "Memories",
-      time: "2 days ago",
-      content: "Looking back at how far our family has come. From overcoming past heartaches to building a respected teaching legacy together. Forever grateful for Mom's resilience.",
-      likes: 24,
-      reactions: { "💖": 18, "✨": 6 },
-      comments: [
-        { author: "Hoshina Takeshima", text: "My heart is full seeing you all grow into such honorable teachers. Never stop believing in love and learning.", time: "2 days ago" }
-      ]
-    }
-  ]
+  roster: {
+    categories: [
+      {
+        title: "Founder",
+        subtitle: "Original Matriarch & Family Creator",
+        badgeClass: "badge-founder",
+        icon: "🌸",
+        members: [
+          {
+            name: "Hoshina C. Takeshima",
+            handle: "mariskaeng",
+            roleTag: "@Founder",
+            roleBadge: "Founder & Matriarch",
+            title: "Department Head of Mathematics",
+            faction: "Karakura High Teacher Faction",
+            status: "Active Founder",
+            avatar: "🌸",
+            isFounder: true,
+            bio: "Founder of the Takeshima Family and Head of Department of Mathematics at Karakura Highschool."
+          }
+        ]
+      },
+      {
+        title: "Family Head",
+        subtitle: "Official Head of House & Leadership",
+        badgeClass: "badge-family-head",
+        icon: "👑",
+        members: [
+          {
+            name: "Arthur Takeshima",
+            handle: "hotandhomeless",
+            roleTag: "@👑 Family Head",
+            roleBadge: "Official Family Head",
+            title: "Head of Takeshima House",
+            faction: "Karakura Leadership",
+            status: "Active Family Head",
+            avatar: "⚔️",
+            isHead: true,
+            bio: "Leading the Takeshima Family with strength, protection, and strict adherence to family values."
+          }
+        ]
+      },
+      {
+        title: "Co-Head",
+        subtitle: "Executive Governance & Branch Leadership",
+        badgeClass: "badge-co-head",
+        icon: "♔",
+        members: [
+          {
+            name: "Misaki Takeshima",
+            handle: "corrupteddxys",
+            roleTag: "@♔ [C] Co-Head",
+            roleBadge: "Executive Co-Head",
+            title: "Executive Co-Head",
+            faction: "Takeshima House Governance",
+            status: "Active Co-Head",
+            avatar: "✨",
+            isCoHead: true,
+            bio: "Co-leading family affairs, organizing member ties, and maintaining family unity."
+          }
+        ]
+      }
+    ]
+  }
 };
+
+
