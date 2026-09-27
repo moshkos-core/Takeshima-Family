@@ -385,7 +385,17 @@ function initFamilyTree() {
   const inspectFear = document.getElementById('inspect-fear');
   const filterBtns = document.querySelectorAll('#tree-filter-btns .reaction-btn');
 
-  const nodes = TAKESHIMA_DATA.familyNodes;
+  const addMemberBtn = document.getElementById('add-tree-member-btn');
+  const memberModal = document.getElementById('add-member-modal');
+  const closeMemberModal = document.getElementById('close-member-modal');
+  const addMemberForm = document.getElementById('add-member-form');
+
+  // Load custom nodes from localStorage or default
+  let nodes = JSON.parse(localStorage.getItem('takeshima_custom_nodes'));
+  if (!nodes || nodes.length === 0) {
+    nodes = TAKESHIMA_DATA.familyNodes;
+    localStorage.setItem('takeshima_custom_nodes', JSON.stringify(nodes));
+  }
 
   function selectNode(id) {
     const node = nodes.find(n => n.id === id);
@@ -399,7 +409,6 @@ function initFamilyTree() {
     if (inspectDetails) inspectDetails.textContent = node.details;
     if (inspectFear) inspectFear.textContent = node.fearRP || 'Follows Takeshima Family FearRP Guidelines.';
 
-    // Highlight selected card
     document.querySelectorAll('.genealogy-card').forEach(c => c.style.borderColor = '');
     const activeCard = document.querySelector(`.genealogy-card[data-id="${id}"]`);
     if (activeCard) activeCard.style.borderColor = 'var(--accent-pink)';
@@ -407,6 +416,9 @@ function initFamilyTree() {
 
   function renderGenealogyTree(filter = 'all') {
     if (!treeWrapper) return;
+
+    const gen1Nodes = nodes.filter(n => n.generation === 1 || !n.generation);
+    const gen2Nodes = nodes.filter(n => n.generation === 2);
 
     treeWrapper.innerHTML = `
       <div class="genealogy-tree-container">
@@ -418,69 +430,22 @@ function initFamilyTree() {
               ── Generation I: Spouses & Family Heads ──
             </div>
 
-            <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
-              
-              <!-- Family Pair 1: Hoshina & Aiko (1st Marriage) -->
-              <div class="marriage-group">
-                <div class="genealogy-card female" data-id="hoshina" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
-                  <div class="g-photo">🌸</div>
-                  <div class="g-name">Hoshina Takeshima</div>
-                  <div class="g-relation">Matriarch • HD of Math</div>
-                  <div class="g-age-badge">Age 38 • Female</div>
+            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+              ${gen1Nodes.map(n => `
+                <div class="genealogy-card ${n.gender || (n.id==='aiko'?'male deceased':(n.id==='hoshina'?'female':'male'))}" data-id="${n.id}" style="${filterMatch(n, filter) ? '' : 'opacity:0.3;'}">
+                  <div class="g-photo">${n.photo || '🌸'}</div>
+                  <div class="g-name">${escapeHtml(n.name)}</div>
+                  <div class="g-relation">${escapeHtml(n.role)}</div>
+                  <div class="g-age-badge">${escapeHtml(n.ageLabel || 'Age ' + n.age)}</div>
                 </div>
-
-                <div class="marriage-link-line" title="Married at 18 • Widowed">
-                  <span>❤️</span>
-                  <span style="font-size:0.65rem;">Marriage</span>
-                </div>
-
-                <div class="genealogy-card male deceased" data-id="aiko" style="${filter === 'kagami' || filter === 'all' ? '' : 'opacity:0.3;'}">
-                  <div class="g-photo">🕊️</div>
-                  <div class="g-name">Aiko Kagami</div>
-                  <div class="g-relation">1st Husband (Deceased)</div>
-                  <div class="g-age-badge" style="color:var(--accent-sakura);">Passed at Age 28</div>
-                </div>
-              </div>
-
-              <!-- Family Pair 2: Hoshina & Hiroto (Ex-Husband) -->
-              <div class="marriage-group">
-                <div class="marriage-link-line divorced" title="Divorced / Separated">
-                  <span>💔</span>
-                  <span style="font-size:0.65rem;">Divorced</span>
-                </div>
-
-                <div class="genealogy-card male" data-id="hiroto" style="${filter === 'all' ? '' : 'opacity:0.3;'}">
-                  <div class="g-photo">⚡</div>
-                  <div class="g-name">Hiroto</div>
-                  <div class="g-relation">Ex-Husband (Divorced)</div>
-                  <div class="g-age-badge">Age 40 • Male</div>
-                </div>
-              </div>
-
-              <!-- Collateral Kin & Allied Head -->
-              <div style="display: flex; gap: 16px;">
-                <div class="genealogy-card female" data-id="sister" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
-                  <div class="g-photo">📚</div>
-                  <div class="g-name">Takeshima Sister</div>
-                  <div class="g-relation">Sister & Educator</div>
-                  <div class="g-age-badge">Age 36 • Female</div>
-                </div>
-
-                <div class="genealogy-card male" data-id="kagami_head" style="${filter === 'kagami' || filter === 'all' ? '' : 'opacity:0.3;'}">
-                  <div class="g-photo">⚔️</div>
-                  <div class="g-name">Kagami Family Head</div>
-                  <div class="g-relation">Allied Branch Leader</div>
-                  <div class="g-age-badge">Age 42 • Male</div>
-                </div>
-              </div>
-
+              `).join('')}
             </div>
           </div>
 
           <!-- DESCENT STEM LINE -->
           <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
             <div style="width: 2px; height: 30px; background: var(--accent-pink); box-shadow: 0 0 10px var(--accent-pink);"></div>
-            <div style="width: 80%; height: 2px; background: linear-gradient(90deg, transparent, var(--accent-pink), var(--accent-purple), transparent);"></div>
+            <div style="width: 85%; height: 2px; background: linear-gradient(90deg, transparent, var(--accent-pink), var(--accent-purple), transparent);"></div>
             <div style="width: 2px; height: 30px; background: var(--accent-purple); box-shadow: 0 0 10px var(--accent-purple);"></div>
           </div>
 
@@ -490,46 +455,15 @@ function initFamilyTree() {
               ── Generation II: Offspring & Lineage Descent ──
             </div>
 
-            <div class="children-row" style="flex-wrap: wrap;">
-              
-              <!-- Children of Hoshina & Aiko -->
-              <div class="children-group-box">
-                <div class="children-group-title">Children of Hoshina & Aiko</div>
-                
-                <div class="genealogy-card male" data-id="ren_takeshima" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
-                  <div class="g-photo">🎓</div>
-                  <div class="g-name">Ren Takeshima</div>
-                  <div class="g-relation">Son • Math Teacher</div>
-                  <div class="g-age-badge">Age 21 • Male</div>
+            <div class="children-row" style="flex-wrap: wrap; gap: 20px;">
+              ${gen2Nodes.map(n => `
+                <div class="genealogy-card ${n.gender || 'male'}" data-id="${n.id}" style="${filterMatch(n, filter) ? '' : 'opacity:0.3;'}">
+                  <div class="g-photo">${n.photo || '🎓'}</div>
+                  <div class="g-name">${escapeHtml(n.name)}</div>
+                  <div class="g-relation">${escapeHtml(n.role)}</div>
+                  <div class="g-age-badge" style="${n.age <= 15 ? 'color:var(--accent-gold);' : ''}">${escapeHtml(n.ageLabel || 'Age ' + n.age)}</div>
                 </div>
-
-                <div class="genealogy-card female" data-id="yumi_takeshima" style="${filter === 'teacher' || filter === 'all' ? '' : 'opacity:0.3;'}">
-                  <div class="g-photo">📖</div>
-                  <div class="g-name">Yumi Takeshima</div>
-                  <div class="g-relation">Daughter • Educator</div>
-                  <div class="g-age-badge">Age 20 • Female</div>
-                </div>
-              </div>
-
-              <!-- Children of Hoshina & Hiroto (The Twins) -->
-              <div class="children-group-box">
-                <div class="children-group-title">Twins of Hoshina & Hiroto</div>
-                
-                <div class="genealogy-card male" data-id="kenji_takeshima" style="${filter === 'kids' || filter === 'all' ? '' : 'opacity:0.3;'}">
-                  <div class="g-photo">♊</div>
-                  <div class="g-name">Kenji Takeshima</div>
-                  <div class="g-relation">Twin Son • Student</div>
-                  <div class="g-age-badge" style="color:var(--accent-gold);">Age 15 • Male</div>
-                </div>
-
-                <div class="genealogy-card female" data-id="maya_takeshima" style="${filter === 'kids' || filter === 'all' ? '' : 'opacity:0.3;'}">
-                  <div class="g-photo">♊</div>
-                  <div class="g-name">Maya Takeshima</div>
-                  <div class="g-relation">Twin Daughter • Student</div>
-                  <div class="g-age-badge" style="color:var(--accent-gold);">Age 15 • Female</div>
-                </div>
-              </div>
-
+              `).join('')}
             </div>
           </div>
 
@@ -542,6 +476,71 @@ function initFamilyTree() {
         const id = card.getAttribute('data-id');
         selectNode(id);
       });
+    });
+  }
+
+  function filterMatch(node, filter) {
+    if (filter === 'all') return true;
+    if (filter === 'teacher' && node.faction.toLowerCase().includes('teacher')) return true;
+    if (filter === 'kagami' && (node.faction.toLowerCase().includes('kagami') || node.id === 'aiko')) return true;
+    if (filter === 'kids' && (node.age <= 18 || node.generation === 2)) return true;
+    return false;
+  }
+
+  // Modal Handlers
+  if (addMemberBtn && memberModal) {
+    addMemberBtn.addEventListener('click', () => {
+      memberModal.classList.add('active');
+    });
+  }
+
+  if (closeMemberModal && memberModal) {
+    closeMemberModal.addEventListener('click', () => {
+      memberModal.classList.remove('active');
+    });
+  }
+
+  if (addMemberForm) {
+    addMemberForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('member-name-input').value.trim();
+      const age = parseInt(document.getElementById('member-age-input').value);
+      const gender = document.getElementById('member-gender-select').value;
+      const gen = parseInt(document.getElementById('member-gen-select').value);
+      const role = document.getElementById('member-role-input').value.trim();
+      const faction = document.getElementById('member-faction-select').value;
+      const details = document.getElementById('member-details-input').value.trim();
+
+      if (!name || isNaN(age)) return;
+
+      const photo = gender === 'female' ? '🌸' : (gender === 'deceased' ? '🕊️' : '🎓');
+      const ageLabel = age >= 18 ? `Age ${age} (Adult)` : `Age ${age} (Teen)`;
+      const fearRP = age <= 15 ? `Age ${age} Bracket. MUST FearRP all older members (16+) and Adults.` : `Adult/Faculty Status. Younger members must FearRP when in trouble.`;
+
+      const newNode = {
+        id: 'custom_' + Date.now(),
+        name,
+        role,
+        faction,
+        status: 'Active • Family Member',
+        age,
+        ageLabel,
+        gender,
+        photo,
+        details: details || `Member of the ${faction}.`,
+        fearRP,
+        generation: gen
+      };
+
+      nodes.push(newNode);
+      localStorage.setItem('takeshima_custom_nodes', JSON.stringify(nodes));
+
+      memberModal.classList.remove('active');
+      addMemberForm.reset();
+
+      renderGenealogyTree('all');
+      selectNode(newNode.id);
+      alert(`🌸 ${name} has been added to the Takeshima Family Tree!`);
     });
   }
 

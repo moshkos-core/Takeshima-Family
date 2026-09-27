@@ -151,7 +151,11 @@
             <button class="reaction-btn" data-filter="kagami">⚔️ Kagami Ties</button>
             <button class="reaction-btn" data-filter="kids">👶 Kids & Twins</button>
           </div>
-          <span style="font-size:0.85rem; color: var(--text-subtle);">Click any character node to inspect bio & FearRP rules</span>
+          <div style="display:flex; gap:10px;">
+            <button id="add-tree-member-btn" class="btn-primary" style="padding: 8px 18px; font-size: 0.88rem;">
+              ➕ Add Member to Tree
+            </button>
+          </div>
         </div>
 
         <!-- Custom Interactive Canvas Layout -->
@@ -282,16 +286,66 @@
 
   </div>
 
-  <!-- FamilyEcho Config Modal -->
-  <div class="modal-overlay" id="echo-modal">
-    <div class="modal-box">
-      <button class="modal-close" id="close-echo-modal">&times;</button>
-      <h3 style="color: #fff; font-family: var(--font-header); font-size: 1.4rem; margin-bottom: 10px;">⚙️ Configure FamilyEcho Tree URL</h3>
-      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;">
-        Set your family's custom FamilyEcho tree URL so all family members can view and update it directly.
+  <!-- Add / Edit Tree Member Modal -->
+  <div class="modal-overlay" id="add-member-modal">
+    <div class="modal-box" style="max-width: 540px;">
+      <button class="modal-close" id="close-member-modal">&times;</button>
+      <h3 style="color: #fff; font-family: var(--font-header); font-size: 1.4rem; margin-bottom: 6px;">➕ Add / Edit Family Member</h3>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px;">
+        Add a new member or update character details on your Takeshima Family Tree.
       </p>
-      <input type="text" id="echo-url-input" class="post-input" style="margin-bottom: 16px;" placeholder="https://www.familyecho.com/#edit:..." value="https://www.familyecho.com">
-      <button id="save-echo-url" class="btn-primary" style="width: 100%;">Save FamilyEcho URL</button>
+      <form id="add-member-form">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+          <div>
+            <label class="field-label">Character Name:</label>
+            <input type="text" id="member-name-input" class="post-input" placeholder="e.g. Satoshi Takeshima" required>
+          </div>
+          <div>
+            <label class="field-label">Age:</label>
+            <input type="number" id="member-age-input" class="post-input" placeholder="e.g. 16" min="1" max="100" required>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+          <div>
+            <label class="field-label">Gender:</label>
+            <select id="member-gender-select" class="post-select">
+              <option value="male">Male ♂</option>
+              <option value="female">Female ♀</option>
+              <option value="deceased">Deceased 🕊️</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label">Generation:</label>
+            <select id="member-gen-select" class="post-select">
+              <option value="1">Generation I (Founders/Adults)</option>
+              <option value="2" selected>Generation II (Children/Teens)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <label class="field-label">Role & Title:</label>
+          <input type="text" id="member-role-input" class="post-input" placeholder="e.g. Student / Teacher / Branch Member" required>
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <label class="field-label">Faction / Branch:</label>
+          <select id="member-faction-select" class="post-select">
+            <option value="Teacher Faction">📚 Teacher Faction</option>
+            <option value="Takeshima Younger Branch">🌸 Takeshima Younger Branch</option>
+            <option value="Kagami Lineage">⚔️ Kagami Lineage</option>
+            <option value="Independent">⚡ Independent</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <label class="field-label">Biography & Lore Notes:</label>
+          <textarea id="member-details-input" class="post-textarea" style="min-height:70px;" placeholder="Character backstory or role in the family..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width: 100%;">Save to Family Tree 🌸</button>
+      </form>
     </div>
   </div>
 
