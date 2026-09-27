@@ -1,10 +1,11 @@
 /* ==========================================================================
-   TAKESHIMA FAMILY FEED - INTERACTIVE CORE JAVASCRIPT
+   TAKESHIMA FAMILY FEED - HYPER-SMOOTH JAVASCRIPT & SAKURA EFFECTS
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize Core Features
   initSakuraParticles();
+  initClickSakuraBurst();
   initTimeAndWeather();
   initNavigation();
   initFeed();
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==========================================
-   1. PINK SAKURA PETALS CANVAS ANIMATION
+   1. MULTI-LAYER PINK SAKURA PETALS CANVAS
    ========================================== */
 function initSakuraParticles() {
   const canvas = document.getElementById('particles-canvas');
@@ -32,7 +33,7 @@ function initSakuraParticles() {
   });
 
   const petals = [];
-  const petalCount = 45;
+  const petalCount = 55;
 
   class SakuraPetal {
     constructor() {
@@ -42,22 +43,28 @@ function initSakuraParticles() {
     reset() {
       this.x = Math.random() * width;
       this.y = Math.random() * -height;
-      this.size = Math.random() * 8 + 6;
-      this.speedY = Math.random() * 1.2 + 0.8;
-      this.speedX = Math.random() * 0.8 - 0.4;
+      this.size = Math.random() * 10 + 5;
+      this.speedY = Math.random() * 1.3 + 0.7;
+      this.speedX = Math.random() * 0.9 - 0.45;
       this.rotation = Math.random() * Math.PI * 2;
-      this.rotationSpeed = (Math.random() - 0.5) * 0.02;
-      // Soft pink & glowing hot pink sakura colors
-      const colors = ['rgba(255, 183, 197, 0.8)', 'rgba(255, 105, 180, 0.85)', 'rgba(255, 192, 203, 0.75)', 'rgba(230, 100, 180, 0.9)'];
-      this.color = colors[Math.floor(Math.random() * colors.length)];
+      this.rotationSpeed = (Math.random() - 0.5) * 0.025;
+      this.opacity = Math.random() * 0.5 + 0.4;
+      
+      const colors = [
+        'rgba(255, 183, 197, ',  // Soft Sakura
+        'rgba(255, 105, 180, ',  // Hot Pink
+        'rgba(255, 20, 147, ',   // Deep Blossom
+        'rgba(230, 160, 255, '   // Lavender Glow
+      ];
+      this.colorPrefix = colors[Math.floor(Math.random() * colors.length)];
     }
 
     update() {
       this.y += this.speedY;
-      this.x += Math.sin(this.y * 0.01) + this.speedX;
+      this.x += Math.sin(this.y * 0.008) * 1.2 + this.speedX;
       this.rotation += this.rotationSpeed;
 
-      if (this.y > height + 20) {
+      if (this.y > height + 25) {
         this.reset();
       }
     }
@@ -66,9 +73,13 @@ function initSakuraParticles() {
       ctx.save();
       ctx.translate(this.x, this.y);
       ctx.rotate(this.rotation);
-      ctx.fillStyle = this.color;
+      ctx.fillStyle = this.colorPrefix + this.opacity + ')';
+      
+      // Glow effect for petals
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = 'rgba(255, 105, 180, 0.5)';
+
       ctx.beginPath();
-      // Draw sakura petal shape
       ctx.moveTo(0, 0);
       ctx.bezierCurveTo(-this.size / 2, -this.size / 2, -this.size, this.size / 3, 0, this.size);
       ctx.bezierCurveTo(this.size, this.size / 3, this.size / 2, -this.size / 2, 0, 0);
@@ -94,7 +105,79 @@ function initSakuraParticles() {
 }
 
 /* ==========================================
-   2. KARAKURA TIME & WEATHER SIMULATOR
+   2. INTERACTIVE CLICK SAKURA BURST
+   ========================================== */
+function initClickSakuraBurst() {
+  window.addEventListener('click', (e) => {
+    // Play subtle soft chime sound via Web Audio API
+    playSoftChimeSound();
+
+    const burstContainer = document.createElement('div');
+    burstContainer.style.position = 'fixed';
+    burstContainer.style.left = e.clientX + 'px';
+    burstContainer.style.top = e.clientY + 'px';
+    burstContainer.style.pointerEvents = 'none';
+    burstContainer.style.zIndex = '9999';
+    document.body.appendChild(burstContainer);
+
+    for (let i = 0; i < 8; i++) {
+      const p = document.createElement('div');
+      p.textContent = '🌸';
+      p.style.position = 'absolute';
+      p.style.fontSize = (Math.random() * 12 + 10) + 'px';
+      p.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+      p.style.opacity = '1';
+      p.style.transform = 'translate(-50%, -50%) scale(1)';
+
+      burstContainer.appendChild(p);
+
+      const angle = (i / 8) * Math.PI * 2;
+      const distance = Math.random() * 40 + 20;
+      const tx = Math.cos(angle) * distance;
+      const ty = Math.sin(angle) * distance;
+
+      setTimeout(() => {
+        p.style.transform = `translate(${tx}px, ${ty}px) scale(0)`;
+        p.style.opacity = '0';
+      }, 20);
+    }
+
+    setTimeout(() => {
+      if (document.body.contains(burstContainer)) {
+        document.body.removeChild(burstContainer);
+      }
+    }, 700);
+  });
+}
+
+// Gentle Web Audio API Sound Chime
+function playSoftChimeSound() {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(880, ctx.currentTime); // High soft note A5
+    osc.frequency.exponentialRampToValueAtTime(1320, ctx.currentTime + 0.15); // E6
+
+    gain.gain.setValueAtTime(0.04, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start();
+    osc.stop(ctx.currentTime + 0.2);
+  } catch (err) {
+    // Ignore audio restrictions if blocked by browser policy
+  }
+}
+
+/* ==========================================
+   3. KARAKURA TIME & WEATHER SIMULATOR
    ========================================== */
 function initTimeAndWeather() {
   const timeEl = document.getElementById('karakura-time');
@@ -108,7 +191,7 @@ function initTimeAndWeather() {
     hours = hours % 12 || 12;
     minutes = minutes < 10 ? '0' + minutes : minutes;
 
-    timeEl.textContent = `${hours}:${minutes} ${ampm} • Karakura District (IC)`;
+    timeEl.textContent = `${hours}:${minutes} ${ampm} • Sakura Breeze • Karakura District`;
   }
 
   updateClock();
@@ -116,7 +199,7 @@ function initTimeAndWeather() {
 }
 
 /* ==========================================
-   3. NAVIGATION TABS
+   4. NAVIGATION TABS
    ========================================== */
 function initNavigation() {
   const navBtns = document.querySelectorAll('.nav-btn');
@@ -139,14 +222,13 @@ function initNavigation() {
 }
 
 /* ==========================================
-   4. FAMILY FEED & POST CREATOR
+   5. FAMILY FEED & POST CREATOR
    ========================================== */
 function initFeed() {
   const feedList = document.getElementById('feed-posts-list');
   const postForm = document.getElementById('create-post-form');
   const categoryFilter = document.getElementById('feed-category-filter');
 
-  // Load posts from localStorage or data.js
   let posts = JSON.parse(localStorage.getItem('takeshima_posts'));
   if (!posts || posts.length === 0) {
     posts = TAKESHIMA_DATA.initialFeed;
@@ -160,7 +242,7 @@ function initFeed() {
     const filtered = filter === 'All' ? posts : posts.filter(p => p.category === filter);
 
     if (filtered.length === 0) {
-      feedList.innerHTML = `<div class="glass-card" style="text-align:center; color: var(--text-muted);">No posts found in category "${filter}". Be the first to share an update!</div>`;
+      feedList.innerHTML = `<div class="glass-card" style="text-align:center; color: var(--text-muted);">No posts found in category "${filter}". Be the first to post!</div>`;
       return;
     }
 
@@ -198,9 +280,9 @@ function initFeed() {
               </div>
             `).join('')}
           </div>
-          <div style="display:flex; gap:8px; margin-top:10px;">
+          <div style="display:flex; gap:10px; margin-top:12px;">
             <input type="text" class="post-input comment-input" placeholder="Write an ICLY reply..." data-id="${post.id}">
-            <button class="btn-primary add-comment-btn" data-id="${post.id}" style="padding:6px 14px; font-size:0.85rem;">Send</button>
+            <button class="btn-primary add-comment-btn" data-id="${post.id}" style="padding:8px 16px; font-size:0.88rem;">Reply</button>
           </div>
         </div>
       `;
@@ -208,9 +290,9 @@ function initFeed() {
       feedList.appendChild(postCard);
     });
 
-    // Add Listeners for Likes
+    // Likes
     document.querySelectorAll('.like-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', () => {
         const id = parseInt(btn.getAttribute('data-id'));
         const targetPost = posts.find(p => p.id === id);
         if (targetPost) {
@@ -227,7 +309,7 @@ function initFeed() {
       });
     });
 
-    // Add Listeners for Comments
+    // Comments
     document.querySelectorAll('.add-comment-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const id = parseInt(btn.getAttribute('data-id'));
@@ -290,7 +372,7 @@ function initFeed() {
 }
 
 /* ==========================================
-   5. INTERACTIVE FAMILY TREE & FAMILY ECHO
+   6. INTERACTIVE FAMILY TREE & FAMILY ECHO
    ========================================== */
 function initFamilyTree() {
   const treeWrapper = document.getElementById('interactive-tree-canvas');
@@ -307,7 +389,6 @@ function initFamilyTree() {
     });
   }
 
-  // Configure FamilyEcho Modal
   const configBtn = document.getElementById('config-echo-btn');
   if (configBtn && echoModal) {
     configBtn.addEventListener('click', () => {
@@ -333,7 +414,6 @@ function initFamilyTree() {
     });
   }
 
-  // Render Visual Tree Cards
   if (treeWrapper) {
     const nodes = TAKESHIMA_DATA.familyNodes;
     treeWrapper.innerHTML = `
@@ -346,7 +426,7 @@ function initFamilyTree() {
             <div class="node-role">Family Head • HD of Mathematics</div>
             <div class="node-status">Karakura High Faculty</div>
           </div>
-          <div class="node-card" data-id="aiko" style="border-color: var(--accent-rose);">
+          <div class="node-card" data-id="aiko" style="border-color: var(--accent-pink);">
             <div class="node-avatar">🕊️</div>
             <div class="node-name">Aiko Kagami</div>
             <div class="node-role">First Husband (Deceased)</div>
@@ -360,8 +440,7 @@ function initFamilyTree() {
           </div>
         </div>
 
-        <!-- Connection SVG Line -->
-        <div style="height:2px; width:80%; background: linear-gradient(90deg, transparent, var(--accent-pink), var(--accent-purple), transparent);"></div>
+        <div style="height:3px; width:85%; background: linear-gradient(90deg, transparent, var(--accent-pink), var(--accent-purple), transparent); border-radius:3px;"></div>
 
         <!-- Level 2: Sister & Allied Kagami Head -->
         <div class="tree-level">
@@ -379,8 +458,7 @@ function initFamilyTree() {
           </div>
         </div>
 
-        <!-- Connection SVG Line -->
-        <div style="height:2px; width:70%; background: linear-gradient(90deg, transparent, var(--accent-purple), var(--accent-sakura), transparent);"></div>
+        <div style="height:3px; width:75%; background: linear-gradient(90deg, transparent, var(--accent-purple), var(--accent-sakura), transparent); border-radius:3px;"></div>
 
         <!-- Level 3: Children & Twins -->
         <div class="tree-level">
@@ -400,7 +478,6 @@ function initFamilyTree() {
       </div>
     `;
 
-    // Node click handlers for details modal
     document.querySelectorAll('.node-card').forEach(card => {
       card.addEventListener('click', () => {
         const id = card.getAttribute('data-id');
@@ -414,7 +491,7 @@ function initFamilyTree() {
 }
 
 /* ==========================================
-   6. LORE CHRONICLES RENDERER
+   7. LORE CHRONICLES RENDERER
    ========================================== */
 function initLore() {
   const loreContainer = document.getElementById('lore-chapters-container');
@@ -431,7 +508,7 @@ function initLore() {
       <h3 class="lore-title">${escapeHtml(ch.title)}</h3>
       ${ch.highlight ? `<div class="lore-highlight-banner">✨ ${escapeHtml(ch.highlight)} ✨</div>` : ''}
       <div class="lore-quote">"${escapeHtml(ch.quote)}"</div>
-      <p style="color: var(--text-main); font-size: 0.98rem; white-space: pre-line; line-height: 1.7;">
+      <p style="color: var(--text-main); font-size: 1.02rem; white-space: pre-line; line-height: 1.7;">
         ${escapeHtml(ch.content)}
       </p>
     `;
@@ -440,7 +517,7 @@ function initLore() {
 }
 
 /* ==========================================
-   7. RULES CODEX RENDERER
+   8. RULES CODEX RENDERER
    ========================================== */
 function initRules() {
   const fearContainer = document.getElementById('fear-rules-list');
@@ -449,8 +526,8 @@ function initRules() {
   if (fearContainer) {
     fearContainer.innerHTML = TAKESHIMA_DATA.rules.fearRP.rulesList.map(r => `
       <div class="rule-item">
-        <h4>${escapeHtml(r.title)}</h4>
-        <p>${escapeHtml(r.detail)}</p>
+        <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">${escapeHtml(r.title)}</h4>
+        <p style="color: var(--text-muted); font-size:0.92rem;">${escapeHtml(r.detail)}</p>
       </div>
     `).join('');
   }
@@ -458,15 +535,15 @@ function initRules() {
   if (crimeContainer) {
     crimeContainer.innerHTML = TAKESHIMA_DATA.rules.crimeRP.rulesList.map(r => `
       <div class="rule-item ${r.isSevere ? 'severe-item' : ''}">
-        <h4 style="${r.isSevere ? 'color: var(--accent-blossom); font-weight:700;' : ''}">${escapeHtml(r.title)}</h4>
-        <p>${escapeHtml(r.detail)}</p>
+        <h4 style="${r.isSevere ? 'color: var(--accent-blossom); font-weight:700;' : 'color:#fff;'} font-size:1.05rem; margin-bottom:4px;">${escapeHtml(r.title)}</h4>
+        <p style="color: var(--text-muted); font-size:0.92rem;">${escapeHtml(r.detail)}</p>
       </div>
     `).join('');
   }
 }
 
 /* ==========================================
-   8. ROSTER RENDERER
+   9. ROSTER RENDERER
    ========================================== */
 function initRoster() {
   const rosterGrid = document.getElementById('roster-grid-list');
@@ -486,16 +563,16 @@ function initRoster() {
     <div class="roster-card">
       <div class="roster-avatar">${m.avatar}</div>
       <div class="roster-info">
-        <h4>${escapeHtml(m.name)}</h4>
-        <p style="color: var(--accent-pink); font-weight:600;">${escapeHtml(m.role)}</p>
-        <p style="color: var(--text-subtle);">${escapeHtml(m.status)}</p>
+        <h4 style="color:#fff; font-size:1.1rem;">${escapeHtml(m.name)}</h4>
+        <p style="color: var(--accent-pink); font-weight:600; font-size:0.9rem;">${escapeHtml(m.role)}</p>
+        <p style="color: var(--text-subtle); font-size:0.85rem;">${escapeHtml(m.status)}</p>
       </div>
     </div>
   `).join('');
 }
 
 /* ==========================================
-   9. FEAR RP AGE CALCULATOR TOOL
+   10. FEAR RP AGE CALCULATOR TOOL
    ========================================== */
 function initFearRPCalculator() {
   const btn = document.getElementById('calc-fear-btn');
@@ -534,7 +611,7 @@ function initFearRPCalculator() {
   }
 }
 
-// Utility: Escape HTML
+// Helper
 function escapeHtml(str) {
   if (!str) return '';
   return String(str)
