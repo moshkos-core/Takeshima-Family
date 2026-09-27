@@ -9,7 +9,7 @@ const TAKESHIMA_DATA = {
     head: "Hoshina Takeshima",
     headTitle: "Head of Department (HD) of Mathematics",
     faction: "Karakura Highschool Teacher Faction",
-    familyEchoUrl: "https://www.familyecho.com/?c=v2cyv5q4revh8cya&f=391716927242587150",
+    familyEchoUrl: "https://www.familyecho.com/?c=93wx4770v9jub44a&f=391716927242587150",
   },
 
   lore: {
