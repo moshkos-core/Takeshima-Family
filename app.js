@@ -372,48 +372,78 @@ function initFeed() {
 }
 
 /* ==========================================
-   6. INTERACTIVE FAMILY TREE & FAMILY ECHO
+   6. INTERACTIVE FAMILY TREE & LIVE FAMILY ECHO SYNC
    ========================================== */
 function initFamilyTree() {
   const treeWrapper = document.getElementById('interactive-tree-canvas');
-  const echoLinkBtn = document.getElementById('open-familyecho-btn');
-  const echoModal = document.getElementById('echo-modal');
-  const closeModalBtn = document.getElementById('close-echo-modal');
-  const saveEchoUrlBtn = document.getElementById('save-echo-url');
-  const echoUrlInput = document.getElementById('echo-url-input');
+  const liveIframe = document.getElementById('familyecho-live-iframe');
+  const quickInput = document.getElementById('quick-echo-url-input');
+  const updateBtn = document.getElementById('update-echo-url-btn');
+  const externalBtn = document.getElementById('open-familyecho-external-btn');
+  const refreshBtn = document.getElementById('refresh-iframe-btn');
+  const currentDomainEl = document.getElementById('current-echo-domain');
 
-  if (echoLinkBtn) {
-    echoLinkBtn.addEventListener('click', () => {
-      const savedUrl = localStorage.getItem('takeshima_familyecho_url') || TAKESHIMA_DATA.familyInfo.familyEchoUrl;
-      window.open(savedUrl, '_blank');
-    });
-  }
+  const embedToggleBtn = document.getElementById('view-toggle-embed');
+  const cardsToggleBtn = document.getElementById('view-toggle-cards');
+  const embedContainer = document.getElementById('tree-view-embed-container');
+  const cardsContainer = document.getElementById('tree-view-cards-container');
 
-  const configBtn = document.getElementById('config-echo-btn');
-  if (configBtn && echoModal) {
-    configBtn.addEventListener('click', () => {
-      echoModal.classList.add('active');
-    });
-  }
+  // Retrieve saved FamilyEcho link or default
+  let currentEchoUrl = localStorage.getItem('takeshima_familyecho_url') || TAKESHIMA_DATA.familyInfo.familyEchoUrl;
 
-  if (closeModalBtn && echoModal) {
-    closeModalBtn.addEventListener('click', () => {
-      echoModal.classList.remove('active');
-    });
-  }
+  // Initialize iframe & inputs
+  if (liveIframe) liveIframe.src = currentEchoUrl;
+  if (quickInput) quickInput.value = currentEchoUrl;
+  if (externalBtn) externalBtn.href = currentEchoUrl;
+  if (currentDomainEl) currentDomainEl.textContent = currentEchoUrl;
 
-  if (saveEchoUrlBtn && echoUrlInput) {
-    echoUrlInput.value = localStorage.getItem('takeshima_familyecho_url') || TAKESHIMA_DATA.familyInfo.familyEchoUrl;
-    saveEchoUrlBtn.addEventListener('click', () => {
-      const val = echoUrlInput.value.trim();
-      if (val) {
-        localStorage.setItem('takeshima_familyecho_url', val);
-        alert('FamilyEcho tree link updated successfully!');
-        if (echoModal) echoModal.classList.remove('active');
+  // Sync Button Click
+  if (updateBtn && quickInput) {
+    updateBtn.addEventListener('click', () => {
+      let val = quickInput.value.trim();
+      if (!val) val = TAKESHIMA_DATA.familyInfo.familyEchoUrl;
+      if (!val.startsWith('http://') && !val.startsWith('https://')) {
+        val = 'https://' + val;
       }
+
+      localStorage.setItem('takeshima_familyecho_url', val);
+      currentEchoUrl = val;
+
+      if (liveIframe) liveIframe.src = val;
+      if (externalBtn) externalBtn.href = val;
+      if (currentDomainEl) currentDomainEl.textContent = val;
+
+      alert('🌸 Takeshima Family Tree updated live! Your FamilyEcho stream is now synchronized.');
     });
   }
 
+  // Refresh Stream Button
+  if (refreshBtn && liveIframe) {
+    refreshBtn.addEventListener('click', () => {
+      liveIframe.src = currentEchoUrl;
+    });
+  }
+
+  // View Switcher: Live Embed vs Cards
+  if (embedToggleBtn && cardsToggleBtn && embedContainer && cardsContainer) {
+    embedToggleBtn.addEventListener('click', () => {
+      embedContainer.style.display = 'block';
+      cardsContainer.style.display = 'none';
+      embedToggleBtn.classList.add('active-view-btn');
+      cardsToggleBtn.classList.remove('active-view-btn');
+      cardsToggleBtn.style.background = 'rgba(160, 68, 255, 0.25)';
+    });
+
+    cardsToggleBtn.addEventListener('click', () => {
+      embedContainer.style.display = 'none';
+      cardsContainer.style.display = 'block';
+      cardsToggleBtn.classList.add('active-view-btn');
+      embedToggleBtn.classList.remove('active-view-btn');
+      embedToggleBtn.style.background = 'rgba(160, 68, 255, 0.25)';
+    });
+  }
+
+  // Render Visual Tree Cards (Backup View)
   if (treeWrapper) {
     const nodes = TAKESHIMA_DATA.familyNodes;
     treeWrapper.innerHTML = `
