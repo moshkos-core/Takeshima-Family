@@ -3,16 +3,16 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize Core Features
-  initSakuraParticles();
-  initClickSakuraBurst();
-  initFlowerTrail();
-  initTimeAndWeather();
-  initNavigation();
-  initFamilyTree();
-  initLore();
-  initRules();
-  initRoster();
+  // Each function is isolated — one crash cannot block the rest
+  try { initSakuraParticles(); } catch(e) { console.warn('initSakuraParticles:', e); }
+  try { initClickSakuraBurst(); } catch(e) { console.warn('initClickSakuraBurst:', e); }
+  try { initFlowerTrail(); } catch(e) { console.warn('initFlowerTrail:', e); }
+  try { initTimeAndWeather(); } catch(e) { console.warn('initTimeAndWeather:', e); }
+  try { initNavigation(); } catch(e) { console.warn('initNavigation:', e); }
+  try { initFamilyTree(); } catch(e) { console.warn('initFamilyTree:', e); }
+  try { initLore(); } catch(e) { console.warn('initLore:', e); }
+  try { initRules(); } catch(e) { console.warn('initRules:', e); }
+  try { initRoster(); } catch(e) { console.warn('initRoster:', e); }
 });
 
 /* ==========================================
@@ -230,9 +230,14 @@ function initNavigation() {
 
     tabContents.forEach(c => {
       if (c.id === `tab-${targetTab}`) {
+        // Restart animation: remove class, force reflow, re-add
+        c.classList.remove('active');
+        c.style.display = 'block';
+        void c.offsetHeight; // Force reflow to restart animation
         c.classList.add('active');
       } else {
         c.classList.remove('active');
+        c.style.display = ''; // Let CSS display:none take over
       }
     });
 
@@ -411,6 +416,10 @@ function initFeed() {
    ========================================== */
 function initFamilyTree() {
   const treeWrapper = document.getElementById('interactive-tree-canvas');
+
+  // Not on a page that has the tree — skip entirely
+  if (!treeWrapper) return;
+
   const inspectAvatar = document.getElementById('inspect-avatar');
   const inspectName = document.getElementById('inspect-name');
   const inspectRole = document.getElementById('inspect-role');
@@ -425,11 +434,18 @@ function initFamilyTree() {
   const closeMemberModal = document.getElementById('close-member-modal');
   const addMemberForm = document.getElementById('add-member-form');
 
-  // Load custom nodes from localStorage or default
-  let nodes = JSON.parse(localStorage.getItem('takeshima_custom_nodes'));
+  // Load custom nodes from localStorage or default — safe try-catch
+  let nodes;
+  try {
+    nodes = JSON.parse(localStorage.getItem('takeshima_custom_nodes'));
+  } catch (e) {
+    nodes = null;
+  }
   if (!nodes || nodes.length === 0) {
     nodes = TAKESHIMA_DATA.familyNodes;
-    localStorage.setItem('takeshima_custom_nodes', JSON.stringify(nodes));
+    try {
+      localStorage.setItem('takeshima_custom_nodes', JSON.stringify(nodes));
+    } catch (e) { /* localStorage unavailable */ }
   }
 
   function selectNode(id) {
@@ -793,3 +809,153 @@ function downloadAttireSkin(e) {
       a.click();
     });
 }
+
+/* ==========================================
+   11. RENDER ATTIRES (attire.html)
+   ========================================== */
+function renderAttires() {
+  const container = document.getElementById('attires-container');
+  if (!container) return; // Only run on attire.html
+
+  if (!TAKESHIMA_DATA.attires || TAKESHIMA_DATA.attires.length === 0) {
+    container.innerHTML = '<p style="text-align:center; padding: 20px;">No attires available at the moment.</p>';
+    return;
+  }
+
+  // Create grid container
+  let html = <div class="glass-card">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title"><span class="icon">👘</span> Takeshima Family Attires</h2>
+        <p style="color: var(--text-muted); margin-top: 4px;">Select an attire below to view its details, 360 views, and download links.</p>
+      </div>
+    </div>
+    <div class="attire-grid">;
+
+  TAKESHIMA_DATA.attires.forEach((attire, index) => {
+    const thumbnail = (attire.views && attire.views.length > 0) ? attire.views[0].image : 'assets/logo.png';
+    html += 
+      <div class="attire-grid-card" onclick="openAttireModal( + index + )">
+        <img src=" + thumbnail + " class="attire-grid-image" alt=" + attire.name + ">
+        <h3 class="attire-grid-title"> + attire.name + </h3>
+        <p class="attire-grid-desc"> + attire.description + </p>
+      </div>
+    ;
+  });
+
+  html += </div></div>; // Close grid & glass-card
+
+  // Modal container setup
+  let modalOverlay = document.getElementById('attire-modal');
+  if (!modalOverlay) {
+    modalOverlay = document.createElement('div');
+    modalOverlay.id = 'attire-modal';
+    modalOverlay.className = 'attire-modal-overlay';
+    modalOverlay.innerHTML = 
+      <div class="attire-modal-content">
+        <button class="attire-modal-close" onclick="closeAttireModal()">&times;</button>
+        <div id="attire-modal-body"></div>
+      </div>
+    ;
+    document.body.appendChild(modalOverlay);
+
+    // Close on clicking outside
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeAttireModal();
+    });
+  }
+
+  container.innerHTML = html;
+}
+
+function openAttireModal(index) {
+  const attire = TAKESHIMA_DATA.attires[index];
+  if (!attire) return;
+
+  const modalBody = document.getElementById('attire-modal-body');
+  
+  let html = 
+    <div class="section-header" style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 24px;">
+      <div>
+        <h2 class="section-title"> + attire.name + </h2>
+        <p style="color: var(--text-muted); margin-top: 4px;"> + attire.description + </p>
+      </div>
+       + (attire.isOfficial ? <span class="attire-official-badge">✨ Official</span> : '') + 
+    </div>
+  ;
+
+  if (attire.downloadUrl) {
+    html += 
+      <div class="attire-download-banner" style="margin-bottom: 24px;">
+        <div class="download-banner-left">
+          <div class="download-icon-box">📥</div>
+          <div>
+            <h3 class="download-banner-title">Download Texture</h3>
+            <p class="download-banner-desc">Click below to get the skin texture file.</p>
+          </div>
+        </div>
+        <a href=" + attire.downloadUrl + " target="_blank" rel="noopener noreferrer" download class="btn-primary" style="text-decoration: none; padding: 12px 24px;">
+          <span>📥 Download</span>
+        </a>
+      </div>
+    ;
+  }
+
+  if (attire.views && attire.views.length > 0) {
+    html += <div class="attire-showcase-grid">;
+    attire.views.forEach(view => {
+      html += 
+        <div class="attire-card">
+          <div class="attire-image-frame">
+            <img src=" + view.image + " alt=" + view.name + " class="attire-img">
+            <div class="attire-overlay-badge"> + view.name + </div>
+          </div>
+          <div class="attire-card-body">
+            <h3 class="attire-card-title"> + view.name + </h3>
+            <p class="attire-card-desc"> + view.description + </p>
+          </div>
+        </div>
+      ;
+    });
+    html += </div>;
+  }
+
+  if (attire.specs && attire.specs.length > 0) {
+    html += <div class="attire-info-grid" style="margin-top: 36px;">;
+    attire.specs.forEach(spec => {
+      html += 
+        <div class="attire-spec-box">
+          <div class="spec-header">
+            <span class="spec-icon"> + (spec.icon || '') + </span>
+            <h4> + spec.title + </h4>
+          </div>
+          <ul class="attire-spec-list">
+      ;
+      spec.items.forEach(item => {
+        html += <li> + item + </li>;
+      });
+      html += 
+          </ul>
+        </div>
+      ;
+    });
+    html += </div>;
+  }
+
+  modalBody.innerHTML = html;
+  document.getElementById('attire-modal').classList.add('active');
+  document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+function closeAttireModal() {
+  const modal = document.getElementById('attire-modal');
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scrolling
+  }
+}
+// Call renderAttires on load
+document.addEventListener('DOMContentLoaded', () => {
+  renderAttires();
+});
+

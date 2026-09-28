@@ -8,7 +8,7 @@ const TAKESHIMA_DATA = {
     motto: "Resilience through sorrow, unity in passion",
     head: "Hoshina Takeshima",
     headTitle: "Head of Department (HD) of Mathematics",
-    faction: "Karakura Highschool Teacher Faction",
+    faction: "Takeshima Family",
     familyEchoUrl: "https://www.familyecho.com/?c=93wx4770v9jub44a&f=391716927242587150",
   },
 
@@ -51,11 +51,11 @@ Even now, she struggles to mend the cracks left behind. She kept going for the c
         id: "kagami-head",
         number: "Chapter IV",
         title: "The Kagami Head & Unsettled Ties",
-        period: "Teacher Faction Alliance",
+        period: "Takeshima Family Alliance",
         quote: "It's not anger or bitterness, more like subconscious reaction...",
         content: `Strangely, Hoshina never formed a good relationship with the head of the Kagami Family. She doesn't fully understand why, but whenever they pass each other, she catches herself glaring. It's not anger or bitterness—more like a subconscious reaction.
 
-Perhaps it is tied to the ways he spoke to her when they joined the teacher faction. His tone, his demeanor... something about it unsettled her from the very start. Still, she learned to live with it, and despite the past tension, they have grown to be something close to friends.`
+Perhaps it is tied to the ways he spoke to her when they joined the Takeshima Family. His tone, his demeanor... something about it unsettled her from the very start. Still, she learned to live with it, and despite the past tension, they have grown to be something close to friends.`
       },
       {
         id: "hiroto",
@@ -77,7 +77,7 @@ Though the separation was civil for the sake of the kids and their twins, the wo
         quote: "She hopes her children will continue to grow and build this family. And she hopes she will find the same love she once had when she met their dad.",
         content: `Years later, after persevering through unimaginable heartache, Hoshina rose to become the **Head of Department (HD) of Mathematics for Karakura Highschool**. 
 
-She found herself with children that she adores like nothing else. In a heartwarming surprise, her children now work with her in the **Teacher Faction alongside her sister**. She is overjoyed that her kids found the same passion she once had.
+She found herself with children that she adores like nothing else. In a heartwarming surprise, her children now work with her in the **Takeshima Family alongside her sister**. She is overjoyed that her kids found the same passion she once had.
 
 Now she's trying to move on. Doing her best to be strong for her children and for herself... but part of her still wonders if she will ever find someone who truly sees her and stays. She hopes her children will continue to grow and build this family—and she hopes she will find the same love she once had when she met their dad.`
       }
@@ -151,7 +151,7 @@ Now she's trying to move on. Doing her best to be strong for her children and fo
       id: "hoshina",
       name: "Hoshina Takeshima",
       role: "Family Head & HD of Mathematics",
-      faction: "Karakura High Teacher Faction",
+      faction: "Takeshima Family",
       status: "Active • Head of House",
       age: 38,
       ageLabel: "Age 38 (Adult)",
@@ -196,7 +196,7 @@ Now she's trying to move on. Doing her best to be strong for her children and fo
       id: "sister",
       name: "Takeshima Sister",
       role: "Mathematics Faculty Colleague",
-      faction: "Teacher Faction",
+      faction: "Takeshima Family",
       status: "Active • Faculty Teacher",
       age: 36,
       ageLabel: "Age 36 (Adult)",
@@ -211,12 +211,12 @@ Now she's trying to move on. Doing her best to be strong for her children and fo
       id: "kagami_head",
       name: "Head of Kagami Family",
       role: "Allied Branch Head & Faculty",
-      faction: "Kagami Lineage / Teacher Faction",
+      faction: "Kagami Lineage / Takeshima Family",
       status: "Active • Allied Family Head",
       age: 42,
       ageLabel: "Age 42 (Adult)",
       photo: "⚔️",
-      details: "Head of the Kagami Family. Initial unsettling demeanor turned into a close, trusted friendship with Hoshina in the Teacher Faction.",
+      details: "Head of the Kagami Family. Initial unsettling demeanor turned into a close, trusted friendship with Hoshina in the Takeshima Family.",
       fearRP: "Adult Branch Head Status.",
       generation: 1,
       spouses: [],
@@ -226,7 +226,7 @@ Now she's trying to move on. Doing her best to be strong for her children and fo
       id: "ren_takeshima",
       name: "Ren Takeshima",
       role: "Mathematics Teacher",
-      faction: "Teacher Faction",
+      faction: "Takeshima Family",
       status: "Active • Karakura High Staff",
       age: 21,
       ageLabel: "Age 21 (Young Adult)",
@@ -240,7 +240,7 @@ Now she's trying to move on. Doing her best to be strong for her children and fo
       id: "yumi_takeshima",
       name: "Yumi Takeshima",
       role: "Science Educator",
-      faction: "Teacher Faction",
+      faction: "Takeshima Family",
       status: "Active • Karakura High Staff",
       age: 20,
       ageLabel: "Age 20 (Young Adult)",
@@ -294,7 +294,7 @@ Now she's trying to move on. Doing her best to be strong for her children and fo
             roleTag: "@Founder",
             roleBadge: "Founder & Matriarch",
             title: "Department Head of Mathematics",
-            faction: "Karakura High Teacher Faction",
+            faction: "Takeshima Family",
             status: "Active Founder",
             avatar: "🌸",
             isFounder: true,
@@ -373,9 +373,127 @@ Now she's trying to move on. Doing her best to be strong for her children and fo
             bio: "Dedicated staff member maintaining family order, supporting leadership, and assisting members."
           }
         ]
-      }
-    ]
-  }
+      }    ]
+  },
+  attires: [
+    {
+      id: "official_hoodie",
+      name: "Takeshima Family Attire",
+      description: "Official uniform, hoodie insignia, and apparel codex for Karakura Highschool Faculty & Family members.",
+      isOfficial: true,
+      downloadUrl: "assets/takeshima_attire_skin.png",
+      views: [
+        {
+          id: "front_view",
+          name: "Front View",
+          image: "assets/attire_front.png",
+          description: "Showcasing the gold initial <strong>'T'</strong> crest on the back hood, midnight purple tone, and charcoal base."
+        },
+        {
+          id: "back_view",
+          name: "Back View",
+          image: "assets/attire_back.png",
+          description: "Highlighting the back <strong>'T'</strong> crest and the intricate gold woven diamond pattern along the right sleeve."
+        }
+      ],
+      specs: [
+        {
+          title: "Color Palette & Materials",
+          icon: "🎨",
+          items: [
+            "<strong>Midnight Purple:</strong> Symbolic of nobility, resilience, and wisdom.",
+            "<strong>Charcoal Obsidian:</strong> Represents strength and unity across generations.",
+            "<strong>Imperial Ochre Gold:</strong> Highlights the crest 'T' and sleeve lattice pattern."
+          ]
+        },
+        {
+          title: "Dress Code Rules",
+          icon: "📜",
+          items: [
+            "<strong>Official Events:</strong> Required attire during family meetings and Karakura events.",
+            "<strong>Lineage Honor:</strong> Must be worn with respect and pride by official family members.",
+            "<strong>Zero Misrepresentation:</strong> Non-family members are forbidden from wearing official attire."
+          ]
+        }
+      ]
+    },
+    {
+      id: "summer_edition",
+      name: "Takeshima Summer Attire",
+      description: "A lightweight variation of the official uniform for the hot summer months.",
+      isOfficial: true,
+      downloadUrl: "",
+      views: [
+        {
+          id: "front_view",
+          name: "Front View",
+          image: "assets/logo.png",
+          description: "Lightweight front view placeholder."
+        }
+      ],
+      specs: [
+        {
+          title: "Summer Rules",
+          icon: "☀️",
+          items: ["Breathable fabric required.", "Must maintain the family crest."]
+        }
+      ]
+    },
+    {
+      id: "formal_suit",
+      name: "Takeshima Formal Wear",
+      description: "High-class formal suits and dresses for official ceremonies and banquets.",
+      isOfficial: true,
+      downloadUrl: "",
+      views: [
+        {
+          id: "front_view",
+          name: "Front View",
+          image: "assets/logo.png",
+          description: "Formal wear front view placeholder."
+        }
+      ],
+      specs: [
+        {
+          title: "Formal Rules",
+          icon: "🎩",
+          items: ["Ties are mandatory.", "Only to be worn at official banquets."]
+        }
+      ]
+    },
+    {
+      id: "arthur_shirt",
+      name: "Arthur Shirt",
+      description: "Official Arthur Shirt attire — a navy blue and cream design for Takeshima Family members.",
+      isOfficial: true,
+      downloadUrl: "assets/arthur_shirt.png",
+      views: [
+        {
+          id: "front_view",
+          name: "Front View",
+          image: "assets/arthur_shirt.png",
+          description: "The Arthur Shirt featuring a navy blue and cream design with the signature Takeshima family style."
+        }
+      ],
+      specs: [
+        {
+          title: "Design Details",
+          icon: "🎨",
+          items: [
+            "<strong>Style:</strong> Minecraft skin format.",
+            "<strong>Palette:</strong> Navy blue, cream, and brown — classic and distinguished.",
+            "<strong>Crest:</strong> Takeshima family identity maintained."
+          ]
+        },
+        {
+          title: "Wear Rules",
+          icon: "📜",
+          items: [
+            "<strong>Approved Members Only:</strong> Must be an official Takeshima Family member.",
+            "<strong>Zero Misrepresentation:</strong> Non-members are forbidden from using this skin."
+          ]
+        }
+      ]
+    }
+  ]
 };
-
-

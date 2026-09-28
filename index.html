@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Takeshima Family Hub | Karakura Highschool Teacher Faction</title>
+  <title>Takeshima Family Hub </title>
   <meta name="description"
-    content="Official Takeshima Family Portal - Karakura Highschool Teacher Faction, Lore Chronicles of Hoshina, Family Tree & Rules Codex.">
+    content="Official Takeshima Family Portal, Lore Chronicles of Takeshima, Family Tree & Rules Codex.">
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -42,13 +42,35 @@
 
     <!-- Navigation Bar (Instant Smooth Single-Page Navigation) -->
     <nav class="main-nav">
-      <button class="nav-btn active" data-tab="welcome">🌸 Home</button>
-      <button class="nav-btn" data-tab="tree">🌳 Family Tree</button>
-      <button class="nav-btn" data-tab="lore">📜 Family Lore</button>
-      <button class="nav-btn" data-tab="attire">👘 Family Attire</button>
-      <button class="nav-btn" data-tab="rules">⚖️ Family Rules</button>
-      <button class="nav-btn" data-tab="roster">👑 Family Higher-ups</button>
+      <button class="nav-btn active" data-tab="welcome" onclick="switchTab('welcome')">🌸 Home</button>
+      <button class="nav-btn" data-tab="tree" onclick="switchTab('tree')">🌳 Family Tree</button>
+      <button class="nav-btn" data-tab="lore" onclick="switchTab('lore')">📜 Family Lore</button>
+      <button class="nav-btn" data-tab="attire" onclick="switchTab('attire')">👘 Family Attire</button>
+      <button class="nav-btn" data-tab="rules" onclick="switchTab('rules')">⚖️ Family Rules</button>
+      <button class="nav-btn" data-tab="roster" onclick="switchTab('roster')">👑 Family Higher-ups</button>
     </nav>
+
+    <!-- Inline nav script — runs immediately, no dependency on app.js -->
+    <script>
+      function switchTab(targetTab) {
+        document.querySelectorAll('.nav-btn').forEach(function (b) {
+          b.classList.toggle('active', b.getAttribute('data-tab') === targetTab);
+        });
+        document.querySelectorAll('.tab-content').forEach(function (c) {
+          var isTarget = c.id === 'tab-' + targetTab;
+          if (isTarget) {
+            c.classList.remove('active');
+            c.style.display = 'block';
+            void c.offsetHeight;
+            c.classList.add('active');
+          } else {
+            c.classList.remove('active');
+            c.style.display = '';
+          }
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    </script>
 
     <!-- ================= TAB 1: HOME / WELCOME ================= -->
     <section id="tab-welcome" class="tab-content active">
@@ -68,35 +90,35 @@
 
           <!-- Quick Navigation Feature Cards (3 Top / 2 Bottom Centered Layout) -->
           <div class="welcome-quick-grid">
-            <div class="welcome-quick-card" data-tab-switch="tree">
+            <div class="welcome-quick-card" data-tab-switch="tree" onclick="switchTab('tree')">
               <div class="quick-icon">🌳</div>
               <h3>Family Tree</h3>
               <p>Explore member nodes, marriages, and generations.</p>
               <span class="quick-link">View Tree &rarr;</span>
             </div>
 
-            <div class="welcome-quick-card" data-tab-switch="lore">
+            <div class="welcome-quick-card" data-tab-switch="lore" onclick="switchTab('lore')">
               <div class="quick-icon">📜</div>
               <h3>Family Lore</h3>
               <p>Read the history of Hoshina Takeshima and our lineage.</p>
               <span class="quick-link">Read Lore &rarr;</span>
             </div>
 
-            <div class="welcome-quick-card" data-tab-switch="attire">
+            <div class="welcome-quick-card" data-tab-switch="attire" onclick="switchTab('attire')">
               <div class="quick-icon">👘</div>
               <h3>Family Attire</h3>
               <p>View official hoodie design, patterns, and dress code.</p>
               <span class="quick-link">View Attire &rarr;</span>
             </div>
 
-            <div class="welcome-quick-card" data-tab-switch="rules">
+            <div class="welcome-quick-card" data-tab-switch="rules" onclick="switchTab('rules')">
               <div class="quick-icon">⚖️</div>
               <h3>Family Rules</h3>
               <p>Review FearRP obligations and strict zero-crime policy.</p>
               <span class="quick-link">Check Rules &rarr;</span>
             </div>
 
-            <div class="welcome-quick-card" data-tab-switch="roster">
+            <div class="welcome-quick-card" data-tab-switch="roster" onclick="switchTab('roster')">
               <div class="quick-icon">👑</div>
               <h3>Family Higher-ups</h3>
               <p>Meet our Founder, Family Head, Co-Head, and Staff.</p>
@@ -127,7 +149,8 @@
 
         <!-- Founder's Leadership Message Card -->
         <div class="glass-card welcome-leadership-card" style="padding: 36px; border-color: rgba(255, 105, 180, 0.4);">
-          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 20px;">
+          <div
+            style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 20px;">
             <div
               style="font-size: 4rem; background: rgba(255, 105, 180, 0.15); width: 90px; height: 90px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid var(--accent-pink); margin: 0 auto;">
               🌸
@@ -136,9 +159,12 @@
               <span
                 style="color: var(--accent-pink); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; display: block; text-align: center;">Message
                 from the Founder</span>
-              <h2 style="color: #fff; font-family: var(--font-header); font-size: 1.8rem; margin: 4px 0 12px 0; text-align: center;">Hoshina
+              <h2
+                style="color: #fff; font-family: var(--font-header); font-size: 1.8rem; margin: 4px 0 12px 0; text-align: center;">
+                Hoshina
                 C. Takeshima</h2>
-              <p style="color: var(--text-muted); font-size: 1.02rem; line-height: 1.8; font-style: italic; text-align: center;">
+              <p
+                style="color: var(--text-muted); font-size: 1.02rem; line-height: 1.8; font-style: italic; text-align: center;">
                 "Welcome to our home. Our journey has been built on perseverance, sorrow turned into strength, and an
                 unwavering devotion to our children and education. Respect our rules, cherish our family ties, and keep
                 our teaching legacy proud."
@@ -185,23 +211,156 @@
               the legacy of Karakura Highschool</p>
           </div>
           <div class="lore-view-toggle" style="display: flex; gap: 10px;">
-            <button id="lore-btn-timeline" class="btn-primary" style="font-size: 0.88rem; padding: 8px 16px;">📜
-              Timeline View</button>
+            <button id="lore-btn-timeline" class="btn-primary" style="font-size: 0.88rem; padding: 8px 16px;" onclick="
+                document.getElementById('lore-chapters-container').style.display = 'block';
+                document.getElementById('lore-paragraphs-container').style.display = 'none';
+                this.style.background = ''; this.style.color = ''; this.style.border = '';
+                var p = document.getElementById('lore-btn-paragraphs');
+                p.style.background = 'rgba(255,105,180,0.15)'; p.style.color = 'var(--accent-pink)'; p.style.border = '1px solid var(--accent-pink)';
+              ">📜 Timeline View</button>
             <button id="lore-btn-paragraphs" class="btn-primary"
-              style="font-size: 0.88rem; padding: 8px 16px; background: rgba(255, 105, 180, 0.15); border: 1px solid var(--accent-pink); color: var(--accent-pink);">📖
-              Full Story View</button>
+              style="font-size: 0.88rem; padding: 8px 16px; background: rgba(255, 105, 180, 0.15); border: 1px solid var(--accent-pink); color: var(--accent-pink);"
+              onclick="
+                document.getElementById('lore-chapters-container').style.display = 'none';
+                document.getElementById('lore-paragraphs-container').style.display = 'block';
+                this.style.background = ''; this.style.color = ''; this.style.border = '';
+                var t = document.getElementById('lore-btn-timeline');
+                t.style.background = 'rgba(255,105,180,0.15)'; t.style.color = 'var(--accent-pink)'; t.style.border = '1px solid var(--accent-pink)';
+              ">📖 Full Story View</button>
           </div>
         </div>
 
-        <!-- Lore Chapter Timeline -->
+        <!-- Lore Chapter Timeline — hardcoded static content -->
         <div class="lore-timeline" id="lore-chapters-container">
-          <!-- Chapters render dynamically via app.js -->
+
+          <div class="lore-card">
+            <div class="lore-chapter-num">Chapter I • Age 4 - Early Youth</div>
+            <h3 class="lore-title">Steeped in Sorrow</h3>
+            <div class="lore-quote">"Whenever someone brings up her family or her past, she goes silent, quickly
+              changing the subject as if the words themselves are too heavy to bear."</div>
+            <p style="color: var(--text-main); font-size: 1.02rem; white-space: pre-line; line-height: 1.7;">The
+              Takeshima's past is steeped in sorrow. When Hoshina was just four years old, she was abandoned by her
+              parents and left in the care of an abusive relative. The scars of those early years ran deep into her
+              soul.
+
+              Whenever someone brings up her family or her past, she instinctively goes silent, quickly changing the
+              subject as if the words themselves are too heavy to bear. She learned from a young age that survival meant
+              building walls around her heart.</p>
+          </div>
+
+          <div class="lore-card">
+            <div class="lore-chapter-num">Chapter II • Age 18 - Marital Bliss</div>
+            <h3 class="lore-title">Aiko Kagami &amp; True Love</h3>
+            <div class="lore-quote">"They eventually got Married and built a life together, filled with warmth, love and
+              the joy of starting a family of their own."</div>
+            <p style="color: var(--text-main); font-size: 1.02rem; white-space: pre-line; line-height: 1.7;">Years
+              passed and at the age of eighteen, Hoshina met the love of her life: Aiko Kagami, a kind and devoted
+              member of the Kagami Family. For the first time, Hoshina knew what it felt like to be genuinely cherished.
+
+              They eventually got married and built a life together, filled with warmth, unconditional love, and the
+              boundless joy of starting a family of their own. For a fleeting moment, the shadows of her past seemed to
+              fade.</p>
+          </div>
+
+          <div class="lore-card">
+            <div class="lore-chapter-num">Chapter III • The Tragedy</div>
+            <h3 class="lore-title">Happiness Short-Lived</h3>
+            <div class="lore-highlight-banner">✨ But that Happiness was short lived ✨</div>
+            <div class="lore-quote">"Aiko was involved in a devastating car accident and died at the scene of the
+              impact..."</div>
+            <p style="color: var(--text-main); font-size: 1.02rem; white-space: pre-line; line-height: 1.7;">Aiko was
+              involved in a devastating car accident and died at the scene of the impact. The loss shattered Hoshina's
+              world to pieces.
+
+              Even now, she struggles to mend the cracks left behind. She kept going for the children that Aiko left
+              behind and for herself, but grief still lingers in every quiet moment, like a faint melody echoing in an
+              empty room.</p>
+          </div>
+
+          <div class="lore-card">
+            <div class="lore-chapter-num">Chapter IV • Takeshima Family Alliance</div>
+            <h3 class="lore-title">The Kagami Head &amp; Unsettled Ties</h3>
+            <div class="lore-quote">"It's not anger or bitterness, more like a subconscious reaction..."</div>
+            <p style="color: var(--text-main); font-size: 1.02rem; white-space: pre-line; line-height: 1.7;">Strangely,
+              Hoshina never formed a good relationship with the head of the Kagami Family. She doesn't fully understand
+              why, but whenever they pass each other, she catches herself glaring. It's not anger or bitterness—more
+              like a subconscious reaction.
+
+              Perhaps it is tied to the ways he spoke to her when they joined the Takeshima Family. His tone, his
+              demeanor... something about it unsettled her from the very start. Still, she learned to live with it, and
+              despite the past tension, they have grown to be something close to friends.</p>
+          </div>
+
+          <div class="lore-card">
+            <div class="lore-chapter-num">Chapter V • Second Relationship &amp; Divorce</div>
+            <h3 class="lore-title">Hiroto &amp; The Final Betrayal</h3>
+            <div class="lore-quote">"You were never really there."</div>
+            <p style="color: var(--text-main); font-size: 1.02rem; white-space: pre-line; line-height: 1.7;">Months
+              later, she met Hiroto—her most recent partner. For a while, he was a source of joy she never expected to
+              find again. They shared laughter, raised their twins together, and she allowed herself to hope once more.
+
+              Everything shifted the day she overheard him speaking to someone else about their relationship—about
+              her—in a way that cut deep into her soul. Two weeks later, Hiroto asked for a divorce, stating coldly,
+              "You were never really there."
+
+              Though the separation was civil for the sake of the kids and their twins, the words haunted her. And not
+              long after the papers were signed, she learned the final blow: he had been unfaithful. The betrayal left
+              her completely hollow.</p>
+          </div>
+
+          <div class="lore-card">
+            <div class="lore-chapter-num">Chapter VI • Present Day - Karakura Highschool</div>
+            <h3 class="lore-title">Head of Mathematics &amp; Legacy</h3>
+            <div class="lore-quote">"She hopes her children will continue to grow and build this family. And she hopes
+              she will find the same love she once had when she met their dad."</div>
+            <p style="color: var(--text-main); font-size: 1.02rem; white-space: pre-line; line-height: 1.7;">Years
+              later, after persevering through unimaginable heartache, Hoshina rose to become the Head of Department
+              (HD) of Mathematics for Karakura Highschool.
+
+              She found herself with children that she adores like nothing else. In a heartwarming surprise, her
+              children now work with her in the Takeshima Family alongside her sister. She is overjoyed that her kids
+              found the same passion she once had.
+
+              Now she's trying to move on. Doing her best to be strong for her children and for herself... but part of
+              her still wonders if she will ever find someone who truly sees her and stays. She hopes her children will
+              continue to grow and build this family—and she hopes she will find the same love she once had when she met
+              their dad.</p>
+          </div>
+
         </div>
 
         <!-- Lore Continuous Paragraph View -->
         <div class="lore-paragraphs-view" id="lore-paragraphs-container"
           style="display: none; background: rgba(15, 8, 25, 0.85); border: 1.5px solid var(--glass-border); border-radius: 24px; padding: 32px;">
-          <!-- Paragraphs render dynamically via app.js -->
+          <div class="single-page-story-manuscript">
+            <div class="story-manuscript-header">
+              <span class="story-header-badge">🌸 TAKESHIMA FAMILY LORE</span>
+              <h2 class="story-main-title">The Story of Hoshina Takeshima</h2>
+              <p class="story-tagline">"Resilience through sorrow • Unity in passion • Karakura Highschool Legacy"</p>
+            </div>
+            <div class="story-manuscript-body-text">
+              <p class="continuous-story-paragraph">The Takeshima's past is steeped in sorrow. When Hoshina was just
+                four years old, she was abandoned by her parents and left in the care of an abusive relative. Whenever
+                someone brings up her family or her past, she instinctively goes silent. She learned from a young age
+                that survival meant building walls around her heart.</p>
+              <p class="continuous-story-paragraph">Years passed and at the age of eighteen, Hoshina met the love of her
+                life: Aiko Kagami. They eventually got married and built a life together, filled with warmth,
+                unconditional love, and the boundless joy of starting a family of their own.</p>
+              <p class="continuous-story-paragraph">Aiko was involved in a devastating car accident and died at the
+                scene. The loss shattered Hoshina's world to pieces. She kept going for the children that Aiko left
+                behind.</p>
+              <p class="continuous-story-paragraph">Strangely, Hoshina never formed a good relationship with the head of
+                the Kagami Family. It's not anger or bitterness—more like a subconscious reaction. Despite the past
+                tension, they have grown to be something close to friends.</p>
+              <p class="continuous-story-paragraph">Months later, she met Hiroto. Two weeks after she overheard him
+                speaking poorly of her, Hiroto asked for a divorce, stating coldly, "You were never really there." And
+                not long after the papers were signed, she learned he had been unfaithful.</p>
+              <p class="continuous-story-paragraph">Years later, Hoshina rose to become the Head of Department of
+                Mathematics for Karakura Highschool. Her children now work with her in the Takeshima Family. She hopes
+                her children will continue to grow and build this family—and she hopes she will find the same love she
+                once had when she met their dad.</p>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -210,84 +369,242 @@
     <!-- ================= TAB 4: FAMILY ATTIRE ================= -->
     <section id="tab-attire" class="tab-content">
       <div class="glass-card">
+
+        <!-- Section Header -->
         <div class="section-header">
           <div>
             <h2 class="section-title"><span class="icon">👘</span> Takeshima Family Attire</h2>
-            <p style="color: var(--text-muted); margin-top: 4px;">Official uniform, hoodie insignia, and apparel codex for Karakura Highschool Faculty & Family members.</p>
+            <p style="color: var(--text-muted); margin-top: 4px;">Official uniform, hoodie's, and apparel codex
+              for Family members.</p>
           </div>
           <span class="attire-official-badge">✨ Official Apparel</span>
         </div>
 
-        <!-- Download Banner Card -->
-        <div class="attire-download-banner">
-          <div class="download-banner-left">
-            <div class="download-icon-box">📥</div>
-            <div>
-              <h3 class="download-banner-title">Download Official Attire Texture</h3>
-              <p class="download-banner-desc">Click below to open/download the skin texture PNG file in a new tab.</p>
-            </div>
-          </div>
-          <a href="assets/takeshima_attire_skin.png" target="_blank" rel="noopener noreferrer" download="Takeshima_Family_Attire_Skin.png" class="btn-primary" style="text-decoration: none; font-size: 0.95rem; padding: 12px 24px; white-space: nowrap;">
-            <span>📥 Download Attire File</span>
-          </a>
+        <!-- Attire Selector Tabs -->
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; margin-top: 8px;">
+          <button class="attire-sel-btn active-attire-btn" onclick="selectAttire('hoodie', this)"
+            style="flex:1; min-width:140px; padding:12px 18px; border-radius:14px; border:1.5px solid var(--accent-pink); background:linear-gradient(135deg,rgba(255,105,180,0.28),rgba(160,68,255,0.28)); color:#fff; font-family:var(--font-body); font-weight:600; font-size:0.93rem; display:flex; align-items:center; justify-content:center; gap:8px;">
+            👘 Takeshima Hoodie
+          </button>
+          <button class="attire-sel-btn" onclick="selectAttire('baldthur', this)"
+            style="flex:1; min-width:140px; padding:12px 18px; border-radius:14px; border:1.5px solid var(--glass-border); background:transparent; color:var(--text-muted); font-family:var(--font-body); font-weight:600; font-size:0.93rem; display:flex; align-items:center; justify-content:center; gap:8px;">
+            👕 Baldthur Shirt
+          </button>
+          <button class="attire-sel-btn" onclick="selectAttire('arthur', this)"
+            style="flex:1; min-width:140px; padding:12px 18px; border-radius:14px; border:1.5px solid var(--glass-border); background:transparent; color:var(--text-muted); font-family:var(--font-body); font-weight:600; font-size:0.93rem; display:flex; align-items:center; justify-content:center; gap:8px;">
+            👔 Arthur Shirt
+          </button>
         </div>
 
-        <!-- Attire Showcase Grid -->
-        <div class="attire-showcase-grid">
-          <!-- Back View (Left Angle) Card -->
-          <div class="attire-card">
-            <div class="attire-image-frame">
-              <img src="assets/attire_front.png" alt="Takeshima Family Hoodie - Back View (Left Angle)" class="attire-img">
-              <div class="attire-overlay-badge">Back View • Left Angle</div>
+        <!-- ── PANEL: Takeshima Hoodie ── -->
+        <div id="attire-panel-hoodie">
+
+          <!-- Download Banner -->
+          <div class="attire-download-banner" style="margin-bottom: 28px;">
+            <div class="download-banner-left">
+              <div class="download-icon-box">📥</div>
+              <div>
+                <h3 class="download-banner-title">Download Official Attire hoodie</h3>
+                <p class="download-banner-desc">Click below to download the official skin PNG file.</p>
+              </div>
             </div>
-            <div class="attire-card-body">
-              <h3 class="attire-card-title">Back View (Left Angle)</h3>
-              <p class="attire-card-desc">Showcasing the gold initial <strong>'T'</strong> crest on the back hood, midnight purple tone, and charcoal base.</p>
+            <a href="assets/takeshima_attire_skin.png" target="_blank" rel="noopener noreferrer"
+              download="Takeshima_Family_Attire_Skin.png" class="btn-primary"
+              style="text-decoration:none; font-size:0.95rem; padding:12px 24px; white-space:nowrap;">
+              <span>📥 Download Attire File</span>
+            </a>
+          </div>
+
+          <!-- Image Cards -->
+          <div class="attire-showcase-grid">
+            <div class="attire-card">
+              <div class="attire-image-frame">
+                <img src="assets/attire_front.png" alt="Takeshima Family Hoodie - Front View" class="attire-img">
+                <div class="attire-overlay-badge">Front View</div>
+              </div>
+              <div class="attire-card-body">
+                <h3 class="attire-card-title">Front View</h3>
+                <p class="attire-card-desc">The front of the official Takeshima hoodie showcasing the midnight purple
+                  tone, charcoal base, and the gold 'T' insignia.</p>
+              </div>
+            </div>
+            <div class="attire-card">
+              <div class="attire-image-frame">
+                <img src="assets/attire_back.png" alt="Takeshima Family Hoodie - Back View" class="attire-img">
+                <div class="attire-overlay-badge">Back View</div>
+              </div>
+              <div class="attire-card-body">
+                <h3 class="attire-card-title">Back View</h3>
+                <p class="attire-card-desc">Highlighting the back <strong>'T'</strong> crest and the intricate gold
+                  woven diamond pattern along the right sleeve.</p>
+              </div>
             </div>
           </div>
 
-          <!-- Back View (Right Angle) Card -->
-          <div class="attire-card">
-            <div class="attire-image-frame">
-              <img src="assets/attire_back.png" alt="Takeshima Family Hoodie - Back View (Right Angle)" class="attire-img">
-              <div class="attire-overlay-badge">Back View • Right Angle</div>
+          <!-- Specs -->
+          <div class="attire-info-grid" style="margin-top:28px;">
+            <div class="attire-spec-box">
+              <div class="spec-header"><span class="spec-icon">🎨</span>
+                <h4>Color Palette &amp; Materials</h4>
+              </div>
+              <ul class="attire-spec-list">
+                <li><strong>Midnight Purple:</strong> Symbolic of nobility, resilience, and wisdom.</li>
+                <li><strong>Charcoal Obsidian:</strong> Represents strength and unity across generations.</li>
+                <li><strong>Imperial Ochre Gold:</strong> Highlights the crest 'T' and sleeve lattice pattern.</li>
+              </ul>
             </div>
-            <div class="attire-card-body">
-              <h3 class="attire-card-title">Back View (Right Angle)</h3>
-              <p class="attire-card-desc">Highlighting the back <strong>'T'</strong> crest and the intricate gold woven diamond pattern along the right sleeve.</p>
+            <div class="attire-spec-box">
+              <div class="spec-header"><span class="spec-icon">📜</span>
+                <h4>Dress Code Rules</h4>
+              </div>
+              <ul class="attire-spec-list">
+                <li><strong>Official Events:</strong> Required during family meetings and Karakura events.</li>
+                <li><strong>Lineage Honor:</strong> Must be worn with respect and pride by official family members.</li>
+                <li><strong>Zero Misrepresentation:</strong> Non-family members are forbidden from wearing official
+                  attire.</li>
+              </ul>
             </div>
           </div>
         </div>
 
-        <!-- Attire Details & Guidelines Grid -->
-        <div class="attire-info-grid" style="margin-top: 36px;">
-          <div class="attire-spec-box">
-            <div class="spec-header">
-              <span class="spec-icon">🎨</span>
-              <h4>Color Palette & Materials</h4>
+        <!-- ── PANEL: Baldthur Shirt ── -->
+        <div id="attire-panel-baldthur" style="display:none;">
+
+
+          <!-- Download Banner -->
+          <div class="attire-download-banner" style="margin-bottom:28px;">
+            <div class="download-banner-left">
+              <div class="download-icon-box">📥</div>
+              <div>
+                <h3 class="download-banner-title">Download Baldthur Shirt</h3>
+                <p class="download-banner-desc">Click below to download the official skin PNG file.</p>
+              </div>
             </div>
-            <ul class="attire-spec-list">
-              <li><strong>Midnight Purple:</strong> Symbolic of nobility, resilience, and wisdom.</li>
-              <li><strong>Charcoal Obsidian:</strong> Represents strength and unity across generations.</li>
-              <li><strong>Imperial Ochre Gold:</strong> Highlights the crest 'T' and sleeve lattice pattern.</li>
-            </ul>
+            <a href="assets/pmcskin3d-alex-slim-arms_58.png" target="_blank" rel="noopener noreferrer"
+              download="pmcskin3d-alex-slim-arms_58.png" class="btn-primary"
+              style="text-decoration:none; font-size:0.95rem; padding:12px 24px; white-space:nowrap;">
+              <span>📥 Download Skin File</span>
+            </a>
           </div>
 
-          <div class="attire-spec-box">
-            <div class="spec-header">
-              <span class="spec-icon">📜</span>
-              <h4>Dress Code Rules</h4>
+          <!-- Image Cards -->
+          <div class="attire-showcase-grid">
+            <div class="attire-card">
+              <div class="attire-image-frame" style="background:rgba(26,188,156,0.08);">
+                <img src="assets/baldthur_shirt.png" alt="Baldthur Shirt - Front View" class="attire-img">
+                <div class="attire-overlay-badge" style="background:rgba(26,188,156,0.85);">Front View</div>
+              </div>
+              <div class="attire-card-body">
+                <h3 class="attire-card-title">Front View</h3>
+                <p class="attire-card-desc">The Baldthur Shirt featuring a bold gold and cream design with the
+                  signature
+                  Takeshima family style.</p>
+              </div>
             </div>
-            <ul class="attire-spec-list">
-              <li><strong>Official Events:</strong> Required attire during family meetings and Karakura events.</li>
-              <li><strong>Lineage Honor:</strong> Must be worn with respect and pride by official family members.</li>
-              <li><strong>Zero Misrepresentation:</strong> Non-family members are forbidden from wearing official attire.</li>
-            </ul>
+          </div>
+
+          <!-- Specs -->
+          <div class="attire-info-grid" style="margin-top:28px;">
+            <div class="attire-spec-box">
+              <div class="spec-header"><span class="spec-icon">🎨</span>
+                <h4>Design Details</h4>
+              </div>
+              <ul class="attire-spec-list">
+                <li><strong>Style:</strong> Alex slim-arms skin format.</li>
+                <li><strong>Palette:</strong> Gold, cream, and teal — bold and distinctive.</li>
+                <li><strong>Crest:</strong> Takeshima family identity maintained.</li>
+              </ul>
+            </div>
+            <div class="attire-spec-box">
+              <div class="spec-header"><span class="spec-icon">📜</span>
+                <h4>Wear Rules</h4>
+              </div>
+              <ul class="attire-spec-list">
+                <li><strong>Approved Members Only:</strong> Must be an official Takeshima Family member.</li>
+                <li><strong>Zero Misrepresentation:</strong> Non-members are forbidden from using this skin.</li>
+                <li><strong>File:</strong> pmcskin3d-alex-slim-arms_58</li>
+              </ul>
+            </div>
           </div>
         </div>
 
+        <!-- ── PANEL: Arthur Shirt ── -->
+        <div id="attire-panel-arthur" style="display:none;">
+
+          <!-- Download Banner -->
+          <div class="attire-download-banner" style="margin-bottom:28px;">
+            <div class="download-banner-left">
+              <div class="download-icon-box">📥</div>
+              <div>
+                <h3 class="download-banner-title">Download Arthur Shirt Skin</h3>
+                <p class="download-banner-desc">Click below to download the official skin PNG file.</p>
+              </div>
+            </div>
+            <a href="assets/arthur_shirt_skin.png" target="_blank" rel="noopener noreferrer"
+              download="Arthur_Shirt_Skin.png" class="btn-primary"
+              style="text-decoration:none; font-size:0.95rem; padding:12px 24px; white-space:nowrap;">
+              <span>📥 Download Skin File</span>
+            </a>
+          </div>
+
+          <!-- Image Cards -->
+          <div class="attire-showcase-grid">
+            <div class="attire-card">
+              <div class="attire-image-frame" style="background:rgba(59,52,97,0.08);">
+                <img src="assets/arthur_shirt.png" alt="Arthur Shirt - Front View" class="attire-img"
+                  style="image-rendering:pixelated;">
+                <div class="attire-overlay-badge" style="background:rgba(59,52,97,0.85);">Front View</div>
+              </div>
+              <div class="attire-card-body">
+                <h3 class="attire-card-title">Front View</h3>
+                <p class="attire-card-desc">The Arthur Shirt featuring a navy blue and cream design with the
+                  signature Takeshima family style.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Specs -->
+          <div class="attire-info-grid" style="margin-top:28px;">
+            <div class="attire-spec-box">
+              <div class="spec-header"><span class="spec-icon">🎨</span>
+                <h4>Design Details</h4>
+              </div>
+              <ul class="attire-spec-list">
+                <li><strong>Style:</strong> Minecraft skin format.</li>
+                <li><strong>Palette:</strong> Navy blue, cream, and brown — classic and distinguished.</li>
+                <li><strong>Crest:</strong> Takeshima family identity maintained.</li>
+              </ul>
+            </div>
+            <div class="attire-spec-box">
+              <div class="spec-header"><span class="spec-icon">📜</span>
+                <h4>Wear Rules</h4>
+              </div>
+              <ul class="attire-spec-list">
+                <li><strong>Approved Members Only:</strong> Must be an official Takeshima Family member.</li>
+                <li><strong>Zero Misrepresentation:</strong> Non-members are forbidden from using this skin.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inline attire selector script -->
+        <script>
+          function selectAttire(id, btn) {
+            ['hoodie', 'baldthur', 'arthur'].forEach(function (k) {
+              var panel = document.getElementById('attire-panel-' + k);
+              if (panel) panel.style.display = k === id ? 'block' : 'none';
+            });
+            document.querySelectorAll('.attire-sel-btn').forEach(function (b) {
+              var isActive = b === btn;
+              b.style.background = isActive ? 'linear-gradient(135deg,rgba(255,105,180,0.28),rgba(160,68,255,0.28))' : 'transparent';
+              b.style.borderColor = isActive ? 'var(--accent-pink)' : 'var(--glass-border)';
+              b.style.color = isActive ? '#fff' : 'var(--text-muted)';
+            });
+          }
+        </script>
       </div>
     </section>
+
 
     <!-- ================= TAB 5: FAMILY RULES CODEX ================= -->
     <section id="tab-rules" class="tab-content">
@@ -302,10 +619,35 @@
           <div class="rule-box">
             <div class="rule-header">
               <span class="rule-badge badge-fear">FearRP Policy</span>
-              <h3 style="color:#fff; font-size: 1.3rem; font-family: var(--font-header);">FearRP & Discipline Rules</h3>
+              <h3 style="color:#fff; font-size: 1.3rem; font-family: var(--font-header);">FearRP &amp; Discipline Rules
+              </h3>
             </div>
             <div id="fear-rules-list">
-              <!-- FearRP rules list renders via app.js -->
+              <div class="rule-item">
+                <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Age-Based FearRP Hierarchy</h4>
+                <p style="color: var(--text-muted); font-size:0.92rem;">All members within a branch MUST FearRP those
+                  who
+                  are older when they get in trouble. For example, if your character is in the age group of 13-15, you
+                  MUST FearRP anyone above your age group.</p>
+              </div>
+              <div class="rule-item">
+                <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Adults &amp; ItemRP Punishments</h4>
+                <p style="color: var(--text-muted); font-size:0.92rem;">All members MUST FearRP Adults and official
+                  punishments. All punishments such as grounding, privileges revoked, or taking a phone MUST be
+                  conducted
+                  through ItemRP.</p>
+              </div>
+              <div class="rule-item">
+                <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Detention Consequences</h4>
+                <p style="color: var(--text-muted); font-size:0.92rem;">All children MUST FearRP any Adults who find out
+                  they received a school detention at Karakura Highschool.</p>
+              </div>
+              <div class="rule-item">
+                <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">ICLY Group Chat Protocol</h4>
+                <p style="color: var(--text-muted); font-size:0.92rem;">FearRP rules apply strictly on the ICLY family
+                  group chat. Respectful tone, compliance, and fear of consequences must be shown in text chats when an
+                  adult intervenes.</p>
+              </div>
             </div>
           </div>
 
@@ -313,7 +655,7 @@
           <div class="rule-box severe">
             <div class="rule-header">
               <span class="rule-badge badge-crime">Strict Zero Tolerance</span>
-              <h3 style="color: var(--accent-blossom); font-size: 1.3rem; font-family: var(--font-header);">GangRP &
+              <h3 style="color: var(--accent-blossom); font-size: 1.3rem; font-family: var(--font-header);">GangRP &amp;
                 Crime Policies</h3>
             </div>
             <p
@@ -322,7 +664,37 @@
               family! Zero gang affiliation permitted for faculty.
             </p>
             <div id="crime-rules-list">
-              <!-- Crime rules list renders via app.js -->
+              <div class="rule-item">
+                <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Zero Faculty Gang Affiliation</h4>
+                <p style="color: var(--text-muted); font-size:0.92rem;">Do NOT involve any Family faculty members,
+                  branch
+                  heads, teachers, or employees with GangRP or CrimeRP under any circumstances.</p>
+              </div>
+              <div class="rule-item">
+                <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Argument &amp; De-escalation Protocol</h4>
+                <p style="color: var(--text-muted); font-size:0.92rem;">You may start an ICLY argument with a family
+                  member, but once an Adult or Branch Head gets involved, ALL violence MUST stop immediately and prepare
+                  to FearRP.</p>
+              </div>
+              <div class="rule-item">
+                <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Weapon Ban</h4>
+                <p style="color: var(--text-muted); font-size:0.92rem;">Do NOT use deadly weapons on any family members
+                  within a general family fight.</p>
+              </div>
+              <div class="rule-item">
+                <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Do NOT Get Discovered</h4>
+                <p style="color: var(--text-muted); font-size:0.92rem;">You must convince your family members you aren't
+                  a
+                  thug. Keep any illegal activities completely hidden from the family.</p>
+              </div>
+              <div class="rule-item severe-item">
+                <h4 style="color: var(--accent-blossom); font-weight:700; font-size:1.05rem; margin-bottom:4px;">
+                  DISCOVERY
+                  PENALTY: Automatic Removal</h4>
+                <p style="color: var(--text-muted); font-size:0.92rem;">IF you do get discovered (the worst case), you
+                  MUST FearRP getting discovered. Family Heads will AUTOMATICALLY ICLY remove you from their branch and
+                  trigger a complete removal from the Takeshima Family. We are heavily strict on this!</p>
+              </div>
             </div>
           </div>
 
@@ -338,42 +710,199 @@
           <div style="text-align: center; width: 100%;">
             <h2 class="section-title"><span class="icon">👑</span> The Family Higher-ups</h2>
             <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; text-align: center;">
-              Official Family Founder, Family Head, Co-Head & Staff leadership.
+              Official Family Founder, Family Head, Co-Head &amp; Staff leadership.
             </p>
           </div>
         </div>
 
-        <!-- Dynamic Categorized Roster Container -->
         <div id="roster-grid-list">
-          <!-- Roster renders via app.js -->
+
+          <!-- Founder -->
+          <div class="roster-category-block">
+            <div class="roster-category-title-bar">
+              <div class="cat-title-left">
+                <span class="cat-icon-lg">🌸</span>
+                <div>
+                  <h3 class="cat-main-title">Founder</h3>
+                  <p class="cat-sub-title">Original Matriarch &amp; Family Creator</p>
+                </div>
+              </div>
+            </div>
+            <div class="roster-members-stack">
+              <div class="roster-member-card glow-gold">
+                <div class="roster-avatar-frame">🌸</div>
+                <div class="roster-member-details">
+                  <div class="roster-top-row">
+                    <div class="name-handle-group">
+                      <h4 class="member-char-name">Hoshina C. Takeshima</h4>
+                      <span class="member-discord-pill"><span class="discord-logo-icon">💬</span> @mariskaeng</span>
+                    </div>
+                    <span class="role-badge-tag badge-founder">@Founder</span>
+                  </div>
+                  <div class="roster-mid-row">
+                    <span class="member-title-tag">💼 Department Head of Mathematics</span>
+                    <span class="member-faction-tag">🏫 Takeshima Family</span>
+                    <span class="member-status-tag">✨ Active Founder</span>
+                  </div>
+                  <p class="member-bio-text">"Founder of the Takeshima Family and Head of Department of Mathematics at
+                    Karakura Highschool."</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Family Head -->
+          <div class="roster-category-block">
+            <div class="roster-category-title-bar">
+              <div class="cat-title-left">
+                <span class="cat-icon-lg">👑</span>
+                <div>
+                  <h3 class="cat-main-title">Family Head</h3>
+                  <p class="cat-sub-title">Official Head of House &amp; Leadership</p>
+                </div>
+              </div>
+            </div>
+            <div class="roster-members-stack">
+              <div class="roster-member-card glow-pink">
+                <div class="roster-avatar-frame">⚔️</div>
+                <div class="roster-member-details">
+                  <div class="roster-top-row">
+                    <div class="name-handle-group">
+                      <h4 class="member-char-name">Arthur Takeshima</h4>
+                      <span class="member-discord-pill"><span class="discord-logo-icon">💬</span> @hotandhomeless</span>
+                    </div>
+                    <span class="role-badge-tag badge-family-head">@👑 Family Head</span>
+                  </div>
+                  <div class="roster-mid-row">
+                    <span class="member-title-tag">💼 Head of Takeshima House</span>
+                    <span class="member-faction-tag">🏫 Karakura Leadership</span>
+                    <span class="member-status-tag">✨ Active Family Head</span>
+                  </div>
+                  <p class="member-bio-text">"Leading the Takeshima Family with strength, protection, and strict
+                    adherence
+                    to family values."</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Co-Head -->
+          <div class="roster-category-block">
+            <div class="roster-category-title-bar">
+              <div class="cat-title-left">
+                <span class="cat-icon-lg">♔</span>
+                <div>
+                  <h3 class="cat-main-title">Co-Head</h3>
+                  <p class="cat-sub-title">Executive Governance &amp; Branch Leadership</p>
+                </div>
+              </div>
+            </div>
+            <div class="roster-members-stack">
+              <div class="roster-member-card glow-purple">
+                <div class="roster-avatar-frame">✨</div>
+                <div class="roster-member-details">
+                  <div class="roster-top-row">
+                    <div class="name-handle-group">
+                      <h4 class="member-char-name">Misaki Takeshima</h4>
+                      <span class="member-discord-pill"><span class="discord-logo-icon">💬</span> @corrupteddxys</span>
+                    </div>
+                    <span class="role-badge-tag badge-co-head">@♔ [C] Co-Head</span>
+                  </div>
+                  <div class="roster-mid-row">
+                    <span class="member-title-tag">💼 Executive Co-Head</span>
+                    <span class="member-faction-tag">🏫 Takeshima House Governance</span>
+                    <span class="member-status-tag">✨ Active Co-Head</span>
+                  </div>
+                  <p class="member-bio-text">"Co-leading family affairs, organizing member ties, and maintaining family
+                    unity."</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Family Staff -->
+          <div class="roster-category-block">
+            <div class="roster-category-title-bar">
+              <div class="cat-title-left">
+                <span class="cat-icon-lg">🛡️</span>
+                <div>
+                  <h3 class="cat-main-title">Family Staff</h3>
+                  <p class="cat-sub-title">Support, Administration &amp; Family Operations</p>
+                </div>
+              </div>
+            </div>
+            <div class="roster-members-stack">
+              <div class="roster-member-card glow-purple">
+                <div class="roster-avatar-frame">💜</div>
+                <div class="roster-member-details">
+                  <div class="roster-top-row">
+                    <div class="name-handle-group">
+                      <h4 class="member-char-name">Ri-Na Takeshima</h4>
+                      <span class="member-discord-pill"><span class="discord-logo-icon">💬</span> @pngpurple</span>
+                    </div>
+                    <span class="role-badge-tag badge-family-staff">@Family Staff</span>
+                  </div>
+                  <div class="roster-mid-row">
+                    <span class="member-title-tag">💼 Takeshima Staff Member</span>
+                    <span class="member-faction-tag">🏫 Takeshima Staff Team</span>
+                    <span class="member-status-tag">✨ Active Staff</span>
+                  </div>
+                  <p class="member-bio-text">"Dedicated staff member maintaining family order, supporting leadership,
+                    and
+                    assisting members."</p>
+                </div>
+              </div>
+              <div class="roster-member-card glow-purple">
+                <div class="roster-avatar-frame">🌸</div>
+                <div class="roster-member-details">
+                  <div class="roster-top-row">
+                    <div class="name-handle-group">
+                      <h4 class="member-char-name">Issy Takeshima</h4>
+                      <span class="member-discord-pill"><span class="discord-logo-icon">💬</span> @shaharmoshko_</span>
+                    </div>
+                    <span class="role-badge-tag badge-family-staff">@Family Staff</span>
+                  </div>
+                  <div class="roster-mid-row">
+                    <span class="member-title-tag">💼 Takeshima Staff Member</span>
+                    <span class="member-faction-tag">🏫 Takeshima Staff Team</span>
+                    <span class="member-status-tag">✨ Active Staff</span>
+                  </div>
+                  <p class="member-bio-text">"Dedicated staff member maintaining family order, supporting leadership,
+                    and
+                    assisting members."</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
       </div>
     </section>
 
-  </div>
 
-  <!-- Site Footer -->
-  <footer class="site-footer">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <div class="footer-crest">
-          <img src="assets/logo.png" alt="Takeshima Family Logo" class="family-crest-img">
+    <!-- ================= TAB 6: THE FAMILY HIGHER-UPS ================= -->
+    <!-- Site Footer -->
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="footer-crest">
+            <img src="assets/logo.png" alt="Takeshima Family Logo" class="family-crest-img">
+          </div>
+          <div>
+            <h3>TAKESHIMA FAMILY</h3>
+            <p>Founded by Hoshina C. Takeshima</p>
+          </div>
         </div>
-        <div>
-          <h3>TAKESHIMA FAMILY</h3>
-          <p>Karakura Highschool Teacher Faction • Founded by Hoshina C. Takeshima</p>
+        <div class="footer-motto-tag">
+          "Resilience through sorrow • Unity in passion • Excellence in Education"
         </div>
       </div>
-      <div class="footer-motto-tag">
-        "Resilience through sorrow • Unity in passion • Excellence in Education"
-      </div>
-    </div>
-  </footer>
+    </footer>
 
-  <!-- Scripts -->
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
 </body>
 
 </html>
