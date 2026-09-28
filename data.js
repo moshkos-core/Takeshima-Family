@@ -341,6 +341,38 @@ Now she's trying to move on. Doing her best to be strong for her children and fo
             bio: "Co-leading family affairs, organizing member ties, and maintaining family unity."
           }
         ]
+      },
+      {
+        title: "Family Staff",
+        subtitle: "Support, Administration & Family Operations",
+        badgeClass: "badge-family-staff",
+        icon: "🛡️",
+        members: [
+          {
+            name: "Ri-Na Takeshima",
+            handle: "pngpurple",
+            roleTag: "@Family Staff",
+            roleBadge: "Family Staff",
+            title: "Takeshima Staff Member",
+            faction: "Takeshima Staff Team",
+            status: "Active Staff",
+            avatar: "💜",
+            isStaff: true,
+            bio: "Dedicated staff member maintaining family order, supporting leadership, and assisting members."
+          },
+          {
+            name: "Issy Takeshima",
+            handle: "shaharmoshko_",
+            roleTag: "@Family Staff",
+            roleBadge: "Family Staff",
+            title: "Takeshima Staff Member",
+            faction: "Takeshima Staff Team",
+            status: "Active Staff",
+            avatar: "🌸",
+            isStaff: true,
+            bio: "Dedicated staff member maintaining family order, supporting leadership, and assisting members."
+          }
+        ]
       }
     ]
   }
