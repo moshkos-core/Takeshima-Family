@@ -9,7 +9,7 @@ const TAKESHIMA_DATA = {
     head: "Hoshina Takeshima",
     headTitle: "Head of Department (HD) of Mathematics",
     faction: "Takeshima Family",
-    familyEchoUrl: "https://www.familyecho.com/?c=93wx4770v9jub44a&f=391716927242587150",
+    familyEchoUrl: "https://www.familyecho.com/?c=tdq8fsxr4sx150cs&f=391716927242587150",
   },
 
   lore: {
@@ -373,7 +373,7 @@ Now she's trying to move on. Doing her best to be strong for her children and fo
             bio: "Dedicated staff member maintaining family order, supporting leadership, and assisting members."
           }
         ]
-      }    ]
+      }]
   },
   attires: [
     {
