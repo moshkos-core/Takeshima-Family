@@ -185,7 +185,7 @@
             <p style="color: var(--text-muted); margin-top:4px;">Live embedded family tree directly from Family Echo</p>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <a href="https://www.familyecho.com/?c=w5pkoqosv5vpfyna&f=391716927242587150" target="_blank"
+            <a href="https://www.familyecho.com/?c=3byycxsda1kxu8z2&f=153939733499693059" target="_blank"
               class="btn-primary" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
               <span>🪾 View on FamilyEcho.com</span>
             </a>
@@ -194,7 +194,7 @@
 
         <!-- Direct Embed of FamilyEcho -->
         <div style="width: 100%; height: 650px; position: relative;">
-          <iframe src="https://www.familyecho.com/?c=w5pkoqosv5vpfyna&f=391716927242587150"
+          <iframe src="https://www.familyecho.com/?c=3byycxsda1kxu8z2&f=153939733499693059"
             style="width: 100%; height: 100%; border: none;" title="Takeshima Family Tree" allowfullscreen>
           </iframe>
         </div>
@@ -388,10 +388,6 @@
             style="flex:1; min-width:140px; padding:12px 18px; border-radius:14px; border:1.5px solid var(--accent-pink); background:linear-gradient(135deg,rgba(255,105,180,0.28),rgba(160,68,255,0.28)); color:#fff; font-family:var(--font-body); font-weight:600; font-size:0.93rem; display:flex; align-items:center; justify-content:center; gap:8px;">
             👘 Takeshima Hoodie
           </button>
-          <button class="attire-sel-btn" onclick="selectAttire('baldthur', this)"
-            style="flex:1; min-width:140px; padding:12px 18px; border-radius:14px; border:1.5px solid var(--glass-border); background:transparent; color:var(--text-muted); font-family:var(--font-body); font-weight:600; font-size:0.93rem; display:flex; align-items:center; justify-content:center; gap:8px;">
-            👕 Baldthur Shirt
-          </button>
         </div>
 
         <!-- ── PANEL: Takeshima Hoodie ── -->
@@ -465,384 +461,311 @@
           </div>
         </div>
 
-        <!-- ── PANEL: Baldthur Shirt ── -->
-        <div id="attire-panel-baldthur" style="display:none;">
+
+        <!-- Specs -->
+        <div class="attire-info-grid" style="margin-top:28px;">
+          <div class="attire-spec-box">
+            <div class="spec-header"><span class="spec-icon">🎨</span>
+              <h4>Design Details</h4>
+            </div>
+            <ul class="attire-spec-list">
+              <li><strong>Style:</strong> Alex slim-arms skin format.</li>
+              <li><strong>Palette:</strong> Gold, cream, and teal — bold and distinctive.</li>
+              <li><strong>Crest:</strong> Takeshima family identity maintained.</li>
+            </ul>
+          </div>
+          <div class="attire-spec-box">
+            <div class="spec-header"><span class="spec-icon">📜</span>
+              <h4>Wear Rules</h4>
+            </div>
+            <ul class="attire-spec-list">
+              <li><strong>Approved Members Only:</strong> Must be an official Takeshima Family member.</li>
+              <li><strong>Zero Misrepresentation:</strong> Non-members are forbidden from using this skin.</li>
+              <li><strong>File:</strong> pmcskin3d-alex-slim-arms_58</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inline attire selector script -->
+      <script>
+        function selectAttire(id, btn) {
+          ['hoodie', 'baldthur', 'arthur'].forEach(function (k) {
+            var panel = document.getElementById('attire-panel-' + k);
+            if (panel) panel.style.display = k === id ? 'block' : 'none';
+          });
+          document.querySelectorAll('.attire-sel-btn').forEach(function (b) {
+            var isActive = b === btn;
+            b.style.background = isActive ? 'linear-gradient(135deg,rgba(255,105,180,0.28),rgba(160,68,255,0.28))' : 'transparent';
+            b.style.borderColor = isActive ? 'var(--accent-pink)' : 'var(--glass-border)';
+            b.style.color = isActive ? '#fff' : 'var(--text-muted)';
+          });
+        }
+      </script>
+  </div>
+  </section>
 
 
-          <!-- Download Banner -->
-          <div class="attire-download-banner" style="margin-bottom:28px;">
-            <div class="download-banner-left">
-              <div class="download-icon-box">📥</div>
+  <!-- ================= TAB 5: FAMILY RULES CODEX ================= -->
+  <section id="tab-rules" class="tab-content">
+    <div class="glass-card">
+      <div class="section-header">
+        <h2 class="section-title"><span class="icon">⚖️</span> Takeshima Family Rules</h2>
+      </div>
+
+      <div class="rules-grid">
+
+        <!-- FearRP Rules Box -->
+        <div class="rule-box">
+          <div class="rule-header">
+            <span class="rule-badge badge-fear">FearRP Policy</span>
+            <h3 style="color:#fff; font-size: 1.3rem; font-family: var(--font-header);">FearRP &amp; Discipline Rules
+            </h3>
+          </div>
+          <div id="fear-rules-list">
+            <div class="rule-item">
+              <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Age-Based FearRP Hierarchy</h4>
+              <p style="color: var(--text-muted); font-size:0.92rem;">All members within a branch MUST FearRP those
+                who
+                are older when they get in trouble. For example, if your character is in the age group of 13-15, you
+                MUST FearRP anyone above your age group.</p>
+            </div>
+            <div class="rule-item">
+              <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Adults &amp; ItemRP Punishments</h4>
+              <p style="color: var(--text-muted); font-size:0.92rem;">All members MUST FearRP Adults and official
+                punishments. All punishments such as grounding, privileges revoked, or taking a phone MUST be
+                conducted
+                through ItemRP.</p>
+            </div>
+            <div class="rule-item">
+              <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Detention Consequences</h4>
+              <p style="color: var(--text-muted); font-size:0.92rem;">All children MUST FearRP any Adults who find out
+                they received a school detention at Karakura Highschool.</p>
+            </div>
+            <div class="rule-item">
+              <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">ICLY Group Chat Protocol</h4>
+              <p style="color: var(--text-muted); font-size:0.92rem;">FearRP rules apply strictly on the ICLY family
+                group chat. Respectful tone, compliance, and fear of consequences must be shown in text chats when an
+                adult intervenes.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CrimeRP Zero Tolerance Box -->
+        <div class="rule-box severe">
+          <div class="rule-header">
+            <span class="rule-badge badge-crime">Strict Zero Tolerance</span>
+            <h3 style="color: var(--accent-blossom); font-size: 1.3rem; font-family: var(--font-header);">GangRP &amp;
+              Crime Policies</h3>
+          </div>
+          <p
+            style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px; background: rgba(255, 71, 87, 0.1); padding: 10px; border-radius: 10px;">
+            🚫 <strong>No Crime RP!</strong> Do not involve the family with crime or GangRP ICLY. This is NOT a crime
+            family! Zero gang affiliation permitted for faculty.
+          </p>
+          <div id="crime-rules-list">
+            <div class="rule-item">
+              <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Zero Faculty Gang Affiliation</h4>
+              <p style="color: var(--text-muted); font-size:0.92rem;">Do NOT involve any Family faculty members,
+                branch
+                heads, teachers, or employees with GangRP or CrimeRP under any circumstances.</p>
+            </div>
+            <div class="rule-item">
+              <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Argument &amp; De-escalation Protocol</h4>
+              <p style="color: var(--text-muted); font-size:0.92rem;">You may start an ICLY argument with a family
+                member, but once an Adult or Branch Head gets involved, ALL violence MUST stop immediately and prepare
+                to FearRP.</p>
+            </div>
+            <div class="rule-item">
+              <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Weapon Ban</h4>
+              <p style="color: var(--text-muted); font-size:0.92rem;">Do NOT use deadly weapons on any family members
+                within a general family fight.</p>
+            </div>
+            <div class="rule-item">
+              <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Do NOT Get Discovered</h4>
+              <p style="color: var(--text-muted); font-size:0.92rem;">You must convince your family members you aren't
+                a
+                thug. Keep any illegal activities completely hidden from the family.</p>
+            </div>
+            <div class="rule-item severe-item">
+              <h4 style="color: var(--accent-blossom); font-weight:700; font-size:1.05rem; margin-bottom:4px;">
+                DISCOVERY
+                PENALTY: Automatic Removal</h4>
+              <p style="color: var(--text-muted); font-size:0.92rem;">IF you do get discovered (the worst case), you
+                MUST FearRP getting discovered. Family Heads will AUTOMATICALLY ICLY remove you from their branch and
+                trigger a complete removal from the Takeshima Family. We are heavily strict on this!</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= TAB 6: THE FAMILY HIGHER-UPS ================= -->
+  <section id="tab-roster" class="tab-content">
+    <div class="glass-card">
+      <div class="section-header" style="margin-bottom: 24px; text-align: center; justify-content: center;">
+        <div style="text-align: center; width: 100%;">
+          <h2 class="section-title"><span class="icon">👑</span> The Family Higher-ups</h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; text-align: center;">
+            Official Family Founder, Family Head, Co-Head &amp; Staff leadership.
+          </p>
+        </div>
+      </div>
+
+      <div id="roster-grid-list">
+
+        <!-- Founder -->
+        <div class="roster-category-block">
+          <div class="roster-category-title-bar">
+            <div class="cat-title-left">
+              <span class="cat-icon-lg">👑</span>
               <div>
-                <h3 class="download-banner-title">Download Baldthur Shirt</h3>
-                <p class="download-banner-desc">Click below to download the official skin PNG file.</p>
-              </div>
-            </div>
-            <a href="assets/pmcskin3d-alex-slim-arms_58.png" target="_blank" rel="noopener noreferrer"
-              download="pmcskin3d-alex-slim-arms_58.png" class="btn-primary"
-              style="text-decoration:none; font-size:0.95rem; padding:12px 24px; white-space:nowrap;">
-              <span>📥 Download Attire File</span>
-            </a>
-          </div>
-
-          <!-- Image Cards -->
-          <div class="attire-showcase-grid">
-            <div class="attire-card">
-              <div class="attire-image-frame" style="background:rgba(26,188,156,0.08);">
-                <img src="assets/baldthur_shirt.png" alt="Baldthur Shirt - Front View" class="attire-img">
-                <div class="attire-overlay-badge" style="background:rgba(26,188,156,0.85);">Front View</div>
-              </div>
-              <div class="attire-card-body">
-                <h3 class="attire-card-title">Front View</h3>
-                <p class="attire-card-desc">The Baldthur Shirt featuring a bold gold and cream design with the
-                  signature
-                  Takeshima family style.</p>
+                <h3 class="cat-main-title">Family Head</h3>
+                <p class="cat-sub-title">Original Matriarch &amp; Family Creator</p>
               </div>
             </div>
           </div>
-
-          <!-- Specs -->
-          <div class="attire-info-grid" style="margin-top:28px;">
-            <div class="attire-spec-box">
-              <div class="spec-header"><span class="spec-icon">🎨</span>
-                <h4>Design Details</h4>
+          <div class="roster-members-stack">
+            <div class="roster-member-card glow-gold">
+              <div class="roster-avatar-frame">🩷</div>
+              <div class="roster-member-details">
+                <div class="roster-top-row">
+                  <div class="name-handle-group">
+                    <h4 class="member-char-name">Hoshina C. Takeshima</h4>
+                    <span class="member-discord-pill"><span class="discord-logo-icon">💬</span> @mariskaeng</span>
+                  </div>
+                  <span class="role-badge-tag badge-founder">@Founder</span>
+                </div>
+                <div class="roster-mid-row">
+                  <span class="member-title-tag">💼 Founder of Takeshima</span>
+                  <span class="member-faction-tag">🏫 Takeshima Family</span>
+                  <span class="member-status-tag">✨ Active Founder</span>
+                </div>
+                <p class="member-bio-text">"Founder of the Takeshima Family and Former Head of Department of
+                  Mathematics at Karakura Highschool."</p>
               </div>
-              <ul class="attire-spec-list">
-                <li><strong>Style:</strong> Alex slim-arms skin format.</li>
-                <li><strong>Palette:</strong> Gold, cream, and teal — bold and distinctive.</li>
-                <li><strong>Crest:</strong> Takeshima family identity maintained.</li>
-              </ul>
-            </div>
-            <div class="attire-spec-box">
-              <div class="spec-header"><span class="spec-icon">📜</span>
-                <h4>Wear Rules</h4>
-              </div>
-              <ul class="attire-spec-list">
-                <li><strong>Approved Members Only:</strong> Must be an official Takeshima Family member.</li>
-                <li><strong>Zero Misrepresentation:</strong> Non-members are forbidden from using this skin.</li>
-                <li><strong>File:</strong> pmcskin3d-alex-slim-arms_58</li>
-              </ul>
             </div>
           </div>
         </div>
 
-        <!-- Inline attire selector script -->
-        <script>
-          function selectAttire(id, btn) {
-            ['hoodie', 'baldthur', 'arthur'].forEach(function (k) {
-              var panel = document.getElementById('attire-panel-' + k);
-              if (panel) panel.style.display = k === id ? 'block' : 'none';
-            });
-            document.querySelectorAll('.attire-sel-btn').forEach(function (b) {
-              var isActive = b === btn;
-              b.style.background = isActive ? 'linear-gradient(135deg,rgba(255,105,180,0.28),rgba(160,68,255,0.28))' : 'transparent';
-              b.style.borderColor = isActive ? 'var(--accent-pink)' : 'var(--glass-border)';
-              b.style.color = isActive ? '#fff' : 'var(--text-muted)';
-            });
-          }
-        </script>
-      </div>
-    </section>
-
-
-    <!-- ================= TAB 5: FAMILY RULES CODEX ================= -->
-    <section id="tab-rules" class="tab-content">
-      <div class="glass-card">
-        <div class="section-header">
-          <h2 class="section-title"><span class="icon">⚖️</span> Takeshima Family Rules</h2>
+        <!-- Co-Head -->
+        <div class="roster-category-block">
+          <div class="roster-category-title-bar">
+            <div class="cat-title-left">
+              <span class="cat-icon-lg">🎀</span>
+              <div>
+                <h3 class="cat-main-title">Co-Head</h3>
+                <p class="cat-sub-title">Executive Governance &amp; Branch Leadership</p>
+              </div>
+            </div>
+          </div>
+          <div class="roster-members-stack">
+            <div class="roster-member-card glow-purple">
+              <div class="roster-avatar-frame">✨</div>
+              <div class="roster-member-details">
+                <div class="roster-top-row">
+                  <div class="name-handle-group">
+                    <h4 class="member-char-name">Misaki Takeshima</h4>
+                    <span class="member-discord-pill"><span class="discord-logo-icon">💬</span> @corrupteddxys</span>
+                  </div>
+                  <span class="role-badge-tag badge-co-head">@Co-Head</span>
+                </div>
+                <div class="roster-mid-row">
+                  <span class="member-title-tag">💼 Executive Co-Head</span>
+                  <span class="member-faction-tag">🏫 Takeshima House Governance</span>
+                  <span class="member-status-tag">✨ Active Co-Head</span>
+                </div>
+                <p class="member-bio-text">"Co-leading family affairs, organizing member ties, and maintaining family
+                  unity."</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="rules-grid">
-
-          <!-- FearRP Rules Box -->
-          <div class="rule-box">
-            <div class="rule-header">
-              <span class="rule-badge badge-fear">FearRP Policy</span>
-              <h3 style="color:#fff; font-size: 1.3rem; font-family: var(--font-header);">FearRP &amp; Discipline Rules
-              </h3>
-            </div>
-            <div id="fear-rules-list">
-              <div class="rule-item">
-                <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Age-Based FearRP Hierarchy</h4>
-                <p style="color: var(--text-muted); font-size:0.92rem;">All members within a branch MUST FearRP those
-                  who
-                  are older when they get in trouble. For example, if your character is in the age group of 13-15, you
-                  MUST FearRP anyone above your age group.</p>
-              </div>
-              <div class="rule-item">
-                <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Adults &amp; ItemRP Punishments</h4>
-                <p style="color: var(--text-muted); font-size:0.92rem;">All members MUST FearRP Adults and official
-                  punishments. All punishments such as grounding, privileges revoked, or taking a phone MUST be
-                  conducted
-                  through ItemRP.</p>
-              </div>
-              <div class="rule-item">
-                <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Detention Consequences</h4>
-                <p style="color: var(--text-muted); font-size:0.92rem;">All children MUST FearRP any Adults who find out
-                  they received a school detention at Karakura Highschool.</p>
-              </div>
-              <div class="rule-item">
-                <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">ICLY Group Chat Protocol</h4>
-                <p style="color: var(--text-muted); font-size:0.92rem;">FearRP rules apply strictly on the ICLY family
-                  group chat. Respectful tone, compliance, and fear of consequences must be shown in text chats when an
-                  adult intervenes.</p>
+        <!-- Family Staff -->
+        <div class="roster-category-block">
+          <div class="roster-category-title-bar">
+            <div class="cat-title-left">
+              <span class="cat-icon-lg">🛡️</span>
+              <div>
+                <h3 class="cat-main-title">Family Staff</h3>
+                <p class="cat-sub-title">Support, Administration &amp; Family Operations</p>
               </div>
             </div>
           </div>
-
-          <!-- CrimeRP Zero Tolerance Box -->
-          <div class="rule-box severe">
-            <div class="rule-header">
-              <span class="rule-badge badge-crime">Strict Zero Tolerance</span>
-              <h3 style="color: var(--accent-blossom); font-size: 1.3rem; font-family: var(--font-header);">GangRP &amp;
-                Crime Policies</h3>
+          <div class="roster-members-stack">
+            <div class="roster-member-card glow-purple">
+              <div class="roster-avatar-frame">🌸</div>
+              <div class="roster-member-details">
+                <div class="roster-top-row">
+                  <div class="name-handle-group">
+                    <h4 class="member-char-name">Issy Takeshima</h4>
+                    <span class="member-discord-pill"><span class="discord-logo-icon">💬</span> @shaharmoshko_</span>
+                  </div>
+                  <span class="role-badge-tag badge-family-staff">@Family Dev</span>
+                </div>
+                <div class="roster-mid-row">
+                  <span class="member-title-tag">💼 Takeshima Staff Member</span>
+                  <span class="member-faction-tag">🏫 Takeshima Staff Team</span>
+                  <span class="member-status-tag">✨ Active Staff</span>
+                </div>
+                <p class="member-bio-text">"Leading the Takeshima Family with strength, protection, and strict
+                  adherence to family values."</p>
+              </div>
             </div>
-            <p
-              style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px; background: rgba(255, 71, 87, 0.1); padding: 10px; border-radius: 10px;">
-              🚫 <strong>No Crime RP!</strong> Do not involve the family with crime or GangRP ICLY. This is NOT a crime
-              family! Zero gang affiliation permitted for faculty.
-            </p>
-            <div id="crime-rules-list">
-              <div class="rule-item">
-                <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Zero Faculty Gang Affiliation</h4>
-                <p style="color: var(--text-muted); font-size:0.92rem;">Do NOT involve any Family faculty members,
-                  branch
-                  heads, teachers, or employees with GangRP or CrimeRP under any circumstances.</p>
-              </div>
-              <div class="rule-item">
-                <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Argument &amp; De-escalation Protocol</h4>
-                <p style="color: var(--text-muted); font-size:0.92rem;">You may start an ICLY argument with a family
-                  member, but once an Adult or Branch Head gets involved, ALL violence MUST stop immediately and prepare
-                  to FearRP.</p>
-              </div>
-              <div class="rule-item">
-                <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Weapon Ban</h4>
-                <p style="color: var(--text-muted); font-size:0.92rem;">Do NOT use deadly weapons on any family members
-                  within a general family fight.</p>
-              </div>
-              <div class="rule-item">
-                <h4 style="color:#fff; font-size:1.05rem; margin-bottom:4px;">Do NOT Get Discovered</h4>
-                <p style="color: var(--text-muted); font-size:0.92rem;">You must convince your family members you aren't
-                  a
-                  thug. Keep any illegal activities completely hidden from the family.</p>
-              </div>
-              <div class="rule-item severe-item">
-                <h4 style="color: var(--accent-blossom); font-weight:700; font-size:1.05rem; margin-bottom:4px;">
-                  DISCOVERY
-                  PENALTY: Automatic Removal</h4>
-                <p style="color: var(--text-muted); font-size:0.92rem;">IF you do get discovered (the worst case), you
-                  MUST FearRP getting discovered. Family Heads will AUTOMATICALLY ICLY remove you from their branch and
-                  trigger a complete removal from the Takeshima Family. We are heavily strict on this!</p>
+            <div class="roster-member-card glow-purple">
+              <div class="roster-avatar-frame">💜</div>
+              <div class="roster-member-details">
+                <div class="roster-top-row">
+                  <div class="name-handle-group">
+                    <h4 class="member-char-name">Ri-Na Takeshima</h4>
+                    <span class="member-discord-pill"><span class="discord-logo-icon">💬</span> @pngpurple</span>
+                  </div>
+                  <span class="role-badge-tag badge-family-staff">@Family Staff</span>
+                </div>
+                <div class="roster-mid-row">
+                  <span class="member-title-tag">💼 Takeshima Staff Member</span>
+                  <span class="member-faction-tag">🏫 Takeshima Staff Team</span>
+                  <span class="member-status-tag">✨ Active Staff</span>
+                </div>
+                <p class="member-bio-text">"Dedicated staff member maintaining family order, supporting leadership,
+                  and assisting members."</p>
               </div>
             </div>
           </div>
-
         </div>
 
       </div>
-    </section>
 
-    <!-- ================= TAB 6: THE FAMILY HIGHER-UPS ================= -->
-    <section id="tab-roster" class="tab-content">
-      <div class="glass-card">
-        <div class="section-header" style="margin-bottom: 24px; text-align: center; justify-content: center;">
-          <div style="text-align: center; width: 100%;">
-            <h2 class="section-title"><span class="icon">👑</span> The Family Higher-ups</h2>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; text-align: center;">
-              Official Family Founder, Family Head, Co-Head &amp; Staff leadership.
-            </p>
-          </div>
+    </div>
+  </section>
+
+
+  <!-- ================= TAB 6: THE FAMILY HIGHER-UPS ================= -->
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-crest">
+          <img src="assets/logo.png" alt="Takeshima Family Logo" class="family-crest-img">
         </div>
-
-        <div id="roster-grid-list">
-
-          <!-- Founder -->
-          <div class="roster-category-block">
-            <div class="roster-category-title-bar">
-              <div class="cat-title-left">
-                <span class="cat-icon-lg">🌸</span>
-                <div>
-                  <h3 class="cat-main-title">Founder</h3>
-                  <p class="cat-sub-title">Original Matriarch &amp; Family Creator</p>
-                </div>
-              </div>
-            </div>
-            <div class="roster-members-stack">
-              <div class="roster-member-card glow-gold">
-                <div class="roster-avatar-frame">🌸</div>
-                <div class="roster-member-details">
-                  <div class="roster-top-row">
-                    <div class="name-handle-group">
-                      <h4 class="member-char-name">Hoshina C. Takeshima</h4>
-                      <span class="member-discord-pill"><span class="discord-logo-icon">💬</span> @mariskaeng</span>
-                    </div>
-                    <span class="role-badge-tag badge-founder">@Founder</span>
-                  </div>
-                  <div class="roster-mid-row">
-                    <span class="member-title-tag">💼 Founder of Takeshima</span>
-                    <span class="member-faction-tag">🏫 Takeshima Family</span>
-                    <span class="member-status-tag">✨ Active Founder</span>
-                  </div>
-                  <p class="member-bio-text">"Founder of the Takeshima Family and Former Head of Department of
-                    Mathematics at
-                    Karakura Highschool."</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Family Head -->
-          <div class="roster-category-block">
-            <div class="roster-category-title-bar">
-              <div class="cat-title-left">
-                <span class="cat-icon-lg">👑</span>
-                <div>
-                  <h3 class="cat-main-title">Family Head</h3>
-                  <p class="cat-sub-title">Official Head of House &amp; Leadership</p>
-                </div>
-              </div>
-            </div>
-            <div class="roster-members-stack">
-              <div class="roster-member-card glow-pink">
-                <div class="roster-avatar-frame">⚔️</div>
-                <div class="roster-member-details">
-                  <div class="roster-top-row">
-                    <div class="name-handle-group">
-                      <h4 class="member-char-name">Arthur Takeshima</h4>
-                      <span class="member-discord-pill"><span class="discord-logo-icon">💬</span> @hotandhomeless</span>
-                    </div>
-                    <span class="role-badge-tag badge-family-head">@👑 Family Head</span>
-                  </div>
-                  <div class="roster-mid-row">
-                    <span class="member-title-tag">💼 Head of Takeshima House</span>
-                    <span class="member-faction-tag">🏫 Karakura Leadership</span>
-                    <span class="member-status-tag">✨ Active Family Head</span>
-                  </div>
-                  <p class="member-bio-text">"Leading the Takeshima Family with strength, protection, and strict
-                    adherence
-                    to family values."</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Co-Head -->
-          <div class="roster-category-block">
-            <div class="roster-category-title-bar">
-              <div class="cat-title-left">
-                <span class="cat-icon-lg">♔</span>
-                <div>
-                  <h3 class="cat-main-title">Co-Head</h3>
-                  <p class="cat-sub-title">Executive Governance &amp; Branch Leadership</p>
-                </div>
-              </div>
-            </div>
-            <div class="roster-members-stack">
-              <div class="roster-member-card glow-purple">
-                <div class="roster-avatar-frame">✨</div>
-                <div class="roster-member-details">
-                  <div class="roster-top-row">
-                    <div class="name-handle-group">
-                      <h4 class="member-char-name">Misaki Takeshima</h4>
-                      <span class="member-discord-pill"><span class="discord-logo-icon">💬</span> @corrupteddxys</span>
-                    </div>
-                    <span class="role-badge-tag badge-co-head">@♔ [C] Co-Head</span>
-                  </div>
-                  <div class="roster-mid-row">
-                    <span class="member-title-tag">💼 Executive Co-Head</span>
-                    <span class="member-faction-tag">🏫 Takeshima House Governance</span>
-                    <span class="member-status-tag">✨ Active Co-Head</span>
-                  </div>
-                  <p class="member-bio-text">"Co-leading family affairs, organizing member ties, and maintaining family
-                    unity."</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Family Staff -->
-          <div class="roster-category-block">
-            <div class="roster-category-title-bar">
-              <div class="cat-title-left">
-                <span class="cat-icon-lg">🛡️</span>
-                <div>
-                  <h3 class="cat-main-title">Family Staff</h3>
-                  <p class="cat-sub-title">Support, Administration &amp; Family Operations</p>
-                </div>
-              </div>
-            </div>
-            <div class="roster-members-stack">
-              <div class="roster-member-card glow-purple">
-                <div class="roster-avatar-frame">💜</div>
-                <div class="roster-member-details">
-                  <div class="roster-top-row">
-                    <div class="name-handle-group">
-                      <h4 class="member-char-name">Ri-Na Takeshima</h4>
-                      <span class="member-discord-pill"><span class="discord-logo-icon">💬</span> @pngpurple</span>
-                    </div>
-                    <span class="role-badge-tag badge-family-staff">@Family Staff</span>
-                  </div>
-                  <div class="roster-mid-row">
-                    <span class="member-title-tag">💼 Takeshima Staff Member</span>
-                    <span class="member-faction-tag">🏫 Takeshima Staff Team</span>
-                    <span class="member-status-tag">✨ Active Staff</span>
-                  </div>
-                  <p class="member-bio-text">"Dedicated staff member maintaining family order, supporting leadership,
-                    and
-                    assisting members."</p>
-                </div>
-              </div>
-              <div class="roster-member-card glow-purple">
-                <div class="roster-avatar-frame">🌸</div>
-                <div class="roster-member-details">
-                  <div class="roster-top-row">
-                    <div class="name-handle-group">
-                      <h4 class="member-char-name">Issy Takeshima</h4>
-                      <span class="member-discord-pill"><span class="discord-logo-icon">💬</span> @shaharmoshko_</span>
-                    </div>
-                    <span class="role-badge-tag badge-family-staff">@Family Staff</span>
-                  </div>
-                  <div class="roster-mid-row">
-                    <span class="member-title-tag">💼 Takeshima Staff Member</span>
-                    <span class="member-faction-tag">🏫 Takeshima Staff Team</span>
-                    <span class="member-status-tag">✨ Active Staff</span>
-                  </div>
-                  <p class="member-bio-text">"Dedicated staff member maintaining family order, supporting leadership,
-                    and
-                    assisting members."</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ================= TAB 6: THE FAMILY HIGHER-UPS ================= -->
-    <!-- Site Footer -->
-    <footer class="site-footer">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <div class="footer-crest">
-            <img src="assets/logo.png" alt="Takeshima Family Logo" class="family-crest-img">
-          </div>
-          <div>
-            <h3>TAKESHIMA FAMILY</h3>
-            <p>Founded by Hoshina C. Takeshima</p>
-          </div>
-        </div>
-        <div class="footer-motto-tag">
-          "Resilience through sorrow • Unity in passion • Excellence in Education"
+        <div>
+          <h3>TAKESHIMA FAMILY</h3>
+          <p>Founded by Hoshina C. Takeshima</p>
         </div>
       </div>
-    </footer>
+      <div class="footer-motto-tag">
+        "Resilience through sorrow • Unity in passion • Excellence in Education"
+      </div>
+    </div>
+  </footer>
 
-    <!-- Scripts -->
-    <script src="data.js"></script>
-    <script src="app.js"></script>
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
 </body>
 
 </html>
