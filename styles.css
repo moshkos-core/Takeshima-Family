@@ -1572,6 +1572,17 @@ body {
   box-shadow: 0 0 50px rgba(186, 85, 211, 0.3);
 }
 
+.roster-member-card.glow-crimson {
+  border-color: rgba(124, 24, 79, 0.6);
+  box-shadow: 0 0 35px rgba(124, 24, 79, 0.2);
+  background: linear-gradient(135deg, rgba(30, 8, 20, 0.97), rgba(16, 6, 14, 0.99));
+}
+
+.roster-member-card.glow-crimson:hover {
+  border-color: #7c184f;
+  box-shadow: 0 0 55px rgba(124, 24, 79, 0.4);
+}
+
 .roster-avatar-frame {
   width: 76px;
   height: 76px;
@@ -1597,6 +1608,12 @@ body {
   border-color: #da70d6;
   background: rgba(186, 85, 211, 0.15);
   box-shadow: 0 0 20px rgba(186, 85, 211, 0.3);
+}
+
+.roster-member-card.glow-crimson .roster-avatar-frame {
+  border-color: #7c184f;
+  background: rgba(124, 24, 79, 0.2);
+  box-shadow: 0 0 20px rgba(124, 24, 79, 0.4);
 }
 
 .roster-member-details {
@@ -1692,6 +1709,13 @@ body {
   color: #c77dff;
   border: 1.5px solid #c77dff;
   box-shadow: 0 0 15px rgba(138, 43, 226, 0.25);
+}
+
+.badge-head-of-staff {
+  background: rgba(124, 24, 79, 0.2);
+  color: #c2366e;
+  border: 1.5px solid #7c184f;
+  box-shadow: 0 0 15px rgba(124, 24, 79, 0.4);
 }
 
 .roster-mid-row {
